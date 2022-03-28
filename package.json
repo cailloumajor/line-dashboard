@@ -1,8 +1,8 @@
 {
-  "name": "line-dashboard",
+  "name": "factory-frontend",
   "version": "0.0.1",
-  "description": "Production line dashboard frontend",
-  "productName": "Line Dashboard",
+  "description": "Web frontend for factory needs",
+  "productName": "Factory Frontend",
   "author": "Arnaud Rocher <arnaud.roche3@gmail.com>",
   "private": true,
   "scripts": {

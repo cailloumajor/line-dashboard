@@ -1,6 +1,6 @@
-# Line Dashboard (line-dashboard)
+# Factory Frontend (factory-frontend)
 
-Production line dashboard frontend
+Web frontend for factory needs
 
 ## Install the dependencies
 
