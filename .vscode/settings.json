@@ -1,4 +1,12 @@
 {
   "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true
+  "editor.guides.bracketPairs": true,
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "cypress.json"
+      ],
+      "url": "https://on.cypress.io/cypress.schema.json"
+    }
+  ]
 }
