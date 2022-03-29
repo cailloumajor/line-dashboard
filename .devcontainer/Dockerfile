@@ -33,6 +33,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && chmod g+s ${NPM_GLOBAL} \
     && npm config -g set prefix ${NPM_GLOBAL} \
     && sudo -u ${USERNAME} npm config -g set prefix ${NPM_GLOBAL} \
+    # Setup desktop-lite
+    && bash /tmp/library-scripts/desktop-lite-debian.sh \
+    # Install Cypress dependencies
+    && apt-get -y install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb \
     # Clean up
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /root/.gnupg /tmp/library-scripts
 
@@ -46,3 +50,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [Optional] Uncomment if you want to install more global node modules
 # RUN su node -c "npm install -g <your-package-list-here>""
+
+ENV DISPLAY=":1"
+ENTRYPOINT [ "/usr/local/share/desktop-init.sh" ]
+CMD [ "sleep", "infinity" ]
