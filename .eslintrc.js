@@ -1,4 +1,10 @@
-const { resolve } = require("path")
+const tsConfig = require("./tsconfig.json")
+
+const internalPathPatterns = Object.keys(tsConfig.compilerOptions.paths)
+  .filter((pat) => pat.endsWith("/*"))
+  .map((pat) => pat.slice(0, -2))
+  .join(",")
+const internalPathGlob = `{${internalPathPatterns}}/**`
 
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
@@ -93,7 +99,17 @@ module.exports = {
 
     "import/order": [
       "error",
-      { "newlines-between": "always", alphabetize: { order: "asc" } },
+      {
+        "newlines-between": "always",
+        alphabetize: { order: "asc" },
+        pathGroups: [
+          {
+            pattern: internalPathGlob,
+            group: "internal",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
+      },
     ],
 
     "sort-imports": ["error", { ignoreDeclarationSort: true }],

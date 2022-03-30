@@ -12,8 +12,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue"
 
-import ExampleComponent from "../components/ExampleComponent.vue"
-import { Meta, Todo } from "../components/models"
+import ExampleComponent from "components/ExampleComponent.vue"
+import { Meta, Todo } from "components/models"
 
 export default defineComponent({
   name: "IndexPage",
