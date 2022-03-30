@@ -102,6 +102,16 @@ module.exports = {
       {
         "newlines-between": "always",
         alphabetize: { order: "asc" },
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+        ],
         pathGroups: [
           {
             pattern: internalPathGlob,
