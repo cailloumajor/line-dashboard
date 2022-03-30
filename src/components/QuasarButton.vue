@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue"
 
 export default defineComponent({
-  name: 'QuasarButton',
-  emits: ['test'],
-});
+  name: "QuasarButton",
+  emits: ["test"],
+})
 </script>

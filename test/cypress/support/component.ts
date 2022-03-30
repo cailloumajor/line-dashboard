@@ -13,22 +13,22 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import './commands';
-import '@cypress/code-coverage/support';
+import "./commands"
+import "@cypress/code-coverage/support"
 
 // Change this if you have a different entrypoint for the main scss.
-import 'src/css/app.scss';
+import "src/css/app.scss"
 // Quasar styles
-import 'quasar/src/css/index.sass';
+import "quasar/src/css/index.sass"
 
 // ICON SETS
 // If you use multiple or different icon-sets then the default, be sure to import them here.
-import 'quasar/dist/icon-set/material-icons.umd.prod';
-import '@quasar/extras/material-icons/material-icons.css';
+import "quasar/dist/icon-set/material-icons.umd.prod"
+import "@quasar/extras/material-icons/material-icons.css"
 
-import { installQuasarPlugin } from '@quasar/quasar-app-extension-testing-e2e-cypress';
-import { config } from '@vue/test-utils';
-import { Dialog } from 'quasar';
+import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
+import { config } from "@vue/test-utils"
+import { Dialog } from "quasar"
 
 // Example to import i18n from boot and use as plugin
 // import { i18n } from 'src/boot/i18n';
@@ -37,11 +37,11 @@ import { Dialog } from 'quasar';
 // For example use the actual i18n instance or mock it
 // config.global.plugins.push(i18n);
 config.global.mocks = {
-  $t: () => '',
-};
+  $t: () => "",
+}
 
 // Overwrite the transition and transition-group stubs which are stubbed by test-utils by default.
 // We do want transitions to show when doing visual testing :)
-config.global.stubs = {};
+config.global.stubs = {}
 
-installQuasarPlugin({ plugins: { Dialog } });
+installQuasarPlugin({ plugins: { Dialog } })

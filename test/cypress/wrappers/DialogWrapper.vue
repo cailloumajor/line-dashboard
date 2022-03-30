@@ -1,9 +1,9 @@
 <script>
-import { defineComponent } from 'vue';
-import { Dialog } from 'quasar';
+import { Dialog } from "quasar"
+import { defineComponent } from "vue"
 
 export default defineComponent({
-  name: 'DialogWrapper',
+  name: "DialogWrapper",
   props: {
     component: {
       type: Object,
@@ -20,7 +20,7 @@ export default defineComponent({
 
       // props forwarded to your custom component
       componentProps: props.componentProps,
-    });
+    })
   },
-});
+})
 </script>

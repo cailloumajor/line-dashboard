@@ -1,11 +1,12 @@
-import { mount } from '@cypress/vue';
-import QuasarTooltip from '../QuasarTooltip.vue';
+import { mount } from "@cypress/vue"
 
-describe('QuasarTooltip', () => {
-  it('should show a tooltip', () => {
-    mount(QuasarTooltip);
+import QuasarTooltip from "../QuasarTooltip.vue"
 
-    cy.dataCy('button').trigger('mouseover');
-    cy.dataCy('tooltip').contains('Here I am!');
-  });
-});
+describe("QuasarTooltip", () => {
+  it("should show a tooltip", () => {
+    mount(QuasarTooltip)
+
+    cy.dataCy("button").trigger("mouseover")
+    cy.dataCy("tooltip").contains("Here I am!")
+  })
+})
