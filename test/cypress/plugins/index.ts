@@ -13,10 +13,9 @@
 // the project's config changing)
 
 import { injectDevServer } from '@quasar/quasar-app-extension-testing-e2e-cypress/cct-dev-server';
-import cypressCodeCoverageTask from '@cypress/code-coverage/task';
 
 const pluginConfig: Cypress.PluginConfig = async (on, config) => {
-  cypressCodeCoverageTask(on, config);
+  require("@cypress/code-coverage/task")(on, config)
   // Enable component testing, you can safely remove this
   // if you don't plan to use Cypress for component tests
   if (config.testingType === 'component') {
