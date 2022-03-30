@@ -9,7 +9,7 @@ describe("Landing", () => {
     cy.visit("/")
   })
   it(".should() - assert that <title> is correct", () => {
-    cy.title().should("include", "Quasar")
+    cy.title().should("include", "Factory Frontend")
     cy.get("li").first().click()
     cy.contains("Clicks on todos: 1").should("exist")
   })
