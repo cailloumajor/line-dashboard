@@ -90,6 +90,10 @@ module.exports = {
     // in plain CommonJS modules, you can't use `import foo = require('foo')` to pass this rule, so it has to be disabled
     "@typescript-eslint/no-var-requires": "off",
 
+    // enforce usage of type-only imports (recommended with Vite)
+    // https://vitejs.dev/guide/features.html#typescript
+    "@typescript-eslint/consistent-type-imports": "error",
+
     // The core 'no-unused-vars' rules (in the eslint:recommeded ruleset)
     // does not work with type definitions
     "no-unused-vars": "off",
@@ -118,7 +122,7 @@ module.exports = {
             group: "internal",
           },
         ],
-        pathGroupsExcludedImportTypes: ["builtin"],
+        pathGroupsExcludedImportTypes: ["builtin", "type"],
       },
     ],
 
