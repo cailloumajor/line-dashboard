@@ -15,7 +15,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run-ct"
   },
   "dependencies": {
-    "@quasar/extras": "1.13.3",
+    "@quasar/extras": "1.13.4",
     "pinia": "2.0.12",
     "quasar": "2.6.1",
     "vue": "3.2.31",
