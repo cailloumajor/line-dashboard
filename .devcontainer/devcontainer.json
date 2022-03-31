@@ -6,6 +6,10 @@
 		"dockerfile": "Dockerfile"
 	},
 
+	"runArgs": ["--init"],
+	"overrideCommand": false,
+	"forwardPorts": [6080, 5901],
+
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"editor.formatOnSave": true,
@@ -28,7 +32,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "yarn global add @quasar/cli",
+	"postCreateCommand": "yarn global add @quasar/cli && yarn cypress install",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node"
