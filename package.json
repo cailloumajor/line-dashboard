@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@quasar/extras": "1.13.4",
-    "pinia": "2.0.12",
+    "pinia": "2.0.13",
     "quasar": "2.6.4",
     "vue": "3.2.31",
     "vue-router": "4.0.14"
