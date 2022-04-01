@@ -7,7 +7,7 @@
 describe("Landing", () => {
   beforeEach(() => {
     cy.visit("/")
-    cy.get("#q-app", { timeout: 10000 }).should("not.be.empty")
+    cy.get("#q-app", { timeout: 15000 }).find(".q-layout").should("be.visible")
   })
   it(".should() - assert that <title> is correct", () => {
     cy.title().should("include", "Factory Frontend")

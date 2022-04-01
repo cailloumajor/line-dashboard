@@ -52,10 +52,11 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_TRASH_ASSETS_BEFORE_RUNS: false
+          CYPRESS_VIDEO: false
         with:
           install: false
           command: yarn test:e2e:ci
-      - name: Upload Cypress screenshots an videos 🖥️📽️
+      - name: Upload Cypress screenshots and videos 🖥️📽️
         uses: actions/upload-artifact@v3
         if: always()
         with:
