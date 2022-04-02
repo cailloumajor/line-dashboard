@@ -16,6 +16,7 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.codeActionsOnSave": ["source.fixAll.eslint"],
 		"eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+		"prettier.requireConfig": true,
 		"typescript.tsdk": "node_modules/typescript/lib"
 	},
 
