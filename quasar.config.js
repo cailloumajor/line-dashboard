@@ -62,7 +62,9 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+        TEST: process.env.NODE_ENV === "test",
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
