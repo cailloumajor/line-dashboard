@@ -1264,6 +1264,11 @@
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
+"@smikhalevski/trie@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@smikhalevski/trie/-/trie-1.0.1.tgz#c7459213dddc2adbe47ada0b74b27dd149e57cef"
+  integrity sha512-aPQhXXlDsITcL+zjgaEcSWQRrvGw4/x5Fxw8lUZt5QPCTzFdQwX/6oak3mE8/cmKxup9Imju+4+5+S+fwjE0Ow==
+
 "@types/body-parser@*":
   version "1.19.2"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.2.tgz#aea2059e28b7658639081347ac4fab3de166e6f0"
@@ -4624,6 +4629,13 @@ listr2@^3.8.3:
     rxjs "^7.5.1"
     through "^2.3.8"
     wrap-ansi "^7.0.0"
+
+locale-matcher@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/locale-matcher/-/locale-matcher-2.0.0.tgz#a9b7e1361c07b99303743be265cc61a797854bf3"
+  integrity sha512-oq0yIVVEWclj8EiL1vLSfqrhTrQF/bLVelBDEj8KU3niQyutcAtdM9fHTTzP1OhGmiAq5OD8eDE77X3mZuGlqg==
+  dependencies:
+    "@smikhalevski/trie" "^1.0.1"
 
 locate-path@^2.0.0:
   version "2.0.0"
