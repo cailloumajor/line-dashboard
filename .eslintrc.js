@@ -47,6 +47,8 @@ module.exports = {
     "prettier",
 
     "plugin:cypress/recommended",
+
+    "plugin:@intlify/vue-i18n/recommended",
   ],
 
   plugins: [
@@ -129,5 +131,28 @@ module.exports = {
     ],
 
     "sort-imports": ["error", { ignoreDeclarationSort: true }],
+
+    "@intlify/vue-i18n/no-raw-text": [
+      "warn",
+      {
+        attributes: {
+          "/.+/": [
+            "title",
+            "label",
+            "aria-label",
+            "aria-placeholder",
+            "aria-roledescription",
+            "aria-valuetext",
+          ],
+        },
+      },
+    ],
+  },
+
+  settings: {
+    "vue-i18n": {
+      localeDir: "./src/locales/*.json",
+      messageSyntaxVersion: "^9.0.0",
+    },
   },
 }

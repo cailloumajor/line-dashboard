@@ -6,7 +6,7 @@
   "author": "Arnaud Rocher <arnaud.roche3@gmail.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
+    "lint": "eslint --ext .js,.json,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "test:e2e": "cross-env NODE_ENV=test start-test \"quasar dev\" http-get://localhost:9000 \"cypress open\"",
@@ -20,9 +20,11 @@
     "pinia": "2.0.13",
     "quasar": "2.6.5",
     "vue": "3.2.31",
+    "vue-i18n": "9.2.0-beta.34",
     "vue-router": "4.0.14"
   },
   "devDependencies": {
+    "@intlify/eslint-plugin-vue-i18n": "1.4.0",
     "@quasar/app-vite": "1.0.0-beta.13",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "4.1.0",
     "@types/node": "16.11.26",

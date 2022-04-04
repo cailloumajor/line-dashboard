@@ -3,6 +3,8 @@ import { Quasar } from "quasar"
 import langPacksIndex from "quasar/lang/index.json"
 import { boot } from "quasar/wrappers"
 
+import { i18n } from "boot/i18n"
+
 export default boot(() => {
   const setLocale = () => {
     const { languages } = navigator
@@ -19,6 +21,11 @@ export default boot(() => {
           Quasar.lang.set(langPkg.default)
         }
       )
+    }
+
+    const vueI18nLocale = pickLocale(languages, i18n.global.availableLocales)
+    if (vueI18nLocale !== undefined) {
+      i18n.global.locale.value = vueI18nLocale
     }
   }
 
