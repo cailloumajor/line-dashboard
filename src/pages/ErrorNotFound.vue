@@ -9,11 +9,11 @@
 
       <q-btn
         :label="t('goHome')"
+        :to="{ name: 'home' }"
         class="q-mt-xl"
         color="white"
         text-color="blue"
         unelevated
-        to="/"
         no-caps
       />
     </div>
