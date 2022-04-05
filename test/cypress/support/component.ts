@@ -31,13 +31,14 @@ import { config } from "@vue/test-utils"
 import { Dialog } from "quasar"
 
 // Example to import i18n from boot and use as plugin
-// import { i18n } from 'src/boot/i18n';
+import { i18n } from "src/boot/i18n"
 
 // You can modify the global config here for all tests or pass in the configuration per test
 // For example use the actual i18n instance or mock it
-// config.global.plugins.push(i18n);
+config.global.plugins.push(i18n)
+
 config.global.mocks = {
-  $t: () => "",
+  // $t: () => "",
 }
 
 // Overwrite the transition and transition-group stubs which are stubbed by test-utils by default.
