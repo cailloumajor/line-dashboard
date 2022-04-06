@@ -1,15 +1,10 @@
+import messages from "@intlify/vite-plugin-vue-i18n/messages"
 import { boot } from "quasar/wrappers"
 import { createI18n } from "vue-i18n"
 
-import enUS from "src/locales/en-US.json"
-import fr from "src/locales/fr.json"
-
 const i18n = createI18n<false>({
   legacy: false,
-  messages: {
-    "en-US": enUS,
-    fr,
-  },
+  messages,
 })
 
 export default boot(({ app }) => {

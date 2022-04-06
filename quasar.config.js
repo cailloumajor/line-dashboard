@@ -8,6 +8,8 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+const path = require("path")
+
 const { configure } = require("quasar/wrappers")
 
 module.exports = configure(function (/* ctx */) {
@@ -74,9 +76,12 @@ module.exports = configure(function (/* ctx */) {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
-      // vitePlugins: [
-      //   [ 'package-name', { ..options.. } ]
-      // ]
+      vitePlugins: [
+        [
+          "@intlify/vite-plugin-vue-i18n",
+          { include: path.resolve(__dirname, "./src/locales/**") },
+        ],
+      ],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
