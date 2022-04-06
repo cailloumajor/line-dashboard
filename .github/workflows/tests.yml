@@ -55,7 +55,7 @@ jobs:
           CYPRESS_VIDEO: false
         with:
           install: false
-          start: quasar dev --port 9000
+          start: yarn run quasar dev --port 9000
           wait-on: "http://localhost:9000"
       - name: Upload Cypress screenshots and videos 🖥️📽️
         uses: actions/upload-artifact@v3
