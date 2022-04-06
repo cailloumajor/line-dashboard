@@ -1,5 +1,8 @@
 {
   "pageNotFound": "Page not found",
   "nothingHere": "Oops. Nothing here...",
-  "goHome": "Go Home"
+  "goHome": "Go Home",
+  "loadingError": "Loading error",
+  "newTry": "Will retry",
+  "retryIn": "@:newTry now | @:newTry in {n} second | @:newTry in {n} seconds"
 }
