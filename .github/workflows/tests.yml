@@ -56,7 +56,7 @@ jobs:
         with:
           install: false
           start: yarn run quasar dev --port 9000
-          wait-on: "http://localhost:9000"
+          wait-on: "http://localhost:9000/.quasar/client-entry.js"
       - name: Upload Cypress screenshots and videos 🖥️📽️
         uses: actions/upload-artifact@v3
         if: always()
