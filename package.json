@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@quasar/extras": "1.13.5",
-    "@vueuse/core": "8.2.4",
+    "@vueuse/core": "8.2.5",
     "locale-matcher": "2.0.0",
     "pinia": "2.0.13",
     "quasar": "2.6.5",
