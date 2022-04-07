@@ -3,6 +3,20 @@
 
 // ** This file is an example of how to write Cypress tests, you can safely delete it **
 
+// Skim first visit errors.
+before(() => {
+  cy.on("uncaught:exception", (e, runnable) => {
+    console.log("error", e)
+    console.log("runnable", runnable)
+
+    if (true) {
+      return false
+    }
+  })
+
+  cy.visit("/")
+})
+
 // This test will pass when run against a clean Quasar project
 describe("Landing", () => {
   beforeEach(() => {
