@@ -54,6 +54,7 @@ jobs:
           CYPRESS_TRASH_ASSETS_BEFORE_RUNS: false
           CYPRESS_VIDEO: false
         with:
+          browser: chrome
           install: false
           start: yarn run quasar dev --port 9000
           wait-on: "http://localhost:9000/.quasar/client-entry.js"
