@@ -54,7 +54,6 @@ jobs:
           CYPRESS_TRASH_ASSETS_BEFORE_RUNS: false
           CYPRESS_VIDEO: false
         with:
-          browser: chrome
           command: yarn test:e2e:ci
           install: false
       - name: Upload Cypress screenshots and videos 🖥️📽️
