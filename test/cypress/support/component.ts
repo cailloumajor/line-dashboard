@@ -29,13 +29,29 @@ import "@quasar/extras/material-icons/material-icons.css"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
 import { config } from "@vue/test-utils"
 import { Dialog } from "quasar"
+import {
+  VueRouterMock,
+  createRouterMock,
+  injectRouterMock,
+} from "vue-router-mock"
 
-// Example to import i18n from boot and use as plugin
 import { i18n } from "src/boot/i18n"
 
 // You can modify the global config here for all tests or pass in the configuration per test
 // For example use the actual i18n instance or mock it
 config.global.plugins.push(i18n)
+
+// vue-router-mock
+const router = createRouterMock({
+  spy: {
+    create: (fn) => Cypress.sinon.spy(fn),
+    reset: (spy) => spy.resetHistory(),
+  },
+})
+beforeEach(() => {
+  injectRouterMock(router)
+})
+config.plugins.VueWrapper.install(VueRouterMock)
 
 config.global.mocks = {
   // $t: () => "",

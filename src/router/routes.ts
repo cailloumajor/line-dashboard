@@ -8,6 +8,17 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
 
+  {
+    path: "/loading-error",
+    name: "loadingError",
+    component: () => import("pages/ErrorDashboardLoading.vue"),
+    props: (route) => {
+      const n = Number(route.query.autoback)
+      const autoback = Number.isInteger(n) && n > 0 ? n : undefined
+      return { autoback }
+    },
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {

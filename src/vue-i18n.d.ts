@@ -8,5 +8,7 @@ declare module "vue-i18n" {
     pageNotFound: string
     nothingHere: string
     goHome: string
+    loadingError: string
+    retryIn: string
   }
 }

@@ -1,5 +1,8 @@
 {
   "pageNotFound": "Page introuvable",
   "nothingHere": "Oups. Rien ici...",
-  "goHome": "Retour à l'accueil"
+  "goHome": "Retour à l'accueil",
+  "loadingError": "Erreur de chargement",
+  "newTry": "Nouvel essai",
+  "retryIn": "@:newTry maintenant | @:newTry dans {n} seconde | @:newTry dans {n} secondes"
 }
