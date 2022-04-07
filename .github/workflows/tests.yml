@@ -55,7 +55,6 @@ jobs:
           CYPRESS_VIDEO: false
         with:
           browser: chrome
-          install: false
           start: yarn run quasar dev --port 9000
           wait-on: "http://localhost:9000/.quasar/client-entry.js"
       - name: Upload Cypress screenshots and videos 🖥️📽️
