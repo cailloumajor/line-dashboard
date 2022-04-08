@@ -9,7 +9,7 @@
 
       <q-card
         bordered
-        class="bg-red-8 q-pa-sm q-mx-auto q-mb-lg text-left"
+        class="bg-red-8 q-pa-sm q-mx-auto q-mb-xl text-left"
         style="opacity: 0.8; width: 60%"
       >
         <p
