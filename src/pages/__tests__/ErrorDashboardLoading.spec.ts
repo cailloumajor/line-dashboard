@@ -4,6 +4,8 @@ import { loadingErrorStorageKey } from "src/constants"
 
 import ErrorDashboardLogging from "../ErrorDashboardLoading.vue"
 
+import type { RouterMock } from "vue-router-mock"
+
 describe("ErrorDashboardLogging", () => {
   it("does display error text", () => {
     cy.window()
@@ -51,20 +53,16 @@ describe("ErrorDashboardLogging", () => {
         autoback: 1,
       },
     })
-      .its("router")
-      .then((router) => {
-        router.back = Cypress.sinon.spy()
-
-        return undefined
-      })
-      .its("back")
-      .as("back")
 
     cy.dataCy("countdown").should("contain.text", " 1 ")
-    cy.get("@back").should("not.have.been.called")
+    cy.get<RouterMock>("@router-mock")
+      .its("back")
+      .should("not.have.been.called")
 
     cy.tick(1000)
     cy.dataCy("countdown").should("not.contain.text", " 1 ")
-    cy.get("@back").should("have.been.calledOnce")
+    cy.get<RouterMock>("@router-mock")
+      .its("back")
+      .should("have.been.calledOnce")
   })
 })

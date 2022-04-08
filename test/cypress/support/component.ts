@@ -48,8 +48,12 @@ const router = createRouterMock({
     reset: (spy) => spy.resetHistory(),
   },
 })
+const routerBackSpy = Cypress.sinon.spy(router.back)
+router.back = routerBackSpy
 beforeEach(() => {
+  cy.wrap(router).as("router-mock")
   router.reset()
+  routerBackSpy.resetHistory()
   injectRouterMock(router)
 })
 config.plugins.VueWrapper.install(VueRouterMock)
