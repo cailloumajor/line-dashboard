@@ -15,7 +15,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run-ct"
   },
   "dependencies": {
-    "@pinia/testing": "^0.0.11",
+    "@pinia/testing": "0.0.11",
     "@quasar/extras": "1.13.5",
     "@vueuse/core": "8.2.5",
     "locale-matcher": "2.0.0",
