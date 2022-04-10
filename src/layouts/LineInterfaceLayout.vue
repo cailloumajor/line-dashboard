@@ -3,13 +3,13 @@
     <q-header elevated class="bg-grey-9 text-white">
       <q-toolbar>
         <q-toolbar-title class="text-center" data-cy="layout-title">
-          {{ title }}
+          {{ configStore.title }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
     <q-page-container>
-      <router-view @change-title="(val: string) => (title = val)" />
+      <router-view />
     </q-page-container>
 
     <q-footer elevated class="bg-grey-10 text-white">
@@ -20,13 +20,14 @@
 
 <script setup lang="ts">
 import { useQuasar } from "quasar"
-import { ref } from "vue"
+
+import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 
 const $q = useQuasar()
 
 $q.dark.set(true)
 
-const title = ref("⏳")
+const configStore = useCommonLineInterfaceConfigStore()
 </script>
 
 <style lang="scss">

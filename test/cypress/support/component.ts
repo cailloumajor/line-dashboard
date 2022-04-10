@@ -26,6 +26,7 @@ import "quasar/src/css/index.sass"
 import "quasar/dist/icon-set/material-icons.umd.prod"
 import "@quasar/extras/material-icons/material-icons.css"
 
+import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
 import { config } from "@vue/test-utils"
 import { Dialog } from "quasar"
@@ -57,6 +58,10 @@ beforeEach(() => {
   injectRouterMock(router)
 })
 config.plugins.VueWrapper.install(VueRouterMock)
+
+// Pinia
+const testingPinia = createTestingPinia({ createSpy: Cypress.sinon.spy })
+config.global.plugins.push(testingPinia)
 
 config.global.mocks = {
   // $t: () => "",
