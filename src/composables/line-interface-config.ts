@@ -40,6 +40,7 @@ export function useLineInterfaceConfig<
       config.value = parsed
       $q.loading.hide()
     } catch (error) {
+      $q.loading.hide()
       if (error instanceof SyntaxError) {
         errStorage.value.push(`JSON parse error: ${error.message}`)
       } else if (error instanceof ZodError) {

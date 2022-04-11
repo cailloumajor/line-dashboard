@@ -8,10 +8,29 @@ import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interf
 
 import type { RouterMock } from "vue-router-mock"
 
-const errorRouteMatch = Cypress.sinon.match({
-  name: "loadingError",
-  query: { autoback: 30 },
-})
+const checkLoadsAndRoutes = (expectRoutes: boolean) => {
+  cy.get("#q-loading").should("exist")
+  cy.get<RouterMock>("@router-mock")
+    .its("push")
+    .should(
+      expectRoutes ? "have.been.calledOnceWith" : "not.have.been.called",
+      Cypress.sinon.match({ name: "loadingError", query: { autoback: 30 } })
+    )
+  cy.get("#q-loading").should("not.exist")
+}
+
+const sessionStorage = () => {
+  return cy
+    .window()
+    .invoke("sessionStorage.getItem", loadingErrorStorageKey)
+    .then((errorsJSON) => JSON.parse(errorsJSON))
+}
+
+const checkNoConfigData = () => {
+  cy.dataCy("first-param").should("not.exist")
+  cy.dataCy("second-param").should("not.exist")
+  cy.dataCy("list").should("not.exist")
+}
 
 describe("line interface configuration composable", () => {
   context("API not mocked", () => {
@@ -53,21 +72,13 @@ describe("line interface configuration composable", () => {
         },
       })
 
-      cy.get("#q-loading").should("exist")
-      cy.get<RouterMock>("@router-mock")
-        .its("push")
-        .should("have.been.calledOnceWith", errorRouteMatch)
-      cy.window()
-        .invoke("sessionStorage.getItem", loadingErrorStorageKey)
-        .then((errorsJSON) => JSON.parse(errorsJSON))
+      checkLoadsAndRoutes(true)
+      sessionStorage()
         .should("have.length", 1)
         .and((errors) => {
           expect(errors[0]).to.contain("404")
         })
-      cy.dataCy("first-param").should("not.exist")
-      cy.dataCy("second-param").should("not.exist")
-      cy.dataCy("list").should("not.exist")
-      cy.get("#q-loading").should("exist")
+      checkNoConfigData()
     })
 
     it("redirects to error page on JSON parse error", () => {
@@ -83,21 +94,13 @@ describe("line interface configuration composable", () => {
         },
       })
 
-      cy.get("#q-loading").should("exist")
-      cy.get<RouterMock>("@router-mock")
-        .its("push")
-        .should("have.been.calledOnceWith", errorRouteMatch)
-      cy.window()
-        .invoke("sessionStorage.getItem", loadingErrorStorageKey)
-        .then((errorsJSON) => JSON.parse(errorsJSON))
+      checkLoadsAndRoutes(true)
+      sessionStorage()
         .should("have.length", 1)
         .and((errors) => {
           expect(errors[0]).to.contain("JSON parse error:")
         })
-      cy.dataCy("first-param").should("not.exist")
-      cy.dataCy("second-param").should("not.exist")
-      cy.dataCy("list").should("not.exist")
-      cy.get("#q-loading").should("exist")
+      checkNoConfigData()
     })
 
     it("redirects to error page on schema validation error", () => {
@@ -118,13 +121,8 @@ describe("line interface configuration composable", () => {
         },
       })
 
-      cy.get("#q-loading").should("exist")
-      cy.get<RouterMock>("@router-mock")
-        .its("push")
-        .should("have.been.calledOnceWith", errorRouteMatch)
-      cy.window()
-        .invoke("sessionStorage.getItem", loadingErrorStorageKey)
-        .then((errorsJSON) => JSON.parse(errorsJSON))
+      checkLoadsAndRoutes(true)
+      sessionStorage()
         .should("have.length", 4)
         .and((errors) => {
           expect(errors[0]).to.contain("[Config Object].title:")
@@ -132,10 +130,7 @@ describe("line interface configuration composable", () => {
           expect(errors[2]).to.contain("[Config Object].params.second:")
           expect(errors[3]).to.contain("[Config Object].list[1]:")
         })
-      cy.dataCy("first-param").should("not.exist")
-      cy.dataCy("second-param").should("not.exist")
-      cy.dataCy("list").should("not.exist")
-      cy.get("#q-loading").should("exist")
+      checkNoConfigData()
     })
 
     it("succeeds", () => {
@@ -160,10 +155,7 @@ describe("line interface configuration composable", () => {
         },
       })
 
-      cy.get("#q-loading").should("not.exist")
-      cy.get<RouterMock>("@router-mock")
-        .its("push")
-        .should("not.have.been.called")
+      checkLoadsAndRoutes(false)
       cy.wrap(useCommonLineInterfaceConfigStore())
         .its("title")
         .should("equal", "Title for tests")
