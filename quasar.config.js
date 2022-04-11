@@ -82,6 +82,10 @@ module.exports = configure(function (/* ctx */) {
           { include: path.resolve(__dirname, "./src/locales/**") },
         ],
       ],
+
+      alias: {
+        composables: path.join(__dirname, "./src/composables"),
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
@@ -105,7 +109,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ["Loading"],
     },
 
     // animations: 'all', // --- includes all animations

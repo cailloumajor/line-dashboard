@@ -29,7 +29,7 @@ import "@quasar/extras/material-icons/material-icons.css"
 import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
 import { config } from "@vue/test-utils"
-import { Dialog } from "quasar"
+import { Dialog, Loading } from "quasar"
 import {
   VueRouterMock,
   createRouterMock,
@@ -71,4 +71,4 @@ config.global.mocks = {
 // We do want transitions to show when doing visual testing :)
 config.global.stubs = {}
 
-installQuasarPlugin({ plugins: { Dialog } })
+installQuasarPlugin({ plugins: { Dialog, Loading } })
