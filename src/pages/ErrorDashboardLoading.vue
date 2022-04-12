@@ -82,7 +82,7 @@ if (props.autoback && props.autoback > 0) {
 }
 </script>
 
-<style module>
+<style module lang="scss">
 .errorLine {
   font-size: 1rem;
   font-family: monospace;
