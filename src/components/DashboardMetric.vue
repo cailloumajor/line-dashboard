@@ -24,7 +24,11 @@
       class="q-pa-none"
       data-cy="metric-value-section"
     >
-      <div v-if="dataValid" data-cy="metric-value-text">
+      <div
+        v-if="dataValid"
+        :class="color !== undefined ? `text-${color}` : undefined"
+        data-cy="metric-value-text"
+      >
         {{ value }}
       </div>
       <q-skeleton
@@ -46,6 +50,7 @@ import type { CSSProperties } from "vue"
 
 const props = defineProps<{
   value: number
+  color?: string
   dataValid: boolean
   pageHeight?: number
 }>()

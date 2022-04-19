@@ -1,7 +1,11 @@
 import { mount } from "@cypress/vue"
+import Color from "color"
+import { colors } from "quasar"
 import { h, ref } from "vue"
 
 import DashboardMetric from "../DashboardMetric.vue"
+
+const { getPaletteColor } = colors
 
 const fontSize = (elem: JQuery) =>
   parseInt(elem.css("font-size").replace(/px$/, ""))
@@ -44,6 +48,37 @@ describe("DashboardMetric", () => {
     })
 
     cy.dataCy("metric-value-text").should("have.text", "5616")
+  })
+
+  it("renders the value with color according to prop", () => {
+    const testColor = "negative"
+    const exp = Color(getPaletteColor(testColor))
+
+    const color = ref<string>()
+
+    mount(DashboardMetric, {
+      props: {
+        value: 42,
+        color,
+        dataValid: true,
+      },
+    })
+
+    cy.dataCy("metric-value-text")
+      .should("have.css", "color")
+      .and((colorString) => {
+        expect(Color(colorString).hexa()).to.not.equal(exp.hexa())
+      })
+
+    cy.wrap(color).then((ref) => {
+      ref.value = testColor
+    })
+
+    cy.dataCy("metric-value-text")
+      .should("have.css", "color")
+      .and((colorString) => {
+        expect(Color(colorString).hexa()).to.equal(exp.hexa())
+      })
   })
 
   it("sets font size when page height prop changes", () => {
