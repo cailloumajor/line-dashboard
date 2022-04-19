@@ -4,5 +4,10 @@
   "goHome": "Go Home",
   "loadingError": "Loading error",
   "newTry": "Will retry",
-  "retryIn": "@:newTry now | @:newTry in {n} second | @:newTry in {n} seconds"
+  "retryIn": "@:newTry now | @:newTry in {n} second | @:newTry in {n} seconds",
+  "goodParts": "Good parts",
+  "scrapParts": "Scrap parts",
+  "cycleTime": "Cycle time",
+  "targetCycleTime": "Standard cycle time",
+  "oee": "OEE"
 }

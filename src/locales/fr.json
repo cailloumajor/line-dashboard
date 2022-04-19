@@ -4,5 +4,10 @@
   "goHome": "Retour à l'accueil",
   "loadingError": "Erreur de chargement",
   "newTry": "Nouvel essai",
-  "retryIn": "@:newTry maintenant | @:newTry dans {n} seconde | @:newTry dans {n} secondes"
+  "retryIn": "@:newTry maintenant | @:newTry dans {n} seconde | @:newTry dans {n} secondes",
+  "goodParts": "Pièces bonnes",
+  "scrapParts": "Pièces mauvaises",
+  "cycleTime": "Temps de cycle",
+  "targetCycleTime": "Temps de cycle standard",
+  "oee": "TRS"
 }
