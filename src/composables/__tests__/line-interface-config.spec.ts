@@ -2,8 +2,8 @@ import { mount } from "@cypress/vue"
 import { Response } from "miragejs"
 
 import LineInterfaceConfigWrapper from "app/test/cypress/wrappers/LineInterfaceConfigWrapper.vue"
-import { loadingErrorStorageKey } from "src/constants"
 import { makeServer } from "src/dev-api-server"
+import { loadingErrorStorageKey } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 
 import type { RouterMock } from "vue-router-mock"

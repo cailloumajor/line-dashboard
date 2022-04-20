@@ -4,7 +4,7 @@ import { onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
 import { ZodError } from "zod"
 
-import { loadingErrorStorageKey } from "src/constants"
+import { loadingErrorStorageKey } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 
 import type { commonLineInterfaceConfigSchema } from "src/schemas"

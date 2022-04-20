@@ -42,7 +42,7 @@ import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
-import { loadingErrorStorageKey } from "src/constants"
+import { loadingErrorStorageKey } from "src/global"
 
 import type { CSSProperties } from "vue"
 

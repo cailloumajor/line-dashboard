@@ -1,6 +1,6 @@
 import { mount } from "@cypress/vue"
 
-import { loadingErrorStorageKey } from "src/constants"
+import { loadingErrorStorageKey } from "src/global"
 
 import ErrorDashboardLogging from "../ErrorDashboardLoading.vue"
 
