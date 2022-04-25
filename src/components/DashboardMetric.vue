@@ -1,23 +1,9 @@
 <template>
   <q-card :class="$style.card" class="text-center" ref="card">
-    <q-card-section
-      :style="titleStyle"
-      class="q-pa-none"
-      data-cy="metric-title-section"
-    >
-      <div
-        v-if="dataValid"
-        class="text-weight-bold"
-        data-cy="metric-title-content"
-      >
+    <q-card-section :style="titleStyle" class="q-pa-none">
+      <div class="text-weight-bold" data-cy="metric-title-content">
         <slot>???</slot>
       </div>
-      <q-skeleton
-        v-else
-        :class="$style.titleSkeleton"
-        type="text"
-        class="q-mx-auto"
-      ></q-skeleton>
     </q-card-section>
     <q-card-section
       :style="valueStyle"
@@ -85,10 +71,6 @@ watchDebounced(
 .card {
   padding: 1%;
   line-height: 1;
-}
-
-.titleSkeleton {
-  width: 50%;
 }
 
 .valueSkeleton {

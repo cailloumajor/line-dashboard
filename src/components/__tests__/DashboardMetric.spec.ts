@@ -125,14 +125,12 @@ describe("DashboardMetric", () => {
       },
     })
 
-    cy.dataCy("metric-title-section").find(".q-skeleton").should("exist")
     cy.dataCy("metric-value-section").find(".q-skeleton").should("exist")
 
     cy.wrap(dataValid).then((ref) => {
       ref.value = true
     })
 
-    cy.dataCy("metric-title-section").find(".q-skeleton").should("not.exist")
     cy.dataCy("metric-value-section").find(".q-skeleton").should("not.exist")
   })
 })
