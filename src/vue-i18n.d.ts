@@ -10,5 +10,10 @@ declare module "vue-i18n" {
     goHome: string
     loadingError: string
     retryIn: string
+    goodParts: string
+    scrapParts: string
+    cycleTime: string
+    targetCycleTime: string
+    oee: string
   }
 }
