@@ -15,5 +15,6 @@ declare module "vue-i18n" {
     cycleTime: string
     targetCycleTime: string
     oee: string
+    fetchError: string
   }
 }

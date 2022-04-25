@@ -9,5 +9,6 @@
   "scrapParts": "Scrap parts",
   "cycleTime": "Cycle time",
   "targetCycleTime": "Standard cycle time",
-  "oee": "OEE"
+  "oee": "OEE",
+  "fetchError": "querying {url}: got error {status} ({statusText})"
 }

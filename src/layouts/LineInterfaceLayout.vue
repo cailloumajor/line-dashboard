@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { useQuasar } from "quasar"
 import { onErrorCaptured } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { ZodError } from "zod"
 
@@ -33,6 +34,10 @@ import type { MandeError } from "mande"
 
 const $q = useQuasar()
 const configStore = useCommonLineInterfaceConfigStore()
+const { t } = useI18n({
+  useScope: "global",
+  inheritLocale: true,
+})
 const router = useRouter()
 
 $q.dark.set(true)
@@ -45,9 +50,9 @@ onErrorCaptured((err) => {
   const errors: string[] = []
 
   if (isMandeError(err)) {
-    errors.push(
-      `querying ${err.response.url}: got error ${err.response.status} (${err.message})`
-    )
+    const { url, status } = err.response
+    const statusText = err.message
+    errors.push(t("fetchError", { url, status, statusText }))
   } else if (err instanceof ZodError) {
     errors.push(
       ...err.issues.map((issue) => {
