@@ -9,7 +9,7 @@
     </q-header>
 
     <q-page-container>
-      <Suspense>
+      <Suspense @pending="$q.loading.show" @resolve="$q.loading.hide">
         <router-view />
       </Suspense>
     </q-page-container>

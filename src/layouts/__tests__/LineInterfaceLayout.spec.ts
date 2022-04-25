@@ -62,6 +62,27 @@ describe("LineInterfaceLayout", () => {
     cy.get("@title").should("have.text", "Test Title")
   })
 
+  it("displays loading state", () => {
+    cy.clock().as("clock")
+
+    mountWithSetupChild(async () => {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000)
+      })
+    })
+
+    cy.tick(100)
+
+    cy.dataCy("child").should("not.exist")
+    cy.get(".q-loading").should("be.visible")
+
+    cy.tick(1000)
+    cy.get("@clock").invoke("restore")
+
+    cy.dataCy("child").should("be.visible")
+    cy.get(".q-loading").should("not.exist")
+  })
+
   describe("redirects to error page", () => {
     beforeEach(() => {
       const server = makeServer()
