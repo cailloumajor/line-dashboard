@@ -9,6 +9,19 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: "/",
+    component: () => import("layouts/LineInterfaceLayout.vue"),
+    children: [
+      {
+        path: "line-dashboard/:id",
+        name: "lineDashboard",
+        component: () => import("pages/LineDashboard.vue"),
+        props: true,
+      },
+    ],
+  },
+
+  {
     path: "/loading-error",
     name: "loadingError",
     component: () => import("pages/ErrorDashboardLoading.vue"),
