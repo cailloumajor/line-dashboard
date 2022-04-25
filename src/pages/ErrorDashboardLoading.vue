@@ -37,7 +37,8 @@
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity"
-import { useIntervalFn, useSessionStorage, whenever } from "@vueuse/core"
+import { useIntervalFn, whenever } from "@vueuse/core"
+import { useQuasar } from "quasar"
 import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
@@ -50,23 +51,22 @@ const props = defineProps<{
   autoback?: number
 }>()
 
+const $q = useQuasar()
 const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 })
+const router = useRouter()
 
-const errors = useSessionStorage(loadingErrorStorageKey, [""], {
-  listenToStorageChanges: false,
-  writeDefaults: false,
-})
+const errors = ($q.sessionStorage.getItem(
+  loadingErrorStorageKey
+) as string[]) ?? [""]
+
+const countdown = ref(props.autoback ?? 0)
 
 const countdownStyle = computed<CSSProperties>(() => ({
   visibility: props.autoback === undefined ? "hidden" : undefined,
 }))
-
-const countdown = ref(props.autoback ?? 0)
-
-const router = useRouter()
 
 if (props.autoback && props.autoback > 0) {
   const { pause } = useIntervalFn(() => {

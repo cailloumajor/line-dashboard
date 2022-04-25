@@ -73,7 +73,13 @@ module.exports = configure(function (/* ctx */) {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      extendViteConf(viteConf) {
+        if (process.env.NODE_ENV === "test") {
+          Object.assign(viteConf.resolve.alias, {
+            vue: "vue/dist/vue.esm-bundler.js",
+          })
+        }
+      },
       // viteVuePluginOptions: {},
 
       vitePlugins: [
@@ -109,7 +115,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ["Loading"],
+      plugins: ["Loading", "SessionStorage"],
     },
 
     // animations: 'all', // --- includes all animations

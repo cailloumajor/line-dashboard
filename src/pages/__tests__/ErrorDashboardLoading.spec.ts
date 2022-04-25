@@ -1,4 +1,5 @@
 import { mount } from "@cypress/vue"
+import { SessionStorage } from "quasar"
 
 import { loadingErrorStorageKey } from "src/global"
 
@@ -8,16 +9,11 @@ import type { RouterMock } from "vue-router-mock"
 
 describe("ErrorDashboardLogging", () => {
   it("does display error text", () => {
-    cy.window()
-      .then((win) => {
-        win.sessionStorage.setItem(
-          loadingErrorStorageKey,
-          '["first error","second error","third error"]'
-        )
-      })
-      .its("sessionStorage")
-      .invoke("getItem", loadingErrorStorageKey)
-      .should("not.be.null")
+    cy.wrap(SessionStorage).invoke("set", loadingErrorStorageKey, [
+      "first error",
+      "second error",
+      "third error",
+    ])
 
     mount(ErrorDashboardLogging)
 
@@ -59,7 +55,7 @@ describe("ErrorDashboardLogging", () => {
       .its("back")
       .should("not.have.been.called")
 
-    cy.tick(1000)
+    cy.tick(1100)
     cy.dataCy("countdown").should("not.contain.text", " 1 ")
     cy.get<RouterMock>("@router-mock")
       .its("back")
