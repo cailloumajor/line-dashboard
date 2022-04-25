@@ -1,5 +1,4 @@
 import { mount } from "@cypress/vue"
-import { createTestingPinia } from "@pinia/testing"
 import { mande } from "mande"
 import { Response } from "miragejs"
 import { SessionStorage } from "quasar"
@@ -45,11 +44,7 @@ describe("LineInterfaceLayout", () => {
   })
 
   it("gets its title from the common line interface config store", () => {
-    mount(LineInterfaceLayout, {
-      global: {
-        plugins: [createTestingPinia({ createSpy: Cypress.sinon.spy })],
-      },
-    })
+    mount(LineInterfaceLayout)
 
     cy.dataCy("layout-title").as("title")
 
