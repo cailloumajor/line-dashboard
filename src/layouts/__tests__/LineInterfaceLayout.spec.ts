@@ -94,7 +94,7 @@ describe("LineInterfaceLayout", () => {
     })
 
     it("on fetch error", () => {
-      cy.get("@api-server").invoke("get", "/testurl", () => new Response(418))
+      cy.get("@api-server").invoke("get", "/testurl", () => new Response(500))
 
       mountWithSetupChild(async () => {
         await mande("/testurl").get("")
@@ -104,7 +104,8 @@ describe("LineInterfaceLayout", () => {
         .should("have.length", 1)
         .its(0)
         .should("include", "/testurl")
-        .and("include", "418")
+        .and("include", "500")
+        .and("include", "Internal Server Error")
     })
 
     it("on schema validation error", () => {
