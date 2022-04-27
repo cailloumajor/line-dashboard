@@ -31,8 +31,6 @@ describe("LineDashboard", () => {
   beforeEach(() => {
     const server = makeServer()
     cy.wrap(server).as("api-server")
-    const store = useLineDashboardStore()
-    cy.wrap(store).as("store")
   })
 
   afterEach(() => {
@@ -41,6 +39,8 @@ describe("LineDashboard", () => {
 
   it("passes value and color from store to metrics", () => {
     mountComponent()
+
+    cy.wrap(useLineDashboardStore()).as("store")
 
     const checkValueAndColor = (
       selector: string,
@@ -98,7 +98,7 @@ describe("LineDashboard", () => {
 
     cy.dataCy("data-valid").as("data-valid").should("not.be.visible")
 
-    cy.get("@store").invoke("$patch", {
+    cy.wrap(useLineDashboardStore()).invoke("$patch", {
       centrifugoLinkStatus: LinkStatus.Up,
       opcUaLinkStatus: LinkStatus.Up,
     })
@@ -137,13 +137,10 @@ describe("LineDashboard", () => {
   })
 
   it("sets the title in the common line interface store", () => {
-    cy.wrap(useCommonLineInterfaceConfigStore())
-      .as("common-store")
-      .its("title")
-      .should("not.equal", "Test Title")
-
     mountComponent()
 
-    cy.get("@common-store").its("title").should("equal", "Test Title")
+    cy.wrap(useCommonLineInterfaceConfigStore())
+      .its("title")
+      .should("equal", "Test Title")
   })
 })
