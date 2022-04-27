@@ -38,6 +38,8 @@ import {
 
 import { i18n } from "src/boot/i18n"
 
+import type { TestingPinia } from "@pinia/testing"
+
 // You can modify the global config here for all tests or pass in the configuration per test
 // For example use the actual i18n instance or mock it
 config.global.plugins.push(i18n)
@@ -60,8 +62,19 @@ beforeEach(() => {
 config.plugins.VueWrapper.install(VueRouterMock)
 
 // Pinia
-const testingPinia = createTestingPinia({ createSpy: Cypress.sinon.spy })
-config.global.plugins.push(testingPinia)
+let testingPinia: TestingPinia
+beforeEach(() => {
+  testingPinia = createTestingPinia({
+    createSpy: Cypress.sinon.spy,
+    fakeApp: true,
+  })
+  config.global.plugins.push(testingPinia)
+})
+afterEach(() => {
+  config.global.plugins = config.global.plugins.filter(
+    (plugin) => plugin !== testingPinia
+  )
+})
 
 config.global.mocks = {
   // $t: () => "",
