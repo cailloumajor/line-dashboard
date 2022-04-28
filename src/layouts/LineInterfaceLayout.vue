@@ -15,7 +15,10 @@
     </q-page-container>
 
     <q-footer elevated class="bg-grey-10 text-white">
-      <q-toolbar></q-toolbar>
+      <q-toolbar>
+        <q-space />
+        <router-view name="statuses" />
+      </q-toolbar>
     </q-footer>
   </q-layout>
 </template>

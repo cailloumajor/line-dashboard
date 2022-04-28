@@ -15,8 +15,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: "line-dashboard/:id",
         name: "lineDashboard",
-        component: () => import("pages/LineDashboard.vue"),
-        props: true,
+        components: {
+          default: () => import("pages/LineDashboard.vue"),
+          statuses: () => import("components/DashboardStatuses.vue"),
+        },
+        props: {
+          default: true,
+          statuses: false,
+        },
       },
     ],
   },
