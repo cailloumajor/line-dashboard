@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@pinia/testing": "0.0.11",
-    "@quasar/extras": "1.13.5",
+    "@quasar/extras": "1.13.6",
     "@vueuse/core": "8.3.1",
     "locale-matcher": "2.0.0",
     "mande": "2.0.1",
