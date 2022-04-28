@@ -100,6 +100,7 @@ describe("LineDashboard", () => {
 
     cy.wrap(useLineDashboardStore()).invoke("$patch", {
       centrifugoLinkStatus: LinkStatus.Up,
+      opcUaProxyLinkStatus: LinkStatus.Up,
       opcUaLinkStatus: LinkStatus.Up,
     })
 

@@ -9,6 +9,7 @@ export const useLineDashboardStore = defineStore("line-dashboard", {
     cycleTime: 0,
     targetCycleTime: 0,
     centrifugoLinkStatus: LinkStatus.Unknown,
+    opcUaProxyLinkStatus: LinkStatus.Unknown,
     opcUaLinkStatus: LinkStatus.Unknown,
   }),
 
@@ -16,6 +17,7 @@ export const useLineDashboardStore = defineStore("line-dashboard", {
     cycleTimeRatio: (state) => state.cycleTime / state.targetCycleTime,
     dataValid: (state) =>
       state.centrifugoLinkStatus === LinkStatus.Up &&
+      state.opcUaProxyLinkStatus === LinkStatus.Up &&
       state.opcUaLinkStatus === LinkStatus.Up,
   },
 })
