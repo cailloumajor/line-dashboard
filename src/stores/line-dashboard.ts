@@ -25,7 +25,8 @@ export const useLineDashboardStore = defineStore("line-dashboard", {
         ? state.opcUaProxyLinkStatus
         : LinkStatus.Unknown,
     opcUaStatus: (state) =>
-      state.centrifugoLinkStatus === LinkStatus.Up
+      state.centrifugoLinkStatus === LinkStatus.Up &&
+      state.opcUaProxyLinkStatus === LinkStatus.Up
         ? state.opcUaLinkStatus
         : LinkStatus.Unknown,
   },
