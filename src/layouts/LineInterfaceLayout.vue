@@ -17,7 +17,15 @@
     <q-footer elevated class="bg-grey-10 text-white">
       <q-toolbar>
         <q-space />
-        <router-view name="statuses" />
+        <span
+          v-for="(status, index) in statuses"
+          :key="`status-${index}`"
+          :data-cy="`status-${index}`"
+          class="q-ml-md"
+        >
+          <q-icon :name="status.icon" :color="status.color" size="sm" />
+          {{ status.text }}
+        </span>
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -26,11 +34,14 @@
 <script setup lang="ts">
 import { useQuasar } from "quasar"
 import { onErrorCaptured } from "vue"
+import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { ZodError } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
+import { LinkStatus } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
+import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import type { MandeError } from "mande"
 
@@ -41,8 +52,30 @@ const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 })
+const statusStore = useFieldDataLinkStatusStore()
 
 $q.dark.set(true)
+
+const statuses = computed(() => {
+  const graphical = (status: LinkStatus) => ({
+    color: {
+      [LinkStatus.Unknown]: "warning",
+      [LinkStatus.Down]: "negative",
+      [LinkStatus.Up]: "positive",
+    }[status],
+    icon: {
+      [LinkStatus.Unknown]: "question_mark",
+      [LinkStatus.Down]: "link_off",
+      [LinkStatus.Up]: "swap_horiz",
+    }[status],
+  })
+
+  return [
+    { text: "Centrifugo", ...graphical(statusStore.centrifugoStatus) },
+    { text: "OPC-UA proxy", ...graphical(statusStore.opcUaProxyStatus) },
+    { text: "OPC-UA", ...graphical(statusStore.opcUaStatus) },
+  ]
+})
 
 onErrorCaptured((err) => {
   const isMandeError = (err: Error): err is MandeError => {

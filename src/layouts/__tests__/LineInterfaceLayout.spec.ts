@@ -6,8 +6,52 @@ import { z } from "zod"
 import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
+import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import LineInterfaceLayout from "../LineInterfaceLayout.vue"
+
+const checkIcons = (expStatuses: number[]) => {
+  for (const [index, expStatus] of expStatuses.entries()) {
+    const expClass = ["text-warning", "text-negative", "text-positive"][
+      expStatus
+    ]
+    const expText = ["question_mark", "link_off", "swap_horiz"][expStatus]
+    cy.dataCy(`status-${index}`)
+      .find(".q-icon")
+      .should("have.class", expClass)
+      .and("have.text", expText)
+  }
+}
+
+const statusCases = [
+  [0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 0, 0, 0],
+  [0, 0, 2, 0, 0, 0],
+  [0, 1, 0, 0, 0, 0],
+  [0, 1, 1, 0, 0, 0],
+  [0, 1, 2, 0, 0, 0],
+  [0, 2, 0, 0, 0, 0],
+  [0, 2, 1, 0, 0, 0],
+  [0, 2, 2, 0, 0, 0],
+  [1, 0, 0, 1, 0, 0],
+  [1, 0, 1, 1, 0, 0],
+  [1, 0, 2, 1, 0, 0],
+  [1, 1, 0, 1, 0, 0],
+  [1, 1, 1, 1, 0, 0],
+  [1, 1, 2, 1, 0, 0],
+  [1, 2, 0, 1, 0, 0],
+  [1, 2, 1, 1, 0, 0],
+  [1, 2, 2, 1, 0, 0],
+  [2, 0, 0, 2, 0, 0],
+  [2, 0, 1, 2, 0, 0],
+  [2, 0, 2, 2, 0, 0],
+  [2, 1, 0, 2, 1, 0],
+  [2, 1, 1, 2, 1, 0],
+  [2, 1, 2, 2, 1, 0],
+  [2, 2, 0, 2, 2, 0],
+  [2, 2, 1, 2, 2, 1],
+  [2, 2, 2, 2, 2, 2],
+]
 
 const mountWithSetupChild = (setup: () => Promise<void>) =>
   mount(LineInterfaceLayout, {
@@ -61,6 +105,31 @@ describe("LineInterfaceLayout", () => {
 
     cy.dataCy("child").should("be.visible")
     cy.get(".q-loading").should("not.exist")
+  })
+
+  describe("status icons", () => {
+    for (const tc of statusCases) {
+      const [
+        centrifugoLinkStatus,
+        opcUaProxyLinkStatus,
+        opcUaLinkStatus,
+        ...expStatuses
+      ] = tc
+
+      it("displays statuses according to link states", () => {
+        mount(LineInterfaceLayout)
+
+        cy.wrap(useFieldDataLinkStatusStore()).as("store")
+
+        cy.get("@store").invoke("$patch", {
+          centrifugoLinkStatus,
+          opcUaProxyLinkStatus,
+          opcUaLinkStatus,
+        })
+
+        checkIcons(expStatuses)
+      })
+    }
   })
 
   describe("redirects to error page", () => {

@@ -2,12 +2,14 @@ import { mount } from "@cypress/vue"
 
 import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
+import fieldDataComposable from "composables/field-data"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus, lineDashboardConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useLineDashboardStore } from "src/stores/line-dashboard"
+import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
+import type { FieldData } from "composables/field-data"
 import type { Server } from "miragejs"
 
 const mountComponent = ({ id = "_" } = {}) => {
@@ -31,54 +33,15 @@ describe("LineDashboard", () => {
   beforeEach(() => {
     const server = makeServer()
     cy.wrap(server).as("api-server")
+    const fieldDataLinkBoot = cy.stub()
+    cy.wrap(fieldDataLinkBoot).as("field-data-link-boot-stub")
+    cy.stub(fieldDataComposable, "useFieldDataLinkBoot").returns({
+      fieldDataLinkBoot,
+    })
   })
 
   afterEach(() => {
     cy.get("@api-server").invoke("shutdown")
-  })
-
-  it("passes value and color from store to metrics", () => {
-    mountComponent()
-
-    cy.wrap(useLineDashboardStore()).as("store")
-
-    const checkValueAndColor = (
-      selector: string,
-      expVal: string,
-      expColor: string
-    ) => {
-      cy.dataCy(selector).as("target")
-      cy.get("@target").dataCy("value").should("have.text", expVal)
-      cy.get("@target").dataCy("color").should("have.text", expColor)
-    }
-
-    checkValueAndColor("metric-0", "0", "")
-    checkValueAndColor("metric-1", "0", "negative")
-    checkValueAndColor("metric-2", "0", "")
-    checkValueAndColor("metric-3", "0", "positive")
-    checkValueAndColor("metric-4", "0", "")
-
-    cy.get("@store").invoke("$patch", {
-      cycleTime: 90,
-      targetCycleTime: 100,
-    })
-    checkValueAndColor("metric-1", "90", "positive")
-    checkValueAndColor("metric-2", "100", "")
-
-    cy.get("@store").invoke("$patch", {
-      goodParts: 1,
-      scrapParts: 1,
-      cycleTime: 105,
-    })
-    checkValueAndColor("metric-0", "1", "")
-    checkValueAndColor("metric-1", "105", "warning")
-    checkValueAndColor("metric-3", "1", "negative")
-    checkValueAndColor("metric-4", "0", "")
-
-    cy.get("@store").invoke("$patch", {
-      cycleTime: 110,
-    })
-    checkValueAndColor("metric-1", "110", "negative")
   })
 
   it("passes window height to metrics components", () => {
@@ -98,7 +61,7 @@ describe("LineDashboard", () => {
 
     cy.dataCy("data-valid").as("data-valid").should("not.be.visible")
 
-    cy.wrap(useLineDashboardStore()).invoke("$patch", {
+    cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
       centrifugoLinkStatus: LinkStatus.Up,
       opcUaProxyLinkStatus: LinkStatus.Up,
       opcUaLinkStatus: LinkStatus.Up,
@@ -143,5 +106,22 @@ describe("LineDashboard", () => {
     cy.wrap(useCommonLineInterfaceConfigStore())
       .its("title")
       .should("equal", "Test Title")
+  })
+
+  it("passes reactive field data to field data bootstrap", () => {
+    cy.get("@field-data-link-boot-stub").invoke(
+      "callsFake",
+      (fieldData: FieldData) => {
+        fieldData.value.goodParts = 1564
+        fieldData.value.scrapParts = 846
+        fieldData.value.cycleTime = 105
+      }
+    )
+
+    mountComponent()
+
+    cy.dataCy("metric-0").dataCy("value").should("have.text", 1564)
+    cy.dataCy("metric-1").dataCy("value").should("have.text", 105)
+    cy.dataCy("metric-3").dataCy("value").should("have.text", 846)
   })
 })

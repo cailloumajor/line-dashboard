@@ -5,7 +5,7 @@
       :key="`metric-${index}`"
       :value="metric.value"
       :color="metric.color"
-      :data-valid="store.dataValid"
+      :data-valid="fieldDataLinkStatusStore.dataValid"
       :page-height="pageHeight"
       :data-cy="`metric-${index}`"
     >
@@ -21,14 +21,15 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core"
 import { mande } from "mande"
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
+import fieldDataComposable from "composables/field-data"
 import { lineDashboardConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useLineDashboardStore } from "src/stores/line-dashboard"
+import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 interface Metric {
   iconName: string
@@ -46,36 +47,49 @@ const { t } = useI18n({
   inheritLocale: true,
 })
 const commonStore = useCommonLineInterfaceConfigStore()
-const store = useLineDashboardStore()
+const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
+const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
 const { height: pageHeight } = useWindowSize()
+
+const fieldData = ref({
+  goodParts: 0,
+  scrapParts: 0,
+  cycleTime: 0,
+})
+
+const targetCycleTime = ref(0)
+
+const cycleTimeRatio = computed(
+  () => fieldData.value.cycleTime / targetCycleTime.value
+)
 
 const metrics = computed<Metric[]>(() => [
   {
     iconName: "done_outline",
     title: t("goodParts"),
-    value: store.goodParts,
+    value: fieldData.value.goodParts,
   },
   {
     iconName: "timer",
     title: t("cycleTime"),
-    value: store.cycleTime,
+    value: fieldData.value.cycleTime,
     color:
-      store.cycleTimeRatio >= 1.1 || store.cycleTime <= 0
+      cycleTimeRatio.value >= 1.1 || fieldData.value.cycleTime <= 0
         ? "negative"
-        : store.cycleTimeRatio >= 1.05
+        : cycleTimeRatio.value >= 1.05
         ? "warning"
         : "positive",
   },
   {
     iconName: "track_changes",
     title: t("targetCycleTime"),
-    value: store.targetCycleTime,
+    value: targetCycleTime.value,
   },
   {
     iconName: "delete_outline",
     title: t("scrapParts"),
-    value: store.scrapParts,
-    color: store.scrapParts > 0 ? "negative" : "positive",
+    value: fieldData.value.scrapParts,
+    color: fieldData.value.scrapParts > 0 ? "negative" : "positive",
   },
   {
     iconName: "speed",
@@ -87,6 +101,8 @@ const metrics = computed<Metric[]>(() => [
 const resp = await mande(lineDashboardConfigApi).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
+
+fieldDataLinkBoot(fieldData)
 </script>
 
 <style module lang="scss">
