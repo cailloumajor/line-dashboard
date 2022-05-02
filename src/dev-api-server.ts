@@ -11,6 +11,7 @@ export function makeServer({ environment = "test" } = {}) {
     routes() {
       this.get(`${lineDashboardConfigApi}/:id`, () => ({
         title: "Test Title",
+        opcUaNsURI: "urn:test",
       }))
     },
   })
