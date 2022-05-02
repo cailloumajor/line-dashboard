@@ -1,16 +1,13 @@
 import { mount } from "@cypress/vue"
 import { mande } from "mande"
 import { Response } from "miragejs"
-import { SessionStorage } from "quasar"
 import { z } from "zod"
 
+import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
-import { loadingErrorStorageKey } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 
 import LineInterfaceLayout from "../LineInterfaceLayout.vue"
-
-import type { RouterMock } from "vue-router-mock"
 
 const mountWithSetupChild = (setup: () => Promise<void>) =>
   mount(LineInterfaceLayout, {
@@ -23,18 +20,6 @@ const mountWithSetupChild = (setup: () => Promise<void>) =>
       },
     },
   })
-
-const checkErrorRedirect = () => {
-  cy.get<RouterMock>("@router-mock")
-    .its("push")
-    .should(
-      "have.been.calledOnceWith",
-      Cypress.sinon.match({ name: "loadingError", query: { autoback: 30 } })
-    )
-  return cy
-    .wrap(SessionStorage)
-    .invoke("getItem", loadingErrorStorageKey) as Cypress.Chainable<string[]>
-}
 
 describe("LineInterfaceLayout", () => {
   it("sets dark mode on", () => {
@@ -82,6 +67,11 @@ describe("LineInterfaceLayout", () => {
     beforeEach(() => {
       const server = makeServer()
       cy.wrap(server).as("api-server")
+      const errorRedirectStub = cy.stub()
+      cy.wrap(errorRedirectStub).as("error-redirect-stub")
+      cy.stub(errorRedirectComposable, "useErrorRedirect").returns({
+        errorRedirect: errorRedirectStub,
+      })
     })
 
     afterEach(() => {
@@ -95,12 +85,12 @@ describe("LineInterfaceLayout", () => {
         await mande("/testurl").get("")
       })
 
-      checkErrorRedirect()
-        .should("have.length", 1)
-        .its(0)
-        .should("include", "/testurl")
-        .and("include", "500")
-        .and("include", "Internal Server Error")
+      cy.get("@error-redirect-stub").should("have.been.calledOnceWith", [
+        Cypress.sinon
+          .match("/testurl")
+          .and(Cypress.sinon.match("500"))
+          .and(Cypress.sinon.match("Internal Server Error")),
+      ])
     })
 
     it("on schema validation error", () => {
@@ -120,14 +110,12 @@ describe("LineInterfaceLayout", () => {
         })
       })
 
-      checkErrorRedirect()
-        .should("have.length", 4)
-        .and((errors) => {
-          expect(errors[0]).to.contain("[Config Object].title:")
-          expect(errors[1]).to.contain("[Config Object].params.first:")
-          expect(errors[2]).to.contain("[Config Object].params.second:")
-          expect(errors[3]).to.contain("[Config Object].list[1]:")
-        })
+      cy.get("@error-redirect-stub").should("have.been.calledOnceWith", [
+        Cypress.sinon.match("[Config Object].title:"),
+        Cypress.sinon.match("[Config Object].params.first:"),
+        Cypress.sinon.match("[Config Object].params.second:"),
+        Cypress.sinon.match("[Config Object].list[1]:"),
+      ])
     })
   })
 })

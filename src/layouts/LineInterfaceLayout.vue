@@ -27,21 +27,20 @@
 import { useQuasar } from "quasar"
 import { onErrorCaptured } from "vue"
 import { useI18n } from "vue-i18n"
-import { useRouter } from "vue-router"
 import { ZodError } from "zod"
 
-import { loadingErrorStorageKey } from "src/global"
+import errorRedirectComposable from "composables/error-redirect"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 
 import type { MandeError } from "mande"
 
 const $q = useQuasar()
 const configStore = useCommonLineInterfaceConfigStore()
+const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
 const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 })
-const router = useRouter()
 
 $q.dark.set(true)
 
@@ -74,8 +73,7 @@ onErrorCaptured((err) => {
     throw err
   }
 
-  $q.sessionStorage.set(loadingErrorStorageKey, errors)
-  router.push({ name: "loadingError", query: { autoback: 30 } })
+  errorRedirect(errors)
 
   return false
 })
