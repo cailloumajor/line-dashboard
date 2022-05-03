@@ -31,7 +31,7 @@
 		"dbaeumer.vscode-eslint",
 		"editorconfig.editorconfig",
 		"esbenp.prettier-vscode",
-		"johnsoncodehk.volar",
+		"vue.volar",
 		"wayou.vscode-todo-highlight"
 	],
 
