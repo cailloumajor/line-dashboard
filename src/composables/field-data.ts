@@ -15,17 +15,10 @@ import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
-import type { PublicationContext } from "centrifuge"
+import type { PublicationContext, SubscribeErrorContext } from "centrifuge"
 import type { Observable } from "rxjs"
 
 export type FieldData = Record<string, unknown>
-
-interface SubscribeErrorContext {
-  code: number
-  message: string
-  channel: string
-  isResubscribe: boolean
-}
 
 interface DataChangePublication extends PublicationContext {
   data: Record<string, unknown>
