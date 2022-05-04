@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { useWindowSize } from "@vueuse/core"
 import { mande } from "mande"
-import { computed, ref } from "vue"
+import { computed, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
@@ -51,7 +51,7 @@ const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
 const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
 const { height: pageHeight } = useWindowSize()
 
-const fieldData = ref({
+const fieldData = reactive({
   goodParts: 0,
   scrapParts: 0,
   cycleTime: 0,
@@ -59,50 +59,50 @@ const fieldData = ref({
 
 const targetCycleTime = ref(0)
 
-const cycleTimeRatio = computed(
-  () => fieldData.value.cycleTime / targetCycleTime.value
-)
+const metrics = computed<Metric[]>(() => {
+  const cycleTimeRatio = fieldData.cycleTime / targetCycleTime.value
 
-const metrics = computed<Metric[]>(() => [
-  {
-    iconName: "done_outline",
-    title: t("goodParts"),
-    value: fieldData.value.goodParts,
-  },
-  {
-    iconName: "timer",
-    title: t("cycleTime"),
-    value: fieldData.value.cycleTime,
-    color:
-      cycleTimeRatio.value >= 1.1 || fieldData.value.cycleTime <= 0
-        ? "negative"
-        : cycleTimeRatio.value >= 1.05
-        ? "warning"
-        : "positive",
-  },
-  {
-    iconName: "track_changes",
-    title: t("targetCycleTime"),
-    value: targetCycleTime.value,
-  },
-  {
-    iconName: "delete_outline",
-    title: t("scrapParts"),
-    value: fieldData.value.scrapParts,
-    color: fieldData.value.scrapParts > 0 ? "negative" : "positive",
-  },
-  {
-    iconName: "speed",
-    title: t("oee"),
-    value: 0,
-  },
-])
+  return [
+    {
+      iconName: "done_outline",
+      title: t("goodParts"),
+      value: fieldData.goodParts,
+    },
+    {
+      iconName: "timer",
+      title: t("cycleTime"),
+      value: fieldData.cycleTime,
+      color:
+        cycleTimeRatio >= 1.1 || fieldData.cycleTime <= 0
+          ? "negative"
+          : cycleTimeRatio >= 1.05
+          ? "warning"
+          : "positive",
+    },
+    {
+      iconName: "track_changes",
+      title: t("targetCycleTime"),
+      value: targetCycleTime.value,
+    },
+    {
+      iconName: "delete_outline",
+      title: t("scrapParts"),
+      value: fieldData.scrapParts,
+      color: fieldData.scrapParts > 0 ? "negative" : "positive",
+    },
+    {
+      iconName: "speed",
+      title: t("oee"),
+      value: 0,
+    },
+  ]
+})
 
 const resp = await mande(lineDashboardConfigApi).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
-fieldDataLinkBoot(fieldData)
+fieldDataLinkBoot(fieldData, props.id, config.opcUaNsURI)
 </script>
 
 <style module lang="scss">

@@ -112,9 +112,9 @@ describe("LineDashboard", () => {
     cy.get("@field-data-link-boot-stub").invoke(
       "callsFake",
       (fieldData: FieldData) => {
-        fieldData.value.goodParts = 1564
-        fieldData.value.scrapParts = 846
-        fieldData.value.cycleTime = 105
+        fieldData.goodParts = 1564
+        fieldData.scrapParts = 846
+        fieldData.cycleTime = 105
       }
     )
 
