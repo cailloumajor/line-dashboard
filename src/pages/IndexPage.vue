@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <q-page class="row items-center justify-evenly">
     <example-component
       title="Example component"

@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <div>
     <p>{{ title }}</p>
     <ul>

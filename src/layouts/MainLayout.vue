@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
