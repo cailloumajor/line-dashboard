@@ -98,6 +98,15 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       // https: true
       open: false, // opens browser window automatically
+      proxy: {
+        "/centrifugo": {
+          rewrite: (path) => path.replace(/^\/centrifugo/, ""),
+          target: process.env.CI
+            ? "ws://localhost:8000"
+            : "ws://centrifugo:8000",
+          ws: true,
+        },
+      },
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

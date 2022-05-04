@@ -22,6 +22,8 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
     await injectDevServer(on, config)
   }
 
+  config.env.CI = process.env.CI
+
   return config
 }
 

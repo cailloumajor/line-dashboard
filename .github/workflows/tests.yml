@@ -25,6 +25,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
+    services:
+      centrifugo:
+        image: centrifugo/centrifugo:v3.1.1
+        env:
+          CENTRIFUGO_TOKEN_HMAC_SECRET_KEY: dfa244ee-587f-43f9-adc5-b727a081d5de
+          CENTRIFUGO_API_KEY: dc1e276a-9eb5-4950-a8bc-c13fe848154a
+          CENTRIFUGO_ALLOWED_ORIGINS: "*"
+          CENTRIFUGO_CLIENT_ANONYMOUS: "true"
+          CENTRIFUGO_NAMESPACES: '[{"name":"e2e-tests","anonymous":true}]'
+        ports:
+          - 8000:8000
     steps:
       - uses: actions/checkout@v3
       - name: Get Node version from Dockerfile
@@ -52,7 +63,6 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_TRASH_ASSETS_BEFORE_RUNS: false
-          CYPRESS_VIDEO: false
         with:
           command: yarn test:e2e:ci
           install: false
