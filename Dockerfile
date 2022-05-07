@@ -1,1 +1,1 @@
-FROM node:16.15.0-bullseye AS frontend-builder
+FROM node:18.1.0-bullseye AS frontend-builder
