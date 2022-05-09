@@ -4,18 +4,18 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "home",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+    component: () => import("../layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("../pages/IndexPage.vue") }],
   },
 
   {
     path: "/",
-    component: () => import("layouts/LineInterfaceLayout.vue"),
+    component: () => import("../layouts/LineInterfaceLayout.vue"),
     children: [
       {
         path: "line-dashboard/:id",
         name: "lineDashboard",
-        component: () => import("pages/LineDashboard.vue"),
+        component: () => import("../pages/LineDashboard.vue"),
         props: true,
       },
     ],
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/loading-error",
     name: "loadingError",
-    component: () => import("pages/ErrorDashboardLoading.vue"),
+    component: () => import("../pages/ErrorDashboardLoading.vue"),
     props: (route) => {
       const n = Number(route.query.autoback)
       const autoback = Number.isInteger(n) && n > 0 ? n : undefined
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/:catchAll(.*)*",
     name: "notFound",
-    component: () => import("pages/ErrorNotFound.vue"),
+    component: () => import("../pages/ErrorNotFound.vue"),
   },
 ]
 
