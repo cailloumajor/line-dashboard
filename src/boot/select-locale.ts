@@ -5,8 +5,10 @@ import { boot } from "quasar/wrappers"
 
 import { i18n } from "boot/i18n"
 
-export default boot(() => {
-  const setLocale = () => {
+const langPacks = import.meta.glob("../../node_modules/quasar/lang/*.mjs")
+
+export default boot(async () => {
+  const setLocale = async () => {
     const { languages } = navigator
     if (!Array.isArray(languages)) return
 
@@ -15,12 +17,15 @@ export default boot(() => {
       langPacksIndex.map((lang) => lang.isoName)
     )
     if (quasarLocale !== undefined) {
-      const langPacks = import.meta.glob("../../node_modules/quasar/lang/*.mjs")
-      langPacks[`../../node_modules/quasar/lang/${quasarLocale}.mjs`]().then(
-        (langPkg) => {
-          Quasar.lang.set(langPkg.default)
-        }
-      )
+      try {
+        const langPkg = await langPacks[
+          `../../node_modules/quasar/lang/${quasarLocale}.mjs`
+        ]()
+        Quasar.lang.set(langPkg.default)
+      } catch (err) {
+        // Requested Quasar Language Pack does not exist,
+        // let's not break the app, so catching error
+      }
     }
 
     const vueI18nLocale = pickLocale(languages, i18n.global.availableLocales)
@@ -29,6 +34,6 @@ export default boot(() => {
     }
   }
 
-  setLocale()
+  await setLocale()
   window.addEventListener("languagechange", setLocale)
 })
