@@ -7,9 +7,6 @@ import DashboardMetric from "../DashboardMetric.vue"
 
 const { getPaletteColor } = colors
 
-const fontSize = (elem: JQuery) =>
-  parseInt(elem.css("font-size").replace(/px$/, ""))
-
 describe("DashboardMetric", () => {
   it("shows fallback title if slot is not provided", () => {
     mount(DashboardMetric, {
