@@ -1,7 +1,7 @@
 <template>
   <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <textarea v-model="errors" data-cy="errors-input" rows="3" />
-  <div><button @click="action" data-cy="action-button">REDIRECT</button></div>
+  <div><button data-cy="action-button" @click="action">REDIRECT</button></div>
 </template>
 
 <script setup lang="ts">

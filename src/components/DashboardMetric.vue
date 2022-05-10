@@ -1,5 +1,5 @@
 <template>
-  <q-card :class="$style.card" class="text-center" ref="card">
+  <q-card ref="card" :class="$style.card" class="text-center">
     <q-card-section :style="titleStyle" class="q-pa-none">
       <div class="text-weight-bold" data-cy="metric-title-content">
         <slot>???</slot>
