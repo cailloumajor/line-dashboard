@@ -12,6 +12,12 @@ import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 import type { FieldData } from "composables/field-data"
 import type { Server } from "miragejs"
 
+const checkFontSize = (selector: string, expSize: number, delta: number) => {
+  cy.get(selector).should(($el) => {
+    expect(parseFloat($el.css("font-size"))).to.be.closeTo(expSize, delta)
+  })
+}
+
 const mountComponent = ({ id = "_" } = {}) => {
   mount(LineDashboardWrapper, {
     props: {
@@ -44,16 +50,16 @@ describe("LineDashboard", () => {
     cy.get("@api-server").invoke("shutdown")
   })
 
-  it("passes window height to metrics components", () => {
+  it("sets the font size on metrics", () => {
     mountComponent()
 
-    cy.dataCy("page-height")
-      .as("page-height")
-      .should("contain", Cypress.config("viewportHeight"))
+    checkFontSize(".metric-title", 22, 1)
+    checkFontSize(".metric-value", 93, 2)
 
     cy.viewport(Cypress.config("viewportWidth"), 543)
 
-    cy.get("@page-height").should("contain", 543)
+    checkFontSize(".metric-title", 17, 1)
+    checkFontSize(".metric-value", 70, 2)
   })
 
   it("passes data valid status to metrics components", () => {

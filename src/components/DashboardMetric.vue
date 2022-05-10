@@ -1,13 +1,12 @@
 <template>
-  <q-card ref="card" :class="$style.card" class="text-center">
-    <q-card-section :style="titleStyle" class="q-pa-none">
-      <div class="text-weight-bold" data-cy="metric-title-content">
+  <q-card :class="$style.card" class="text-center">
+    <q-card-section class="q-pa-none">
+      <div class="metric-title text-weight-bold" data-cy="metric-title-content">
         <slot>???</slot>
       </div>
     </q-card-section>
     <q-card-section
-      :style="valueStyle"
-      class="q-pa-none"
+      class="metric-value q-pa-none"
       data-cy="metric-value-section"
     >
       <div
@@ -28,43 +27,11 @@
 </template>
 
 <script setup lang="ts">
-import { watchDebounced } from "@vueuse/core"
-import { reactive, ref } from "vue"
-
-import type { QCard } from "quasar"
-import type { CSSProperties } from "vue"
-
-const props = defineProps<{
+defineProps<{
   value: number
   color?: string
   dataValid: boolean
-  pageHeight?: number
 }>()
-
-const card = ref<InstanceType<typeof QCard> | null>(null)
-
-const titleStyle = reactive<CSSProperties>({})
-const valueStyle = reactive<CSSProperties>({})
-
-watchDebounced(
-  () => props.pageHeight,
-  async (newHeight) => {
-    if (newHeight === undefined || card.value === null) return
-    titleStyle.fontSize = "1px"
-    valueStyle.fontSize = "1px"
-    await new Promise((resolve) => {
-      setTimeout(resolve, 200)
-    })
-    const cardElem = card.value.$el as HTMLDivElement
-    const { height } = cardElem.getBoundingClientRect()
-    const { paddingTop, paddingBottom } = window.getComputedStyle(cardElem)
-    const cardHeight =
-      height - parseFloat(paddingTop) - parseFloat(paddingBottom)
-    titleStyle.fontSize = `${cardHeight * 0.19}px`
-    valueStyle.fontSize = `${cardHeight * 0.79}px`
-  },
-  { debounce: 500, immediate: true }
-)
 </script>
 
 <style module lang="scss">

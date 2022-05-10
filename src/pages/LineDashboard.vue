@@ -1,12 +1,11 @@
 <template>
-  <q-page :class="$style.page">
+  <q-page ref="pageElem" :class="$style.page">
     <dashboard-metric
       v-for="(metric, index) in metrics"
       :key="`metric-${index}`"
       :value="metric.value"
       :color="metric.color"
       :data-valid="fieldDataLinkStatusStore.dataValid"
-      :page-height="pageHeight"
       :data-cy="`metric-${index}`"
     >
       <q-icon :name="metric.iconName" :class="$style.iconStyle" />
@@ -31,6 +30,8 @@ import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
+import type { QPage } from "quasar"
+
 interface Metric {
   iconName: string
   title: string
@@ -49,7 +50,31 @@ const { t } = useI18n({
 const commonStore = useCommonLineInterfaceConfigStore()
 const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
 const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
-const { height: pageHeight } = useWindowSize()
+const { height: windowHeight } = useWindowSize()
+
+const pageElem = ref<InstanceType<typeof QPage> | null>(null)
+
+const cardHeight = computed(() => {
+  if (pageElem.value === null) return 0
+  const { paddingTop, paddingBottom, rowGap } = window.getComputedStyle(
+    pageElem.value.$el
+  )
+  const topBarHeight = 50
+  const bottomBarHeight = 30
+  return Math.max(
+    (windowHeight.value -
+      topBarHeight -
+      bottomBarHeight -
+      parseFloat(paddingTop) -
+      3 * parseFloat(rowGap) -
+      parseFloat(paddingBottom)) /
+      4,
+    60
+  )
+})
+
+const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
+const metricValueFontHeight = computed(() => `${cardHeight.value * 0.775}px`)
 
 const fieldData = reactive({
   goodParts: 0,
@@ -131,5 +156,15 @@ $grid-gap: 2vmax 7vmax;
   font-size: 10vh;
   margin-top: auto;
   margin-bottom: auto;
+}
+</style>
+
+<style scoped lang="scss">
+:deep(.metric-title) {
+  font-size: v-bind(metricTitleFontHeight);
+}
+
+:deep(.metric-value) {
+  font-size: v-bind(metricValueFontHeight);
 }
 </style>

@@ -81,40 +81,6 @@ describe("DashboardMetric", () => {
       })
   })
 
-  it("sets font size when page height prop changes", () => {
-    const pageHeight = ref(0)
-
-    mount(DashboardMetric, {
-      props: {
-        value: 42,
-        dataValid: true,
-        pageHeight,
-      },
-    })
-
-    cy.get(".q-card").then((elem) => {
-      elem.height(100)
-    })
-
-    cy.dataCy("metric-title-content").should((elem) => {
-      expect(fontSize(elem)).not.to.be.closeTo(20, 2)
-    })
-    cy.dataCy("metric-value-text").should((elem) => {
-      expect(fontSize(elem)).not.to.be.closeTo(80, 2)
-    })
-
-    cy.wrap(pageHeight).then((ref) => {
-      ref.value = 1
-    })
-
-    cy.dataCy("metric-title-content").should((elem) => {
-      expect(fontSize(elem)).to.be.closeTo(20, 2)
-    })
-    cy.dataCy("metric-value-text").should((elem) => {
-      expect(fontSize(elem)).to.be.closeTo(80, 2)
-    })
-  })
-
   it("displays a skeleton while data is not valid", () => {
     const dataValid = ref(false)
 
