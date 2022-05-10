@@ -7,6 +7,7 @@
       :color="metric.color"
       :data-valid="fieldDataLinkStatusStore.dataValid"
       :data-cy="`metric-${index}`"
+      :style="{ height: cardHeight * 0.95 + 'px' }"
     >
       <q-icon :name="metric.iconName" :class="$style.iconStyle" />
       {{ metric.title }}
@@ -131,7 +132,7 @@ fieldDataLinkBoot(fieldData, props.id, config.opcUaNsURI)
 </script>
 
 <style module lang="scss">
-$grid-gap: 2vmax 7vmax;
+$grid-gap: 5vh 7vw;
 
 .page {
   display: grid;
