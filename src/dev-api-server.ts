@@ -2,7 +2,12 @@ import { createServer } from "miragejs"
 
 import { lineDashboardConfigApi } from "src/global"
 
-export function makeServer({ environment = "test" } = {}) {
+import type { Router } from "vue-router"
+
+export function makeServer({
+  environment = "test",
+  router,
+}: { environment?: string; router?: Router } = {}) {
   return createServer({
     environment,
 
@@ -12,6 +17,7 @@ export function makeServer({ environment = "test" } = {}) {
       this.get(`${lineDashboardConfigApi}/:id`, () => ({
         title: "Test Title",
         opcUaNsURI: "urn:test",
+        ...router?.currentRoute.value.query,
       }))
     },
   })
