@@ -1,12 +1,12 @@
 <template>
   <q-card :class="$style.card" class="text-center">
-    <q-card-section class="q-pa-none">
+    <q-card-section class="no-padding">
       <div class="metric-title text-weight-bold" data-cy="metric-title-content">
         <slot>???</slot>
       </div>
     </q-card-section>
     <q-card-section
-      class="metric-value q-pa-none"
+      class="metric-value no-padding"
       data-cy="metric-value-section"
     >
       <div
