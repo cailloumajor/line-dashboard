@@ -16,12 +16,7 @@
       >
         {{ value }}
       </div>
-      <q-skeleton
-        v-else
-        :class="$style.valueSkeleton"
-        type="text"
-        class="q-mx-auto"
-      ></q-skeleton>
+      <q-skeleton v-else type="text" class="q-mx-auto" width="1em"></q-skeleton>
     </q-card-section>
   </q-card>
 </template>
@@ -38,9 +33,5 @@ defineProps<{
 .card {
   padding: 1%;
   line-height: 1;
-}
-
-.valueSkeleton {
-  width: 1em;
 }
 </style>
