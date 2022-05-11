@@ -75,7 +75,7 @@ const cardHeight = computed(() => {
 })
 
 const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
-const metricValueFontHeight = computed(() => `${cardHeight.value * 0.775}px`)
+const metricValueFontHeight = computed(() => `${cardHeight.value * 0.76}px`)
 
 const fieldData = reactive({
   goodParts: 0,
