@@ -1,5 +1,5 @@
 import { mount } from "@cypress/vue"
-import Color from "color"
+import { ColorTranslator } from "colortranslator"
 import { colors } from "quasar"
 import { h, ref } from "vue"
 
@@ -49,7 +49,9 @@ describe("DashboardMetric", () => {
 
   it("renders the value with color according to prop", () => {
     const testColor = "negative"
-    const exp = Color(getPaletteColor(testColor))
+    const exp = new ColorTranslator(getPaletteColor(testColor))
+    const elColor = ($el: JQuery<HTMLElement>) =>
+      new ColorTranslator($el.css("color"))
 
     const color = ref<string>()
 
@@ -61,21 +63,19 @@ describe("DashboardMetric", () => {
       },
     })
 
-    cy.dataCy("metric-value-text")
-      .should("have.css", "color")
-      .and((colorString) => {
-        expect(Color(colorString).hexa()).to.not.equal(exp.hexa())
-      })
+    cy.dataCy("metric-value-text").should(($el) => {
+      expect($el).to.have.css("color")
+      expect(elColor($el).HEXA).to.not.equal(exp.HEXA)
+    })
 
     cy.wrap(color).then((ref) => {
       ref.value = testColor
     })
 
-    cy.dataCy("metric-value-text")
-      .should("have.css", "color")
-      .and((colorString) => {
-        expect(Color(colorString).hexa()).to.equal(exp.hexa())
-      })
+    cy.dataCy("metric-value-text").should(($el) => {
+      expect($el).to.have.css("color")
+      expect(elColor($el).HEXA).to.equal(exp.HEXA)
+    })
   })
 
   it("displays a skeleton while data is not valid", () => {
