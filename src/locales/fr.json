@@ -8,7 +8,7 @@
   "goodParts": "Pièces bonnes",
   "scrapParts": "Pièces mauvaises",
   "cycleTime": "Temps de cycle",
-  "targetCycleTime": "Temps de cycle standard",
+  "targetCycleTime": "Tps de cycle standard",
   "oee": "TRS",
   "fetchError": "requête vers {url}: erreur {status} ({statusText})"
 }

@@ -1,7 +1,7 @@
 <template>
   <q-card :class="$style.card" class="text-center">
     <q-card-section class="no-padding">
-      <div class="metric-title text-weight-bold" data-cy="metric-title-content">
+      <div class="metric-title text-uppercase" data-cy="metric-title-content">
         <slot>???</slot>
       </div>
     </q-card-section>
