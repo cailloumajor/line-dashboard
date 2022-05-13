@@ -8,6 +8,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+require("dotenv").config()
 const path = require("path")
 
 const { configure } = require("quasar/wrappers")
@@ -103,7 +104,7 @@ module.exports = configure(function (/* ctx */) {
           rewrite: (path) => path.replace(/^\/centrifugo/, ""),
           target: process.env.CI
             ? "ws://localhost:8000"
-            : "ws://centrifugo:8000",
+            : process.env.CENTRIFUGO_WS,
           ws: true,
         },
       },
