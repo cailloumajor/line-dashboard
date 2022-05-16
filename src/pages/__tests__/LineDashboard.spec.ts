@@ -53,12 +53,12 @@ describe("LineDashboard", () => {
     mountComponent()
 
     checkFontSize(".metric-title", 19, 1)
-    checkFontSize(".metric-value", 80, 2)
+    checkFontSize(".metric-value", 72, 2)
 
     cy.viewport(Cypress.config("viewportWidth"), 543)
 
     checkFontSize(".metric-title", 15, 1)
-    checkFontSize(".metric-value", 63, 2)
+    checkFontSize(".metric-value", 57, 2)
   })
 
   it("passes data valid status to metrics components", () => {
