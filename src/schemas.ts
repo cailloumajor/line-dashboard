@@ -6,6 +6,7 @@ export const commonLineInterfaceConfigSchema = z.object({
 
 export const lineDashboardConfigSchema = commonLineInterfaceConfigSchema.extend(
   {
+    centrifugoNamespace: z.string(),
     opcUaNsURI: z.string(),
   }
 )

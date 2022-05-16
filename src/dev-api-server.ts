@@ -11,8 +11,9 @@ export function makeServer({ environment = "test" } = {}) {
     trackRequests: environment === "test",
 
     routes() {
-      this.get(`${lineDashboardConfigApi}/:id`, () => ({
+      this.get(`${lineDashboardConfigApi}/:id`, (schema, request) => ({
         title: "Test Title",
+        centrifugoNamespace: request.params.id,
         opcUaNsURI: "urn:test",
         ...maybeJSON(process.env.CONFIG_API),
       }))

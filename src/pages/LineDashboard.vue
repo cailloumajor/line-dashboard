@@ -128,7 +128,8 @@ const resp = await mande(lineDashboardConfigApi).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
-fieldDataLinkBoot(fieldData, props.id, config.opcUaNsURI)
+const { centrifugoNamespace, opcUaNsURI } = config
+fieldDataLinkBoot(fieldData, centrifugoNamespace, opcUaNsURI)
 </script>
 
 <style module lang="scss">
