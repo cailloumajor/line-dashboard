@@ -9,7 +9,6 @@ import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
-import type { FieldData } from "composables/field-data"
 import type { Server } from "miragejs"
 
 const checkFontSize = (selector: string, expSize: number, delta: number) => {
@@ -117,7 +116,7 @@ describe("LineDashboard", () => {
   it("passes reactive field data to field data bootstrap", () => {
     cy.get("@field-data-link-boot-stub").invoke(
       "callsFake",
-      (fieldData: FieldData) => {
+      (fieldData: Record<string, unknown>) => {
         fieldData.goodParts = 1564
         fieldData.scrapParts = 846
         fieldData.cycleTime = 105

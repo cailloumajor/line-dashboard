@@ -15,6 +15,7 @@ export function makeServer({ environment = "test" } = {}) {
         title: "Test Title",
         centrifugoNamespace: request.params.id,
         opcUaNsURI: "urn:test",
+        opcUaNodeIds: {},
         ...maybeJSON(process.env.CONFIG_API),
       }))
     },
