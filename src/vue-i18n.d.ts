@@ -1,6 +1,4 @@
-/**
- * Global type definitions for locales resources.
- */
+// Global type definitions for locales resources.
 import "vue-i18n"
 
 declare module "vue-i18n" {
