@@ -9,8 +9,7 @@ const langPacks = import.meta.glob("../../node_modules/quasar/lang/*.mjs")
 
 export default boot(async () => {
   const setLocale = async () => {
-    const { languages } = navigator
-    if (!Array.isArray(languages)) return
+    const languages = navigator.languages.slice()
 
     const quasarLocale = pickLocale(
       languages,
