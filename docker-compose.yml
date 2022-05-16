@@ -1,0 +1,11 @@
+# Needed services to run e2e tests locally.
+
+services:
+  centrifugo:
+    image: centrifugo/centrifugo
+    environment:
+      - CENTRIFUGO_TOKEN_HMAC_SECRET_KEY=dfa244ee-587f-43f9-adc5-b727a081d5de
+      - CENTRIFUGO_API_KEY=dc1e276a-9eb5-4950-a8bc-c13fe848154a
+      - CENTRIFUGO_ALLOWED_ORIGINS=*
+      - CENTRIFUGO_CLIENT_ANONYMOUS=true
+      - CENTRIFUGO_NAMESPACES=[{"name":"e2e-tests","anonymous":true}]
