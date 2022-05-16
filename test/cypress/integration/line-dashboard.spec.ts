@@ -73,7 +73,9 @@ describe("Line dashboard", () => {
     })
 
     cy.dataCy("metric-0").dataCy("metric-value-text").should("have.text", 5641)
-    cy.dataCy("metric-1").dataCy("metric-value-text").should("have.text", 987)
+    cy.dataCy("metric-1")
+      .dataCy("metric-value-text")
+      .should("have.text", "987.0")
     cy.dataCy("metric-3").dataCy("metric-value-text").should("have.text", 849)
   })
 })
