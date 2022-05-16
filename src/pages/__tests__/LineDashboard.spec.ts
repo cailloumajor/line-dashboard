@@ -113,20 +113,41 @@ describe("LineDashboard", () => {
       .should("equal", "Test Title")
   })
 
-  it("passes reactive field data to field data bootstrap", () => {
+  it("calls field data link bootstrap function", () => {
+    cy.stub(lineDashboardConfigSchema, "parseAsync").returns({
+      title: "",
+      opcUaNodeIds: { test: "nodeID" },
+      centrifugoNamespace: "testns",
+      opcUaNsURI: "urn:bootstrap-call-test",
+    })
+
+    mountComponent()
+
+    cy.get("@field-data-link-boot-stub").should(
+      "have.been.calledOnceWith",
+      {
+        goodParts: 0,
+        scrapParts: 0,
+        cycleTime: 0,
+      },
+      { test: "nodeID" },
+      "testns",
+      "urn:bootstrap-call-test"
+    )
+  })
+
+  it("passes formatted number to fractional number aware metrics", () => {
     cy.get("@field-data-link-boot-stub").invoke(
       "callsFake",
       (fieldData: Record<string, unknown>) => {
-        fieldData.goodParts = 1564
-        fieldData.scrapParts = 846
-        fieldData.cycleTime = 105
+        fieldData.cycleTime = 105.49
       }
     )
 
     mountComponent()
 
-    cy.dataCy("metric-0").dataCy("value").should("have.text", 1564)
-    cy.dataCy("metric-1").dataCy("value").should("have.text", 105)
-    cy.dataCy("metric-3").dataCy("value").should("have.text", 846)
+    cy.dataCy("metric-1").dataCy("value").should("have.text", "105.5")
+    cy.dataCy("metric-2").dataCy("value").should("have.text", "0.0")
+    cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
   })
 })

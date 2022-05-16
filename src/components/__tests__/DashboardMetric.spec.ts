@@ -36,7 +36,7 @@ describe("DashboardMetric", () => {
     )
   })
 
-  it("displays value according to props", () => {
+  it("displays numeric value according to props", () => {
     mount(DashboardMetric, {
       props: {
         value: 5616,
@@ -45,6 +45,17 @@ describe("DashboardMetric", () => {
     })
 
     cy.dataCy("metric-value-text").should("have.text", "5616")
+  })
+
+  it("displays text value according to props", () => {
+    mount(DashboardMetric, {
+      props: {
+        value: "37.0",
+        dataValid: true,
+      },
+    })
+
+    cy.dataCy("metric-value-text").should("have.text", "37.0")
   })
 
   it("renders the value with color according to prop", () => {

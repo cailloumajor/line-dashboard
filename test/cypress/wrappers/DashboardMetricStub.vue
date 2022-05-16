@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  value: number
+  value: number | string
   color?: string
   dataValid: boolean
   pageHeight?: number

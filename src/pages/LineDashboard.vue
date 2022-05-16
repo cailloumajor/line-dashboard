@@ -33,12 +33,10 @@ import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import type { QPage } from "quasar"
 
-interface Metric {
-  iconName: string
-  title: string
-  value: number
-  color?: string
-}
+const fixedFractional = new Intl.NumberFormat(undefined, {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+})
 
 const props = defineProps<{
   id: string
@@ -84,8 +82,9 @@ const fieldData = reactive({
 })
 
 const targetCycleTime = ref(0)
+const effectiveness = ref(0)
 
-const metrics = computed<Metric[]>(() => {
+const metrics = computed(() => {
   const cycleTimeRatio = fieldData.cycleTime / targetCycleTime.value
 
   return [
@@ -97,7 +96,7 @@ const metrics = computed<Metric[]>(() => {
     {
       iconName: "timer",
       title: t("cycleTime"),
-      value: fieldData.cycleTime,
+      value: fixedFractional.format(fieldData.cycleTime),
       color:
         cycleTimeRatio >= 1.1 || fieldData.cycleTime <= 0
           ? "negative"
@@ -108,7 +107,7 @@ const metrics = computed<Metric[]>(() => {
     {
       iconName: "track_changes",
       title: t("targetCycleTime"),
-      value: targetCycleTime.value,
+      value: fixedFractional.format(targetCycleTime.value),
     },
     {
       iconName: "delete_outline",
@@ -119,7 +118,7 @@ const metrics = computed<Metric[]>(() => {
     {
       iconName: "speed",
       title: t("oee"),
-      value: 0,
+      value: fixedFractional.format(effectiveness.value),
     },
   ]
 })
