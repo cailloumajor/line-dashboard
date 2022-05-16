@@ -48,9 +48,7 @@ describe("Line dashboard", () => {
     centrifugoPublish(hearbeat(1))
 
     cy.dataCy("metric-value-text").should("not.exist")
-    cy.dataCy("metric-value-section")
-      .get(".q-skeleton")
-      .should("have.length", 5)
+    cy.get(".q-skeleton").should("have.length", 6)
   })
 
   it("shows all green status", () => {
@@ -77,5 +75,20 @@ describe("Line dashboard", () => {
       .dataCy("metric-value-text")
       .should("have.text", "987.0")
     cy.dataCy("metric-3").dataCy("metric-value-text").should("have.text", 849)
+  })
+
+  it("shows status", () => {
+    centrifugoPublish(hearbeat(0))
+
+    cy.dataCy("status-text").should("contain", "Stopped")
+
+    centrifugoPublish({
+      channel: "e2e-tests:dashboard@1000",
+      data: {
+        3: true,
+      },
+    })
+
+    cy.dataCy("status-text").should("contain", "Running")
   })
 })

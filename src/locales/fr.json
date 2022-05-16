@@ -10,5 +10,9 @@
   "cycleTime": "Temps de cycle",
   "targetCycleTime": "Tps de cycle standard",
   "oee": "TRS",
-  "fetchError": "requête vers {url}: erreur {status} ({statusText})"
+  "fetchError": "requête vers {url}: erreur {status} ({statusText})",
+  "stopFault": "Arrêt en défaut",
+  "stopNoFault": "Arrêt sans défaut",
+  "runUnderCadence": "Marche en sous-cadence",
+  "runAtCadence": "Marche à cadence"
 }
