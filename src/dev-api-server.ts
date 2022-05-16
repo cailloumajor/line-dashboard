@@ -2,12 +2,9 @@ import { createServer } from "miragejs"
 
 import { lineDashboardConfigApi } from "src/global"
 
-import type { Router } from "vue-router"
+const maybeJSON = (s: string | undefined) => (s ? JSON.parse(s) : {})
 
-export function makeServer({
-  environment = "test",
-  router,
-}: { environment?: string; router?: Router } = {}) {
+export function makeServer({ environment = "test" } = {}) {
   return createServer({
     environment,
 
@@ -17,7 +14,7 @@ export function makeServer({
       this.get(`${lineDashboardConfigApi}/:id`, () => ({
         title: "Test Title",
         opcUaNsURI: "urn:test",
-        ...router?.currentRoute.value.query,
+        ...maybeJSON(process.env.CONFIG_API),
       }))
     },
   })
