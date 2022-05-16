@@ -2,7 +2,8 @@ import { createServer } from "miragejs"
 
 import { lineDashboardConfigApi } from "src/global"
 
-const maybeJSON = (s: string | undefined) => (s ? JSON.parse(s) : {})
+const maybeJSON = (s: string | undefined) =>
+  s && !Object.hasOwn(window, "Cypress") ? JSON.parse(s) : {}
 
 export function makeServer({ environment = "test" } = {}) {
   return createServer({
@@ -16,7 +17,7 @@ export function makeServer({ environment = "test" } = {}) {
         centrifugoNamespace: request.params.id,
         opcUaNsURI: "urn:test",
         opcUaNodeIds: {},
-        ...maybeJSON(import.meta.env.VITE_CONFIG_API as string),
+        ...maybeJSON(import.meta.env.VITE_CONFIG_API as string | undefined),
       }))
     },
   })
