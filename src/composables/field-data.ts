@@ -18,7 +18,7 @@ import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 import type { PublicationContext, SubscribeErrorContext } from "centrifuge"
 import type { Observable } from "rxjs"
 
-export type FieldData = Record<string, unknown>
+type OpcUaNodeId = string | number
 
 interface DataChangePublication extends PublicationContext {
   data: Record<string, unknown>
@@ -41,10 +41,21 @@ function useFieldDataLinkBoot() {
   const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
   const statusStore = useFieldDataLinkStatusStore()
 
-  function fieldDataLinkBoot(
-    fieldData: FieldData,
-    ns: string,
-    namespaceURI: string
+  /**
+   * Boots the field data link.
+   *
+   * @param fieldData Reactive data to keep up-to-date with field data.
+   * @param nodeIds An object optionaly mapping field data properties to OPC-UA
+   *   node ID. If a field data property is undefined, the node ID will be the
+   *   field data object property.
+   * @param centrifugoNamespace Centrifugo namespace.
+   * @param opcUaNsUri OPC-UA namespace URI.
+   */
+  function fieldDataLinkBoot<T extends Record<string, unknown>>(
+    fieldData: T,
+    nodeIds: Partial<Record<keyof T, OpcUaNodeId>>,
+    centrifugoNamespace: string,
+    opcUaNsUri: string
   ) {
     const url = `ws://${window.location.host}/centrifugo/connection/websocket`
     const centrifuge = new deps.Centrifuge(url, {
@@ -60,12 +71,13 @@ function useFieldDataLinkBoot() {
       statusStore.centrifugoLinkStatus = status
     })
 
-    const nodes = Object.keys(fieldData).map(maybeUint32)
+    const fieldDataProps = Object.keys(fieldData)
+    const nodes = fieldDataProps.map((key) => nodeIds[key] ?? key)
 
     const opcDataChangeSubscription = centrifuge.subscribe(
-      `${ns}:dashboard@1000`,
+      `${centrifugoNamespace}:dashboard@1000`,
       undefined,
-      { data: { namespaceURI, nodes } }
+      { data: { namespaceURI: opcUaNsUri, nodes } }
     )
     opcDataChangeSubscription.on("error", (context: SubscribeErrorContext) => {
       if (!context.isResubscribe) {
@@ -82,8 +94,8 @@ function useFieldDataLinkBoot() {
       .pipe(
         map(({ data }) =>
           Object.fromEntries(
-            Object.entries(data).map<[string | number, unknown]>(([k, v]) => [
-              nodes[parseInt(k, 10)],
+            Object.entries(data).map<[string, unknown]>(([k, v]) => [
+              fieldDataProps[parseInt(k, 10)],
               v,
             ])
           )
@@ -100,7 +112,9 @@ function useFieldDataLinkBoot() {
       }
     }
 
-    const heartbeatSubscription = centrifuge.subscribe(`${ns}:heartbeat`)
+    const heartbeatSubscription = centrifuge.subscribe(
+      `${centrifugoNamespace}:heartbeat`
+    )
     const heartbeatPublication$ = fromEvent(
       heartbeatSubscription,
       "publish"

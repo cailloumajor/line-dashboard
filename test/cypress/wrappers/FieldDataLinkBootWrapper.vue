@@ -4,7 +4,7 @@
     first: <span data-cy="first">{{ fieldData.first }}</span>
   </div>
   <div>
-    42: <span data-cy="second">{{ fieldData["42"] }}</span>
+    second: <span data-cy="second">{{ fieldData.second }}</span>
   </div>
 </template>
 
@@ -22,8 +22,8 @@ const props = defineProps<{
 
 const fieldData = reactive({
   first: 0,
-  42: "initial",
+  second: "initial",
 })
 
-fieldDataLinkBoot(fieldData, props.ns, props.nsURI)
+fieldDataLinkBoot(fieldData, { second: 42 }, props.ns, props.nsURI)
 </script>
