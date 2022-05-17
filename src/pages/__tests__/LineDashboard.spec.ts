@@ -1,4 +1,5 @@
 import { mount } from "@cypress/vue"
+import { Subject } from "rxjs"
 
 import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
@@ -10,6 +11,8 @@ import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interf
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import type { Server } from "miragejs"
+
+type FieldData = Record<string, unknown>
 
 const checkFontSize = (selector: string, expSize: number, delta: number) => {
   cy.get(selector).should(($el) => {
@@ -129,6 +132,8 @@ describe("LineDashboard", () => {
         goodParts: 0,
         scrapParts: 0,
         cycleTime: 0,
+        inCycle: false,
+        fault: false,
       },
       { test: "nodeID" },
       "testns",
@@ -147,7 +152,101 @@ describe("LineDashboard", () => {
     mountComponent()
 
     cy.dataCy("metric-1").dataCy("value").should("have.text", "105.5")
-    cy.dataCy("metric-2").dataCy("value").should("have.text", "0.0")
+    cy.dataCy("metric-2").dataCy("value").should("have.text", "25.0")
     cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
+  })
+
+  context("field data reactivity", () => {
+    beforeEach(() => {
+      const subject = new Subject<FieldData>()
+      cy.wrap(subject).as("subject")
+
+      cy.get("@field-data-link-boot-stub").invoke(
+        "callsFake",
+        (fieldData: Record<string, unknown>) => {
+          subject.subscribe((data) => {
+            Object.assign(fieldData, data)
+          })
+        }
+      )
+
+      mountComponent()
+    })
+
+    afterEach(() => {
+      cy.get<Subject<FieldData>>("@subject").invoke("complete")
+    })
+
+    it("gives contextual colors to metrics", () => {
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        cycleTime: 26.5,
+        scrapParts: 1,
+      })
+      cy.dataCy("metric-1").dataCy("color").should("have.text", "warning")
+      cy.dataCy("metric-3").dataCy("color").should("have.text", "negative")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        cycleTime: 30,
+      })
+      cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        cycleTime: 25.0,
+        scrapParts: 0,
+      })
+      cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
+      cy.dataCy("metric-3").dataCy("color").should("have.text", "positive")
+    })
+
+    it("gives contextual colors to status", () => {
+      cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
+        centrifugoLinkStatus: LinkStatus.Up,
+        opcUaProxyLinkStatus: LinkStatus.Up,
+        opcUaLinkStatus: LinkStatus.Up,
+      })
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        cycleTime: 26.5,
+        inCycle: true,
+      })
+      cy.dataCy("status-text").should("have.class", "text-warning")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        cycleTime: 25,
+      })
+      cy.dataCy("status-text").should("have.class", "text-positive")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        inCycle: false,
+      })
+      cy.dataCy("status-text").should("have.class", "text-orange")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        inCycle: false,
+        fault: true,
+      })
+      cy.dataCy("status-text").should("have.class", "text-negative")
+    })
+  })
+
+  context("status card", () => {
+    it("shows a skeleton while data is not valid", () => {
+      mountComponent()
+
+      cy.dataCy("status-card").find(".q-skeleton").should("be.visible")
+    })
+
+    it("shows some text when data is valid", () => {
+      mountComponent()
+
+      cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
+        centrifugoLinkStatus: LinkStatus.Up,
+        opcUaProxyLinkStatus: LinkStatus.Up,
+        opcUaLinkStatus: LinkStatus.Up,
+      })
+
+      cy.dataCy("status-card").find(".q-skeleton").should("not.exist")
+      cy.dataCy("status-text").should("not.be.empty")
+    })
   })
 })

@@ -12,14 +12,26 @@
       <q-icon :name="metric.iconName" :class="$style.iconStyle" />
       {{ metric.title }}
     </dashboard-metric>
-    <q-card :class="$style.statusCard" class="column text-center">
-      <div :class="$style.statusText">STATUS</div>
+    <q-card
+      :class="$style.statusCard"
+      class="column q-my-auto text-center"
+      data-cy="status-card"
+    >
+      <div
+        v-if="fieldDataLinkStatusStore.dataValid"
+        class="q-my-auto text-uppercase"
+        data-cy="status-text"
+        :class="`text-${statusCard.color}`"
+      >
+        {{ statusCard.text }}
+      </div>
+      <q-skeleton v-else type="text" width="80%" class="q-mx-auto q-my-auto" />
     </q-card>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { useWindowSize } from "@vueuse/core"
+import { usePreferredLanguages, useWindowSize } from "@vueuse/core"
 import { mande } from "mande"
 import { computed, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
@@ -33,10 +45,10 @@ import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import type { QPage } from "quasar"
 
-const fixedFractional = new Intl.NumberFormat(undefined, {
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-})
+interface Status {
+  text: string
+  color: string
+}
 
 const props = defineProps<{
   id: string
@@ -49,6 +61,7 @@ const { t } = useI18n({
 const commonStore = useCommonLineInterfaceConfigStore()
 const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
 const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
+const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
@@ -79,13 +92,22 @@ const fieldData = reactive({
   goodParts: 0,
   scrapParts: 0,
   cycleTime: 0,
+  inCycle: false,
+  fault: false,
 })
 
-const targetCycleTime = ref(0)
+const targetCycleTime = ref(25)
 const effectiveness = ref(0)
 
+const cycleTimeRatio = computed(
+  () => fieldData.cycleTime / targetCycleTime.value
+)
+
 const metrics = computed(() => {
-  const cycleTimeRatio = fieldData.cycleTime / targetCycleTime.value
+  const fixedFractional = new Intl.NumberFormat(languages.value.slice(), {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })
 
   return [
     {
@@ -98,9 +120,9 @@ const metrics = computed(() => {
       title: t("cycleTime"),
       value: fixedFractional.format(fieldData.cycleTime),
       color:
-        cycleTimeRatio >= 1.1 || fieldData.cycleTime <= 0
+        cycleTimeRatio.value >= 1.1 || fieldData.cycleTime <= 0
           ? "negative"
-          : cycleTimeRatio >= 1.05
+          : cycleTimeRatio.value >= 1.05
           ? "warning"
           : "positive",
     },
@@ -122,6 +144,16 @@ const metrics = computed(() => {
     },
   ]
 })
+
+const statusCard = computed<Status>(() =>
+  fieldData.fault
+    ? { text: t("stopFault"), color: "negative" }
+    : !fieldData.inCycle
+    ? { text: t("stopNoFault"), color: "orange" }
+    : cycleTimeRatio.value >= 1.05
+    ? { text: t("runUnderCadence"), color: "warning" }
+    : { text: t("runAtCadence"), color: "positive" }
+)
 
 const resp = await mande(lineDashboardConfigApi).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
@@ -147,16 +179,12 @@ $grid-gap: 5vh 7vw;
 }
 
 .statusCard {
+  font-size: min(10vh, 10vw);
+  line-height: 1;
   grid-area: 2 / 2 / 4 / 4;
   height: 60%;
   width: 100%;
   margin: auto;
-}
-
-.statusText {
-  font-size: 10vh;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 </style>
 
