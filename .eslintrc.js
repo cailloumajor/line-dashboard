@@ -85,6 +85,8 @@ module.exports = {
   // add your custom rules here
   rules: {
     "prefer-promise-reject-errors": "off",
+    
+    "arrow-body-style": ["error", "never"],
 
     quotes: ["warn", "double", { avoidEscape: true }],
 
