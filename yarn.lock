@@ -1393,10 +1393,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@quasar/app-vite@1.0.0-beta.14":
-  version "1.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.0.0-beta.14.tgz#69fd45938897de3f95243e1efc0f8e4c1a8ab144"
-  integrity sha512-DODuw6AnF4/90xbSmOy5BBvunTZxMdyOVazIFUfii+KZdokJ5Nr7PXZdNSvm5nel4AiOFJzdvtN1n8tCqdf+YQ==
+"@quasar/app-vite@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.0.0.tgz#6bb24b590e0107d45358db71250ceda934b5958d"
+  integrity sha512-htcWI8Y5m/dPb/Tui23LWWrtFc2Cu8q3vYbqr5nlbnlVdWwHQ2aXQayPnF1Ut8JSNfr3tDMStpGtikR3hBOjsw==
   dependencies:
     "@quasar/fastclick" "1.1.5"
     "@quasar/vite-plugin" "^1.0.9"
