@@ -41,6 +41,9 @@ describe("LineDashboard", () => {
   beforeEach(() => {
     const server = makeServer()
     cy.wrap(server).as("api-server")
+    cy.stub(lineDashboardConfigSchema, "parseAsync")
+      .as("schema-parse-stub")
+      .resolves({ title: "Stubbed Title" })
     const fieldDataLinkBoot = cy.stub()
     cy.wrap(fieldDataLinkBoot).as("field-data-link-boot-stub")
     cy.stub(fieldDataComposable, "useFieldDataLinkBoot").returns({
@@ -79,19 +82,28 @@ describe("LineDashboard", () => {
   })
 
   it("requests the config API according to id prop", () => {
+    const handled = { count: 0 }
+    cy.wrap(handled).as("handled")
+
+    cy.get<Server>("@api-server").invoke(
+      "get",
+      `${lineDashboardConfigApi}/testid`,
+      () => {
+        handled.count += 1
+      }
+    )
+
     mountComponent({ id: "testid" })
 
-    cy.get<Server>("@api-server")
-      .its("pretender.handledRequests")
-      .should("have.length", 1)
-      .its(0)
-      .should("include", { url: `${lineDashboardConfigApi}/testid` })
+    cy.get("@handled").its("count").should("equal", 1)
   })
 
   it("validates config data against schema", () => {
     const data = { sentinel: "value" }
 
-    cy.stub(lineDashboardConfigSchema, "parseAsync").returns({ title: "" })
+    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
+      title: "",
+    })
 
     cy.get("@api-server").invoke(
       "get",
@@ -112,11 +124,11 @@ describe("LineDashboard", () => {
 
     cy.wrap(useCommonLineInterfaceConfigStore())
       .its("title")
-      .should("equal", "Test Title")
+      .should("equal", "Stubbed Title")
   })
 
   it("calls field data link bootstrap function", () => {
-    cy.stub(lineDashboardConfigSchema, "parseAsync").returns({
+    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
       title: "",
       opcUaNodeIds: { test: "nodeID" },
       centrifugoNamespace: "testns",
