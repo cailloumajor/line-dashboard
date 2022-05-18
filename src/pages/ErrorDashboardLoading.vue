@@ -36,10 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity"
 import { useIntervalFn, whenever } from "@vueuse/core"
 import { useQuasar } from "quasar"
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 
