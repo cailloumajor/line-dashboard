@@ -139,7 +139,7 @@ const metrics = computed(() => {
     },
     {
       iconName: "speed",
-      title: t("oee"),
+      title: t("performance"),
       value: fixedFractional.format(effectiveness.value),
     },
   ]

@@ -12,7 +12,7 @@ declare module "vue-i18n" {
     scrapParts: string
     cycleTime: string
     targetCycleTime: string
-    oee: string
+    performance: string
     fetchError: string
     stopFault: string
     stopNoFault: string

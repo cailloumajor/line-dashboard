@@ -9,7 +9,7 @@
   "scrapParts": "Pièces mauvaises",
   "cycleTime": "Temps de cycle",
   "targetCycleTime": "Tps cycle standard",
-  "oee": "TRS",
+  "performance": "Performance",
   "fetchError": "requête vers {url}: erreur {status} ({statusText})",
   "stopFault": "Arrêt en défaut",
   "stopNoFault": "Arrêt sans défaut",
