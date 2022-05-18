@@ -9,8 +9,6 @@ export function makeServer({ environment = "test" } = {}) {
   return createServer({
     environment,
 
-    trackRequests: environment === "test",
-
     routes() {
       this.get(`${lineDashboardConfigApi}/:id`, (schema, request) => ({
         title: "Test Title",
