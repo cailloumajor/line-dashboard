@@ -83,10 +83,9 @@ describe("LineDashboard", () => {
 
     cy.get<Server>("@api-server")
       .its("pretender.handledRequests")
-      .should((reqs) => {
-        expect(reqs).to.have.length(1)
-        expect(reqs[0]).to.include({ url: `${lineDashboardConfigApi}/testid` })
-      })
+      .should("have.length", 1)
+      .its(0)
+      .should("include", { url: `${lineDashboardConfigApi}/testid` })
   })
 
   it("validates config data against schema", () => {
