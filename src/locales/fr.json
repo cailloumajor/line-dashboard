@@ -14,5 +14,6 @@
   "stopFault": "Arrêt en défaut",
   "stopNoFault": "Arrêt sans défaut",
   "runUnderCadence": "Marche en sous-cadence",
-  "runAtCadence": "Marche à cadence"
+  "runAtCadence": "Marche à cadence",
+  "metricError": "ERR"
 }

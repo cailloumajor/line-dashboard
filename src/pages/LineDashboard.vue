@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePreferredLanguages, useWindowSize } from "@vueuse/core"
+import { useNow, usePreferredLanguages, useWindowSize } from "@vueuse/core"
 import { mande } from "mande"
 import { computed, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
@@ -61,10 +61,31 @@ const { t } = useI18n({
 const commonStore = useCommonLineInterfaceConfigStore()
 const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
 const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
+const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
+
+const targetCycleTime = ref(25)
+const productionObjective = ref(3500)
+
+const effectiveness = computed(() => {
+  const shiftDuration = 8 * 60 * 60 * 1000
+  const firstShiftEnd = +new Date(now.value).setHours(5, 30, 0, 0)
+  const endMillis = [0, 1, 2, 3]
+    .map((i) => firstShiftEnd + shiftDuration * i)
+    .find((shiftEnd) => +now.value < shiftEnd)
+  if (endMillis === undefined) {
+    return NaN
+  }
+  const shiftElapedMillis = +now.value - (endMillis - shiftDuration)
+  return (
+    (fieldData.goodParts /
+      (productionObjective.value * (shiftElapedMillis / shiftDuration))) *
+    100
+  )
+})
 
 const cardHeight = computed(() => {
   if (pageElem.value === null) return 0
@@ -95,9 +116,6 @@ const fieldData = reactive({
   inCycle: false,
   fault: false,
 })
-
-const targetCycleTime = ref(25)
-const effectiveness = ref(0)
 
 const cycleTimeRatio = computed(
   () => fieldData.cycleTime / targetCycleTime.value
@@ -140,7 +158,9 @@ const metrics = computed(() => {
     {
       iconName: "speed",
       title: t("performance"),
-      value: fixedFractional.format(effectiveness.value),
+      value: isFinite(effectiveness.value)
+        ? fixedFractional.format(effectiveness.value) + " %"
+        : t("metricError"),
     },
   ]
 })
