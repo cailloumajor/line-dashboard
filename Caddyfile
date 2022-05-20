@@ -1,0 +1,18 @@
+{
+	admin off
+	auto_https off
+}
+
+:8080 {
+	@assets {
+		path *.jpg *.jpeg *.gif *.png *.svg *.webp *.js *.css *.eot *.otf *.ttf *.ttc *.woff *.woff2 *.font.css
+	}
+
+	root * /site
+	file_server
+	try_files {path} /
+	route {
+		header Cache-Control "no-cache,no-store,must-revalidate"
+		header @assets Cache-Control "max-age=604800"
+	}
+}

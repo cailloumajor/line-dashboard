@@ -1,0 +1,14 @@
+*
+
+!package.json
+!yarn.lock
+!public/
+!src/
+!.eslintignore
+!.eslintrc.js
+!index.html
+!postcss.config.js
+!quasar.config.js
+!tsconfig.json
+!Caddyfile
+!docker-healthcheck.sh
