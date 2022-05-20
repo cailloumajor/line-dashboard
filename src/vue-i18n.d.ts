@@ -18,6 +18,5 @@ declare module "vue-i18n" {
     stopNoFault: string
     runUnderCadence: string
     runAtCadence: string
-    metricError: string
   }
 }
