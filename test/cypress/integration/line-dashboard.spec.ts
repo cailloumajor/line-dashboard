@@ -95,4 +95,23 @@ describe("Line dashboard", () => {
 
     cy.dataCy("status-text").should("contain", "Running")
   })
+
+  it("shows striped background if not running", () => {
+    centrifugoPublish(hearbeat(0))
+
+    cy.get(".q-page")
+      .invoke("css", "background")
+      .should("contain", "repeating-linear-gradient")
+
+    centrifugoPublish({
+      channel: "e2e-tests:dashboard@1000",
+      data: {
+        3: true,
+      },
+    })
+
+    cy.get(".q-page")
+      .invoke("css", "background")
+      .should("not.contain", "repeating-linear-gradient")
+  })
 })

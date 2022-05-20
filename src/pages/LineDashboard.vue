@@ -1,5 +1,5 @@
 <template>
-  <q-page ref="pageElem" :class="$style.page">
+  <q-page ref="pageElem" :class="[$style.page, stopped ? $style.stopped : '']">
     <dashboard-metric
       v-for="(metric, index) in metrics"
       :key="`metric-${index}`"
@@ -65,10 +65,22 @@ const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
+const fieldData = reactive({
+  goodParts: 0,
+  scrapParts: 0,
+  cycleTime: 0,
+  inCycle: false,
+  fault: false,
+})
+
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 
 const targetCycleTime = ref(25)
 const productionObjective = ref(3500)
+
+const stopped = computed(
+  () => fieldDataLinkStatusStore.dataValid && !fieldData.inCycle
+)
 
 const effectiveness = computed(() => {
   const firstShiftEnd = +new Date(now.value).setHours(5, 30, 0, 0)
@@ -102,14 +114,6 @@ const cardHeight = computed(() => {
 
 const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
 const metricValueFontHeight = computed(() => `${cardHeight.value * 0.7}px`)
-
-const fieldData = reactive({
-  goodParts: 0,
-  scrapParts: 0,
-  cycleTime: 0,
-  inCycle: false,
-  fault: false,
-})
 
 const cycleTimeRatio = computed(
   () => fieldData.cycleTime / targetCycleTime.value
@@ -176,6 +180,8 @@ fieldDataLinkBoot(fieldData, opcUaNodeIds, centrifugoNamespace, opcUaNsURI)
 </script>
 
 <style module lang="scss">
+@use "sass:color";
+
 $grid-gap: 5vh 7vw;
 
 .page {
@@ -184,6 +190,20 @@ $grid-gap: 5vh 7vw;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   padding: $grid-gap;
+}
+
+.stopped {
+  $bgcolor: red;
+  $first-stripe-color: color.change($bgcolor, $alpha: 0.5);
+  $second-stripe-color: color.change($bgcolor, $alpha: 0.3);
+  $stripe-width: 1vw;
+  background: repeating-linear-gradient(
+    45deg,
+    $first-stripe-color,
+    $first-stripe-color $stripe-width,
+    $second-stripe-color $stripe-width,
+    $second-stripe-color $stripe-width * 2
+  );
 }
 
 .iconStyle {
