@@ -17,7 +17,7 @@ COPY index.html \
 RUN yarn run quasar build --mode spa
 
 
-FROM caddy:2.5.0
+FROM caddy:2.5.1
 
 # hadolint ignore=DL3018
 RUN apk --no-cache add curl
