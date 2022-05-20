@@ -75,6 +75,10 @@ describe("Line dashboard", () => {
       .dataCy("metric-value-text")
       .should("have.text", "987.0")
     cy.dataCy("metric-3").dataCy("metric-value-text").should("have.text", 849)
+    cy.dataCy("metric-4")
+      .dataCy("metric-value-text")
+      .invoke("text")
+      .should("match", /^\d+\.\d$/)
   })
 
   it("shows status", () => {

@@ -38,7 +38,7 @@ import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
 import fieldDataComposable from "composables/field-data"
-import { lineDashboardConfigApi } from "src/global"
+import { lineDashboardConfigApi, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
@@ -71,20 +71,14 @@ const targetCycleTime = ref(25)
 const productionObjective = ref(3500)
 
 const effectiveness = computed(() => {
-  const shiftDuration = 8 * 60 * 60 * 1000
   const firstShiftEnd = +new Date(now.value).setHours(5, 30, 0, 0)
   const endMillis = [0, 1, 2, 3]
-    .map((i) => firstShiftEnd + shiftDuration * i)
-    .find((shiftEnd) => +now.value < shiftEnd)
-  if (endMillis === undefined) {
-    return NaN
-  }
-  const shiftElapedMillis = +now.value - (endMillis - shiftDuration)
-  return (
-    (fieldData.goodParts /
-      (productionObjective.value * (shiftElapedMillis / shiftDuration))) *
-    100
-  )
+    .map((i) => firstShiftEnd + shiftDurationMillis * i)
+    .find((shiftEnd) => +now.value < shiftEnd) as number
+  const shiftElapsedMillis = +now.value - (endMillis - shiftDurationMillis)
+  const shiftElapsedRatio = shiftElapsedMillis / shiftDurationMillis
+  const expectedProductionNow = productionObjective.value * shiftElapsedRatio
+  return (fieldData.goodParts / expectedProductionNow) * 100
 })
 
 const cardHeight = computed(() => {
@@ -157,10 +151,8 @@ const metrics = computed(() => {
     },
     {
       iconName: "speed",
-      title: t("performance"),
-      value: isFinite(effectiveness.value)
-        ? fixedFractional.format(effectiveness.value) + " %"
-        : t("metricError"),
+      title: t("performance") + " (%)",
+      value: fixedFractional.format(effectiveness.value),
     },
   ]
 })

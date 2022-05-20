@@ -5,7 +5,11 @@ import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
 import fieldDataComposable from "composables/field-data"
 import { makeServer } from "src/dev-api-server"
-import { LinkStatus, lineDashboardConfigApi } from "src/global"
+import {
+  LinkStatus,
+  lineDashboardConfigApi,
+  shiftDurationMillis,
+} from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
@@ -164,7 +168,6 @@ describe("LineDashboard", () => {
 
     cy.dataCy("metric-1").dataCy("value").should("have.text", "105.5")
     cy.dataCy("metric-2").dataCy("value").should("have.text", "25.0")
-    cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
   })
 
   context("field data reactivity", () => {
@@ -186,6 +189,28 @@ describe("LineDashboard", () => {
 
     afterEach(() => {
       cy.get<Subject<FieldData>>("@subject").invoke("complete")
+    })
+
+    it("calculates the effectiveness", () => {
+      cy.clock(new Date(1970, 0, 1, 5, 30).getTime())
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
+
+      cy.tick(shiftDurationMillis / 2)
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        goodParts: 1400,
+      })
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "80.0")
+
+      cy.tick(shiftDurationMillis / 2 - 1) // The millisecond just before next shift
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        goodParts: 3325,
+      })
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "95.0")
+
+      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+        goodParts: 3693,
+      })
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "105.5")
     })
 
     it("gives contextual colors to metrics", () => {
