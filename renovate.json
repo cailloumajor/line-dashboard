@@ -7,7 +7,7 @@
       "groupName": "VueUse"
     },
     {
-      "matchPackageNames": ["node"],
+      "matchPackageNames": ["caddy", "node"],
       "matchManagers": ["dockerfile"],
       "semanticCommitType": "fix"
     },
