@@ -1,5 +1,14 @@
 # Changelog
 
+### [0.1.1](https://github.com/cailloumajor/factory-frontend/compare/v0.1.0...v0.1.1) (2022-05-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue to v3.2.35 ([d5319ea](https://github.com/cailloumajor/factory-frontend/commit/d5319ea6e206599fef810dde66ba27f645ff05ca))
+* **deps:** update dependency zod to v3.16.1 ([2de6a84](https://github.com/cailloumajor/factory-frontend/commit/2de6a84c0a9e88461cfe104a074a9eeccb3f4bc9))
+* **deps:** update dependency zod to v3.17.0 ([1ebc449](https://github.com/cailloumajor/factory-frontend/commit/1ebc44995aa35b8d4f4ff1f191e116ef39a91383))
+
 ## 0.1.0 (2022-05-20)
 
 
