@@ -78,7 +78,7 @@ describe("Line dashboard", () => {
     cy.dataCy("metric-4")
       .dataCy("metric-value-text")
       .invoke("text")
-      .should("match", /^\d+\.\d$/)
+      .should("satisfy", (val) => isFinite(parseFloat(val)))
   })
 
   it("shows status", () => {
