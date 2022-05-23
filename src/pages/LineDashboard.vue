@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import { useNow, usePreferredLanguages, useWindowSize } from "@vueuse/core"
 import { mande } from "mande"
+import { QPage } from "quasar"
 import { computed, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
@@ -42,8 +43,6 @@ import { lineDashboardConfigApi, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
-
-import type { QPage } from "quasar"
 
 interface Status {
   text: string
