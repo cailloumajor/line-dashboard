@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/cailloumajor/factory-frontend/compare/v0.1.2...v0.2.0) (2022-05-23)
+
+
+### Features
+
+* show app version in footer ([e5973fb](https://github.com/cailloumajor/factory-frontend/commit/e5973fb3867295a8066e52012dc4ee987ca8f250))
+
 ### [0.1.2](https://github.com/cailloumajor/factory-frontend/compare/v0.1.1...v0.1.2) (2022-05-23)
 
 
