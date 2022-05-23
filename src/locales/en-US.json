@@ -14,5 +14,6 @@
   "stopFault": "Stopped with fault",
   "stopNoFault": "Stopped without fault",
   "runUnderCadence": "Running under cadence",
-  "runAtCadence": "Running at cadence"
+  "runAtCadence": "Running at cadence",
+  "version": "Version:"
 }

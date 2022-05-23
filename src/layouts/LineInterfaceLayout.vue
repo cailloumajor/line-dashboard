@@ -16,6 +16,8 @@
 
     <q-footer elevated class="bg-grey-10 text-white">
       <q-toolbar>
+        <span :class="$style.version">{{ t("version") }}</span>
+        <span>{{ appVersion }}</span>
         <q-space />
         <span
           v-for="(status, index) in statuses"
@@ -44,6 +46,8 @@ import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interf
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
 
 import type { MandeError } from "mande"
+
+const appVersion = process.env.APP_VERSION ?? "unknown"
 
 const $q = useQuasar()
 const configStore = useCommonLineInterfaceConfigStore()
@@ -111,6 +115,12 @@ onErrorCaptured((err) => {
   return false
 })
 </script>
+
+<style module lang="scss">
+.version {
+  margin-right: 0.25em;
+}
+</style>
 
 <style lang="scss">
 $footer-height: 30px;

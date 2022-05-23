@@ -66,6 +66,7 @@ module.exports = configure(function (/* ctx */) {
       // publicPath: '/',
       // analyze: true,
       env: {
+        APP_VERSION: process.env.npm_package_version,
         TEST: process.env.NODE_ENV === "test",
       },
       // rawDefine: {}
