@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.2.1](https://github.com/cailloumajor/factory-frontend/compare/v0.2.0...v0.2.1) (2022-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zod to v3.17.3 ([7b0ecac](https://github.com/cailloumajor/factory-frontend/commit/7b0ecacf1406891282b4b55cf258a7fa016ed104))
+* misses after eslint config file rename ([d1d46de](https://github.com/cailloumajor/factory-frontend/commit/d1d46de89b30a958a3931c5b449807b22592781a))
+
 ## [0.2.0](https://github.com/cailloumajor/factory-frontend/compare/v0.1.2...v0.2.0) (2022-05-23)
 
 
