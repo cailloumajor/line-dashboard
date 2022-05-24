@@ -5,7 +5,7 @@
 !public/
 !src/
 !.eslintignore
-!.eslintrc.js
+!.eslintrc.cjs
 !index.html
 !postcss.config.js
 !quasar.config.js

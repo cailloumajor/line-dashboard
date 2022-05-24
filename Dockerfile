@@ -9,7 +9,7 @@ COPY public ./public
 COPY src ./src
 COPY index.html \
      .eslintignore \
-     .eslintrc.js \
+     .eslintrc.cjs \
      postcss.config.js \
      quasar.config.js \
      tsconfig.json \
