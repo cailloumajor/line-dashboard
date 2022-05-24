@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.2](https://github.com/cailloumajor/factory-frontend/compare/v0.2.1...v0.2.2) (2022-05-24)
+
+
+### Bug Fixes
+
+* include prettier configuration in build stage ([78df16b](https://github.com/cailloumajor/factory-frontend/commit/78df16b974b12f04abac1f31b9d60be787f4a496))
+
 ### [0.2.1](https://github.com/cailloumajor/factory-frontend/compare/v0.2.0...v0.2.1) (2022-05-24)
 
 
