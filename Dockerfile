@@ -10,6 +10,7 @@ COPY src ./src
 COPY index.html \
      .eslintignore \
      .eslintrc.cjs \
+     .prettierrc \
      postcss.config.js \
      quasar.config.js \
      tsconfig.json \

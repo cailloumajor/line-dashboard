@@ -6,6 +6,7 @@
 !src/
 !.eslintignore
 !.eslintrc.cjs
+!.prettierrc
 !index.html
 !postcss.config.js
 !quasar.config.js
