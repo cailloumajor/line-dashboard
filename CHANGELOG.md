@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/cailloumajor/factory-frontend/compare/v0.2.3...v0.3.0) (2022-06-02)
+
+
+### Features
+
+* compress assets ([9d64cc8](https://github.com/cailloumajor/factory-frontend/commit/9d64cc8a77aec594bf0d205d029301e222b3c913))
+
 ## [0.2.3](https://github.com/cailloumajor/factory-frontend/compare/v0.2.2...v0.2.3) (2022-06-02)
 
 
