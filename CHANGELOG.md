@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3](https://github.com/cailloumajor/factory-frontend/compare/v0.2.2...v0.2.3) (2022-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v8.6.0 ([b1be62e](https://github.com/cailloumajor/factory-frontend/commit/b1be62ea45f7bce44f8ade049f7f8d37fbe21bc9))
+* **deps:** update dependency mande to v2.0.2 ([5de89d9](https://github.com/cailloumajor/factory-frontend/commit/5de89d9564ecc13a0fd7d941160178781fa66920))
+
 ### [0.2.2](https://github.com/cailloumajor/factory-frontend/compare/v0.2.1...v0.2.2) (2022-05-24)
 
 
