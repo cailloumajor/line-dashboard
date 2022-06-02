@@ -89,6 +89,10 @@ module.exports = configure(function (/* ctx */) {
           "@intlify/vite-plugin-vue-i18n",
           { include: path.resolve(__dirname, "./src/locales/**") },
         ],
+        [
+          "vite-plugin-compression",
+          { algorithm: "brotliCompress", ext: ".br" },
+        ],
       ],
 
       alias: {

@@ -9,7 +9,9 @@
 	}
 
 	root * /site
-	file_server
+	file_server {
+		precompressed br
+	}
 	try_files {path} /
 	route {
 		header Cache-Control "no-cache,no-store,must-revalidate"
