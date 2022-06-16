@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.1](https://github.com/cailloumajor/factory-frontend/compare/v0.3.0...v0.3.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue to v3.2.37 ([02ee9b5](https://github.com/cailloumajor/factory-frontend/commit/02ee9b5513b5c79a076ccc2ecb278ff5117e2daa))
+* **deps:** update dependency vue-i18n to v9.2.0-beta.36 ([6018577](https://github.com/cailloumajor/factory-frontend/commit/60185778729a244a7538708328ccd0c118d36ce0))
+* **deps:** update dependency vue-router to v4.0.16 ([0bd8969](https://github.com/cailloumajor/factory-frontend/commit/0bd896956f9341121a00dce84cc1fef46a04f22e))
+* **deps:** update node.js to v16.15.1 ([8705317](https://github.com/cailloumajor/factory-frontend/commit/87053170460fd14ebeb51a2e20ca206325f7f205))
+
 ## [0.3.0](https://github.com/cailloumajor/factory-frontend/compare/v0.2.3...v0.3.0) (2022-06-02)
 
 
