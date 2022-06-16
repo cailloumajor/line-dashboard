@@ -1,4 +1,4 @@
-FROM node:16.15.0-bullseye AS frontend-builder
+FROM node:16.15.1-bullseye AS frontend-builder
 
 WORKDIR /usr/src/app
 
