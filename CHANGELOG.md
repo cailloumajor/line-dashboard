@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/cailloumajor/factory-frontend/compare/v0.3.2...v0.3.3) (2022-06-16)
+
+
+### Bug Fixes
+
+* static configuration api URL ([ca79b3f](https://github.com/cailloumajor/factory-frontend/commit/ca79b3f20ee7adbdc95eaec3870c3cf8534e37f3))
+
 ## [0.3.2](https://github.com/cailloumajor/factory-frontend/compare/v0.3.1...v0.3.2) (2022-06-16)
 
 
