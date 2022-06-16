@@ -39,7 +39,7 @@ import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
 import fieldDataComposable from "composables/field-data"
-import { lineDashboardConfigApi, shiftDurationMillis } from "src/global"
+import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
@@ -170,7 +170,7 @@ const statusCard = computed<Status>(() =>
     : { text: t("runAtCadence"), color: "positive" }
 )
 
-const resp = await mande(lineDashboardConfigApi).get(props.id)
+const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 

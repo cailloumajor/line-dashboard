@@ -5,11 +5,7 @@ import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
 import fieldDataComposable from "composables/field-data"
 import { makeServer } from "src/dev-api-server"
-import {
-  LinkStatus,
-  lineDashboardConfigApi,
-  shiftDurationMillis,
-} from "src/global"
+import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useFieldDataLinkStatusStore } from "src/stores/field-data"
@@ -91,7 +87,7 @@ describe("LineDashboard", () => {
 
     cy.get<Server>("@api-server").invoke(
       "get",
-      `${lineDashboardConfigApi}/testid`,
+      `${staticConfigApi}/testid/line-dashboard`,
       () => {
         handled.count += 1
       }
@@ -111,7 +107,7 @@ describe("LineDashboard", () => {
 
     cy.get("@api-server").invoke(
       "get",
-      `${lineDashboardConfigApi}/sentinel-id`,
+      `${staticConfigApi}/sentinel-id/line-dashboard`,
       () => data
     )
 

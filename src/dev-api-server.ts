@@ -1,6 +1,6 @@
 import { createServer } from "miragejs"
 
-import { lineDashboardConfigApi } from "src/global"
+import { staticConfigApi } from "src/global"
 
 const maybeJSON = (s: string | undefined) =>
   s && !Object.hasOwn(window, "Cypress") ? JSON.parse(s) : {}
@@ -10,7 +10,7 @@ export function makeServer({ environment = "test" } = {}) {
     environment,
 
     routes() {
-      this.get(`${lineDashboardConfigApi}/:id`, (schema, request) => ({
+      this.get(`${staticConfigApi}/:id/line-dashboard`, (schema, request) => ({
         title: "Test Title",
         centrifugoNamespace: request.params.id,
         opcUaNsURI: "urn:test",

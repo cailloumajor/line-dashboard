@@ -1,4 +1,4 @@
-export const lineDashboardConfigApi = "/config-api/line-dashboard"
+export const staticConfigApi = "/static-config-api/config/machines"
 
 export const loadingErrorStorageKey = "loading-error"
 
