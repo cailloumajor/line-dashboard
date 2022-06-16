@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/cailloumajor/factory-frontend/compare/v0.3.1...v0.3.2) (2022-06-16)
+
+
+### Bug Fixes
+
+* do not use emulation when building image ([7160115](https://github.com/cailloumajor/factory-frontend/commit/7160115860e8159627eddb8506800908480c9fed))
+
 ## [0.3.1](https://github.com/cailloumajor/factory-frontend/compare/v0.3.0...v0.3.1) (2022-06-16)
 
 
