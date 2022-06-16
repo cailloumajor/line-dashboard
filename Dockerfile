@@ -1,9 +1,13 @@
-FROM node:16.15.1-bullseye AS frontend-builder
+# syntax=docker/dockerfile:1.3
+
+FROM --platform=$BUILDPLATFORM node:16.15.1-bullseye AS frontend-builder
 
 WORKDIR /usr/src/app
 
+ENV YARN_CACHE_FOLDER=/var/cache/yarn
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN --mount=type=cache,target=/var/cache/yarn \
+    yarn install
 
 COPY public ./public
 COPY src ./src
