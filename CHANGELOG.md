@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.4](https://github.com/cailloumajor/factory-frontend/compare/v0.3.3...v0.3.4) (2022-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.14.1 ([a83684b](https://github.com/cailloumajor/factory-frontend/commit/a83684b24ac538f60c1f99b185bcb382e0a1a118))
+* **deps:** update dependency @vueuse/core to v8.7.3 ([dcc28d0](https://github.com/cailloumajor/factory-frontend/commit/dcc28d0eb25cf7b4e8307d1bcb0a35183f11f26b))
+* **deps:** update dependency @vueuse/core to v8.7.5 ([d1aee02](https://github.com/cailloumajor/factory-frontend/commit/d1aee0206af8cbd75de63d3c55e26cc66d8a21b3))
+* **deps:** update dependency quasar to v2.7.3 ([5fbf55c](https://github.com/cailloumajor/factory-frontend/commit/5fbf55c7fe372e227ff27ca6835354e60954608d))
+
 ## [0.3.3](https://github.com/cailloumajor/factory-frontend/compare/v0.3.2...v0.3.3) (2022-06-16)
 
 
