@@ -17,6 +17,5 @@
       "@intlify/vite-plugin-vue-i18n/client",
       "@quasar/quasar-app-extension-testing-e2e-cypress"
     ]
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  }
 }
