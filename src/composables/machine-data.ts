@@ -75,7 +75,7 @@ function useMachineDataLinkBoot() {
     const nodes = machineDataProps.map((key) => nodeIds[key] ?? key)
 
     const opcDataChangeSubscription = centrifuge.subscribe(
-      `${centrifugoNamespace}:dashboard@1000`,
+      `${centrifugoNamespace}:machine-data@1000`,
       undefined,
       { data: { namespaceURI: opcUaNsUri, nodes } }
     )

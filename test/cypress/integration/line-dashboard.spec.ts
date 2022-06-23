@@ -62,7 +62,7 @@ describe("Line dashboard", () => {
   it("shows published values", () => {
     centrifugoPublish(hearbeat(0))
     centrifugoPublish({
-      channel: "e2e-tests:dashboard@1000",
+      channel: "e2e-tests:machine-data@1000",
       data: {
         0: 5641,
         1: 849,
@@ -87,7 +87,7 @@ describe("Line dashboard", () => {
     cy.dataCy("status-text").should("contain", "Stopped")
 
     centrifugoPublish({
-      channel: "e2e-tests:dashboard@1000",
+      channel: "e2e-tests:machine-data@1000",
       data: {
         3: true,
       },
@@ -104,7 +104,7 @@ describe("Line dashboard", () => {
       .should("contain", "repeating-linear-gradient")
 
     centrifugoPublish({
-      channel: "e2e-tests:dashboard@1000",
+      channel: "e2e-tests:machine-data@1000",
       data: {
         3: true,
       },

@@ -96,7 +96,7 @@ describe("machine data link boot composable", () => {
       .its("subscribe")
       .should(
         "have.been.calledWith",
-        "namespacefortesting:dashboard@1000",
+        "namespacefortesting:machine-data@1000",
         undefined,
         Cypress.sinon.match
           .hasNested("data.namespaceURI", "urn:unit.tests")
