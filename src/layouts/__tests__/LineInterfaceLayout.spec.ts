@@ -6,7 +6,7 @@ import { z } from "zod"
 import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 import LineInterfaceLayout from "../LineInterfaceLayout.vue"
 
@@ -119,7 +119,7 @@ describe("LineInterfaceLayout", () => {
       it("displays statuses according to link states", () => {
         mount(LineInterfaceLayout)
 
-        cy.wrap(useFieldDataLinkStatusStore()).as("store")
+        cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
         cy.get("@store").invoke("$patch", {
           centrifugoLinkStatus,

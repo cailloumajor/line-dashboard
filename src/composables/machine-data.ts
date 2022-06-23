@@ -13,7 +13,7 @@ import { onUnmounted } from "vue"
 
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 import type { PublicationContext, SubscribeErrorContext } from "centrifuge"
 import type { Observable } from "rxjs"
@@ -37,22 +37,22 @@ export const maybeUint32 = (s: string) => {
 
 export const deps = { Centrifuge }
 
-function useFieldDataLinkBoot() {
+function useMachineDataLinkBoot() {
   const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
-  const statusStore = useFieldDataLinkStatusStore()
+  const statusStore = useMachineDataLinkStatusStore()
 
   /**
-   * Boots the field data link.
+   * Boots the machine data link.
    *
-   * @param fieldData Reactive data to keep up-to-date with field data.
-   * @param nodeIds An object optionaly mapping field data properties to OPC-UA
-   *   node ID. If a field data property is undefined, the node ID will be the
-   *   field data object property.
+   * @param machineData Reactive data to keep up-to-date with machine data.
+   * @param nodeIds An object optionaly mapping machine data properties to
+   *   OPC-UA node ID. If a machine data property is undefined, the node ID will
+   *   be the machine data object property.
    * @param centrifugoNamespace Centrifugo namespace.
    * @param opcUaNsUri OPC-UA namespace URI.
    */
-  function fieldDataLinkBoot<T extends Record<string, unknown>>(
-    fieldData: T,
+  function machineDataLinkBoot<T extends Record<string, unknown>>(
+    machineData: T,
     nodeIds: Partial<Record<keyof T, OpcUaNodeId>>,
     centrifugoNamespace: string,
     opcUaNsUri: string
@@ -71,8 +71,8 @@ function useFieldDataLinkBoot() {
       statusStore.centrifugoLinkStatus = status
     })
 
-    const fieldDataProps = Object.keys(fieldData)
-    const nodes = fieldDataProps.map((key) => nodeIds[key] ?? key)
+    const machineDataProps = Object.keys(machineData)
+    const nodes = machineDataProps.map((key) => nodeIds[key] ?? key)
 
     const opcDataChangeSubscription = centrifuge.subscribe(
       `${centrifugoNamespace}:dashboard@1000`,
@@ -95,14 +95,14 @@ function useFieldDataLinkBoot() {
         map(({ data }) =>
           Object.fromEntries(
             Object.entries(data).map<[string, unknown]>(([k, v]) => [
-              fieldDataProps[parseInt(k, 10)],
+              machineDataProps[parseInt(k, 10)],
               v,
             ])
           )
         )
       )
       .subscribe((patch) => {
-        Object.assign(fieldData, patch)
+        Object.assign(machineData, patch)
       })
 
     interface HeartbeatPublication extends PublicationContext {
@@ -153,7 +153,7 @@ function useFieldDataLinkBoot() {
     })
   }
 
-  return { fieldDataLinkBoot }
+  return { machineDataLinkBoot }
 }
 
-export default { useFieldDataLinkBoot }
+export default { useMachineDataLinkBoot }

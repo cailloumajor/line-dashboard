@@ -2,12 +2,12 @@ import EventEmitter from "events"
 
 import { mount } from "@cypress/vue"
 
-import FieldDataLinkBootWrapper from "app/test/cypress/wrappers/FieldDataLinkBootWrapper.vue"
+import MachineDataLinkBootWrapper from "app/test/cypress/wrappers/MachineDataLinkBootWrapper.vue"
 import errorRedirectComposable from "src/composables/error-redirect"
-import { heartbeatTimeout, maybeUint32 } from "src/composables/field-data"
-import { deps } from "src/composables/field-data"
+import { heartbeatTimeout, maybeUint32 } from "src/composables/machine-data"
+import { deps } from "src/composables/machine-data"
 import { LinkStatus } from "src/global"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 class MockedSubscription extends EventEmitter {
   constructor(private nodes?: (string | number)[]) {
@@ -43,7 +43,7 @@ class MockedCentrifuge extends EventEmitter {
   }
 }
 
-describe("field data link boot composable", () => {
+describe("machine data link boot composable", () => {
   beforeEach(() => {
     const errorRedirectStub = cy.stub()
     cy.wrap(errorRedirectStub).as("error-redirect-stub")
@@ -69,9 +69,9 @@ describe("field data link boot composable", () => {
   })
 
   it("changes Centrifugo status on connection and disconnection", () => {
-    mount(FieldDataLinkBootWrapper)
+    mount(MachineDataLinkBootWrapper)
 
-    cy.wrap(useFieldDataLinkStatusStore()).as("store")
+    cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
     cy.get("@store")
       .its("centrifugoLinkStatus")
@@ -85,7 +85,7 @@ describe("field data link boot composable", () => {
   })
 
   it("subscribes to data changes and heartbeat", () => {
-    mount(FieldDataLinkBootWrapper, {
+    mount(MachineDataLinkBootWrapper, {
       props: {
         ns: "namespacefortesting",
         nsURI: "urn:unit.tests",
@@ -112,7 +112,7 @@ describe("field data link boot composable", () => {
 
   context("on data change subscription error", () => {
     it("redirects to error page if not resubscribing", () => {
-      mount(FieldDataLinkBootWrapper)
+      mount(MachineDataLinkBootWrapper)
 
       cy.get("@data-change-subscription").invoke("emit", "error", {
         message: "Testing subscription error",
@@ -124,7 +124,7 @@ describe("field data link boot composable", () => {
     })
 
     it("does not redirect to error page if resubscribing", () => {
-      mount(FieldDataLinkBootWrapper)
+      mount(MachineDataLinkBootWrapper)
 
       cy.get("@data-change-subscription").invoke("emit", "error", {
         message: "Testing subscription error",
@@ -135,8 +135,8 @@ describe("field data link boot composable", () => {
     })
   })
 
-  it("updates field data on data change publication", () => {
-    mount(FieldDataLinkBootWrapper)
+  it("updates machine data on data change publication", () => {
+    mount(MachineDataLinkBootWrapper)
 
     cy.get("@data-change-subscription").invoke("publishData", {
       first: 800,
@@ -161,9 +161,9 @@ describe("field data link boot composable", () => {
   it("changes proxy link status depending on publications", () => {
     cy.clock()
 
-    mount(FieldDataLinkBootWrapper)
+    mount(MachineDataLinkBootWrapper)
 
-    cy.wrap(useFieldDataLinkStatusStore()).as("store")
+    cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
     cy.get("@store")
       .its("opcUaProxyLinkStatus")
@@ -186,9 +186,9 @@ describe("field data link boot composable", () => {
   })
 
   it("changes OPC-UA link status depending on heartbeat publications", () => {
-    mount(FieldDataLinkBootWrapper)
+    mount(MachineDataLinkBootWrapper)
 
-    cy.wrap(useFieldDataLinkStatusStore()).as("store")
+    cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
     cy.get("@store").its("opcUaLinkStatus").should("equal", LinkStatus.Unknown)
     cy.get("@heartbeat-subscription").invoke("emit", "publish", {
@@ -202,13 +202,13 @@ describe("field data link boot composable", () => {
   })
 
   it("connects to Centrifugo", () => {
-    mount(FieldDataLinkBootWrapper)
+    mount(MachineDataLinkBootWrapper)
 
     cy.get("@centrifuge").its("connect").should("have.been.called")
   })
 
   it("disconnects on unmount", () => {
-    mount(FieldDataLinkBootWrapper).as("wrapper")
+    mount(MachineDataLinkBootWrapper).as("wrapper")
 
     cy.get("@centrifuge").its("disconnect").should("not.have.been.called")
     cy.get("@wrapper").invoke("unmount")

@@ -43,7 +43,7 @@ import { ZodError } from "zod"
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 import type { MandeError } from "mande"
 
@@ -56,7 +56,7 @@ const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 })
-const statusStore = useFieldDataLinkStatusStore()
+const statusStore = useMachineDataLinkStatusStore()
 
 $q.dark.set(true)
 

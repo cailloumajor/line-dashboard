@@ -3,16 +3,16 @@ import { Subject } from "rxjs"
 
 import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
-import fieldDataComposable from "composables/field-data"
+import machineDataComposable from "src/composables/machine-data"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 import type { Server } from "miragejs"
 
-type FieldData = Record<string, unknown>
+type MachineData = Record<string, unknown>
 
 const checkFontSize = (selector: string, expSize: number, delta: number) => {
   cy.get(selector).should(($el) => {
@@ -44,10 +44,10 @@ describe("LineDashboard", () => {
     cy.stub(lineDashboardConfigSchema, "parseAsync")
       .as("schema-parse-stub")
       .resolves({ title: "Stubbed Title" })
-    const fieldDataLinkBoot = cy.stub()
-    cy.wrap(fieldDataLinkBoot).as("field-data-link-boot-stub")
-    cy.stub(fieldDataComposable, "useFieldDataLinkBoot").returns({
-      fieldDataLinkBoot,
+    const machineDataLinkBoot = cy.stub()
+    cy.wrap(machineDataLinkBoot).as("machine-data-link-boot-stub")
+    cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
+      machineDataLinkBoot,
     })
   })
 
@@ -72,7 +72,7 @@ describe("LineDashboard", () => {
 
     cy.dataCy("data-valid").as("data-valid").should("not.be.visible")
 
-    cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
+    cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
       centrifugoLinkStatus: LinkStatus.Up,
       opcUaProxyLinkStatus: LinkStatus.Up,
       opcUaLinkStatus: LinkStatus.Up,
@@ -127,7 +127,7 @@ describe("LineDashboard", () => {
       .should("equal", "Stubbed Title")
   })
 
-  it("calls field data link bootstrap function", () => {
+  it("calls machine data link bootstrap function", () => {
     cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
       title: "",
       opcUaNodeIds: { test: "nodeID" },
@@ -137,7 +137,7 @@ describe("LineDashboard", () => {
 
     mountComponent()
 
-    cy.get("@field-data-link-boot-stub").should(
+    cy.get("@machine-data-link-boot-stub").should(
       "have.been.calledOnceWith",
       {
         goodParts: 0,
@@ -153,10 +153,10 @@ describe("LineDashboard", () => {
   })
 
   it("passes formatted number to fractional number aware metrics", () => {
-    cy.get("@field-data-link-boot-stub").invoke(
+    cy.get("@machine-data-link-boot-stub").invoke(
       "callsFake",
-      (fieldData: Record<string, unknown>) => {
-        fieldData.cycleTime = 105.49
+      (machineData: Record<string, unknown>) => {
+        machineData.cycleTime = 105.49
       }
     )
 
@@ -166,16 +166,16 @@ describe("LineDashboard", () => {
     cy.dataCy("metric-2").dataCy("value").should("have.text", "25.0")
   })
 
-  context("field data reactivity", () => {
+  context("machine data reactivity", () => {
     beforeEach(() => {
-      const subject = new Subject<FieldData>()
+      const subject = new Subject<MachineData>()
       cy.wrap(subject).as("subject")
 
-      cy.get("@field-data-link-boot-stub").invoke(
+      cy.get("@machine-data-link-boot-stub").invoke(
         "callsFake",
-        (fieldData: Record<string, unknown>) => {
+        (machineData: Record<string, unknown>) => {
           subject.subscribe((data) => {
-            Object.assign(fieldData, data)
+            Object.assign(machineData, data)
           })
         }
       )
@@ -184,7 +184,7 @@ describe("LineDashboard", () => {
     })
 
     afterEach(() => {
-      cy.get<Subject<FieldData>>("@subject").invoke("complete")
+      cy.get<Subject<MachineData>>("@subject").invoke("complete")
     })
 
     it("calculates the effectiveness", () => {
@@ -192,37 +192,37 @@ describe("LineDashboard", () => {
       cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
 
       cy.tick(shiftDurationMillis / 2)
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         goodParts: 1400,
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "80.0")
 
       cy.tick(shiftDurationMillis / 2 - 1) // The millisecond just before next shift
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         goodParts: 3325,
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "95.0")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         goodParts: 3693,
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "105.5")
     })
 
     it("gives contextual colors to metrics", () => {
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         cycleTime: 26.5,
         scrapParts: 1,
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "warning")
       cy.dataCy("metric-3").dataCy("color").should("have.text", "negative")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         cycleTime: 30,
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         cycleTime: 25.0,
         scrapParts: 0,
       })
@@ -231,29 +231,29 @@ describe("LineDashboard", () => {
     })
 
     it("gives contextual colors to status", () => {
-      cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
+      cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
         centrifugoLinkStatus: LinkStatus.Up,
         opcUaProxyLinkStatus: LinkStatus.Up,
         opcUaLinkStatus: LinkStatus.Up,
       })
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         cycleTime: 26.5,
         inCycle: true,
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         cycleTime: 25,
       })
       cy.dataCy("status-text").should("have.class", "text-positive")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         inCycle: false,
       })
       cy.dataCy("status-text").should("have.class", "text-orange")
 
-      cy.get<Subject<FieldData>>("@subject").invoke("next", {
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
         inCycle: false,
         fault: true,
       })
@@ -271,7 +271,7 @@ describe("LineDashboard", () => {
     it("shows some text when data is valid", () => {
       mountComponent()
 
-      cy.wrap(useFieldDataLinkStatusStore()).invoke("$patch", {
+      cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
         centrifugoLinkStatus: LinkStatus.Up,
         opcUaProxyLinkStatus: LinkStatus.Up,
         opcUaLinkStatus: LinkStatus.Up,

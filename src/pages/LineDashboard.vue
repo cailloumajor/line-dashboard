@@ -5,7 +5,7 @@
       :key="`metric-${index}`"
       :value="metric.value"
       :color="metric.color"
-      :data-valid="fieldDataLinkStatusStore.dataValid"
+      :data-valid="machineDataLinkStatusStore.dataValid"
       :data-cy="`metric-${index}`"
       :style="{ height: cardHeight * 0.95 + 'px' }"
     >
@@ -18,7 +18,7 @@
       data-cy="status-card"
     >
       <div
-        v-if="fieldDataLinkStatusStore.dataValid"
+        v-if="machineDataLinkStatusStore.dataValid"
         class="q-my-auto text-uppercase"
         data-cy="status-text"
         :class="`text-${statusCard.color}`"
@@ -38,11 +38,11 @@ import { computed, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
-import fieldDataComposable from "composables/field-data"
+import machineDataComposable from "composables/machine-data"
 import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useFieldDataLinkStatusStore } from "src/stores/field-data"
+import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 interface Status {
   text: string
@@ -58,13 +58,13 @@ const { t } = useI18n({
   inheritLocale: true,
 })
 const commonStore = useCommonLineInterfaceConfigStore()
-const { fieldDataLinkBoot } = fieldDataComposable.useFieldDataLinkBoot()
-const fieldDataLinkStatusStore = useFieldDataLinkStatusStore()
+const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
+const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
 const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
-const fieldData = reactive({
+const machineData = reactive({
   goodParts: 0,
   scrapParts: 0,
   cycleTime: 0,
@@ -78,7 +78,7 @@ const targetCycleTime = ref(25)
 const productionObjective = ref(3500)
 
 const stopped = computed(
-  () => fieldDataLinkStatusStore.dataValid && !fieldData.inCycle
+  () => machineDataLinkStatusStore.dataValid && !machineData.inCycle
 )
 
 const effectiveness = computed(() => {
@@ -89,7 +89,7 @@ const effectiveness = computed(() => {
   const shiftElapsedMillis = +now.value - (endMillis - shiftDurationMillis)
   const shiftElapsedRatio = shiftElapsedMillis / shiftDurationMillis
   const expectedProductionNow = productionObjective.value * shiftElapsedRatio
-  return (fieldData.goodParts / expectedProductionNow) * 100
+  return (machineData.goodParts / expectedProductionNow) * 100
 })
 
 const cardHeight = computed(() => {
@@ -115,7 +115,7 @@ const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
 const metricValueFontHeight = computed(() => `${cardHeight.value * 0.7}px`)
 
 const cycleTimeRatio = computed(
-  () => fieldData.cycleTime / targetCycleTime.value
+  () => machineData.cycleTime / targetCycleTime.value
 )
 
 const metrics = computed(() => {
@@ -128,14 +128,14 @@ const metrics = computed(() => {
     {
       iconName: "done_outline",
       title: t("goodParts"),
-      value: fieldData.goodParts,
+      value: machineData.goodParts,
     },
     {
       iconName: "timer",
       title: t("cycleTime"),
-      value: fixedFractional.format(fieldData.cycleTime),
+      value: fixedFractional.format(machineData.cycleTime),
       color:
-        cycleTimeRatio.value >= 1.1 || fieldData.cycleTime <= 0
+        cycleTimeRatio.value >= 1.1 || machineData.cycleTime <= 0
           ? "negative"
           : cycleTimeRatio.value >= 1.05
           ? "warning"
@@ -149,8 +149,8 @@ const metrics = computed(() => {
     {
       iconName: "delete_outline",
       title: t("scrapParts"),
-      value: fieldData.scrapParts,
-      color: fieldData.scrapParts > 0 ? "negative" : "positive",
+      value: machineData.scrapParts,
+      color: machineData.scrapParts > 0 ? "negative" : "positive",
     },
     {
       iconName: "speed",
@@ -161,9 +161,9 @@ const metrics = computed(() => {
 })
 
 const statusCard = computed<Status>(() =>
-  fieldData.fault
+  machineData.fault
     ? { text: t("stopFault"), color: "negative" }
-    : !fieldData.inCycle
+    : !machineData.inCycle
     ? { text: t("stopNoFault"), color: "orange" }
     : cycleTimeRatio.value >= 1.05
     ? { text: t("runUnderCadence"), color: "warning" }
@@ -175,7 +175,7 @@ const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
 const { centrifugoNamespace, opcUaNodeIds, opcUaNsURI } = config
-fieldDataLinkBoot(fieldData, opcUaNodeIds, centrifugoNamespace, opcUaNsURI)
+machineDataLinkBoot(machineData, opcUaNodeIds, centrifugoNamespace, opcUaNsURI)
 </script>
 
 <style module lang="scss">

@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 
 import { LinkStatus } from "src/global"
 
-export const useFieldDataLinkStatusStore = defineStore("field-data-link", {
+export const useMachineDataLinkStatusStore = defineStore("machine-data-link", {
   state: () => ({
     centrifugoLinkStatus: LinkStatus.Unknown,
     opcUaProxyLinkStatus: LinkStatus.Unknown,
