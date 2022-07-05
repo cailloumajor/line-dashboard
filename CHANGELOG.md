@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.5](https://github.com/cailloumajor/factory-frontend/compare/v0.3.4...v0.3.5) (2022-07-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.14.2 ([7446ad6](https://github.com/cailloumajor/factory-frontend/commit/7446ad60337eb8d44fb1e940ad6164b982f2b751))
+* **deps:** update dependency quasar to v2.7.5 ([827dd6d](https://github.com/cailloumajor/factory-frontend/commit/827dd6d669f922b26ef0fb4f322e173ab7a3f162))
+* **deps:** update dependency vue-router to v4.1.0 ([af3a984](https://github.com/cailloumajor/factory-frontend/commit/af3a9849429c6baf662058d9b43cbabe32d8feaa))
+
 ## [0.3.4](https://github.com/cailloumajor/factory-frontend/compare/v0.3.3...v0.3.4) (2022-06-23)
 
 
