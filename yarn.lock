@@ -7722,10 +7722,10 @@ vue-router-mock@0.1.8:
   resolved "https://registry.yarnpkg.com/vue-router-mock/-/vue-router-mock-0.1.8.tgz#fdc2175a0fc0c0a2dccbbe64e8a291ada9e5a037"
   integrity sha512-3pcC3WwGFTHLkC78D5IZTxMXNaSXDJdCmed51hWVIwB4dsZyC2HEtiBuE/6BzviqDUh1LMX+tCu3zhH8ZcATZw==
 
-vue-router@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.0.tgz#3029bf815885954ec02330e5f6fa8a00a7e5f53c"
-  integrity sha512-A+dYO0ZXLJFZ40ebW3XtqehCW0Wv2xNH4lFddOByDja4NtItEdyirrShTlvD3UA4xc5a5mG2RRI30BusYpOb9g==
+vue-router@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.1.tgz#90cc533efafdcf90d157bdc20a376760cdb59c10"
+  integrity sha512-Wp1mEf2xCwT0ez7o9JvgpfBp9JGnVb+dPERzXDbugTatzJAJ60VWOhJKifQty85k+jOreoFHER4r5fu062PhPw==
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
