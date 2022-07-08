@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.3
 
-FROM --platform=$BUILDPLATFORM node:16.15.1-bullseye AS frontend-builder
+FROM --platform=$BUILDPLATFORM node:16.16.0-bullseye AS frontend-builder
 
 WORKDIR /usr/src/app
 
