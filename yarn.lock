@@ -1445,10 +1445,10 @@
   resolved "https://registry.yarnpkg.com/@quasar/fastclick/-/fastclick-1.1.5.tgz#948e79c44098cced6c3d1645315683ebc29ed834"
   integrity sha512-p3JKgTjRlJ1YQXbqTw3Bsa4j0mQdt5dq+WfYvyb7MgKGdephHCKdR/kxA5PCTAmJanGJuDKqRdyGYX/hYN4KGw==
 
-"@quasar/quasar-app-extension-testing-e2e-cypress@4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-testing-e2e-cypress/-/quasar-app-extension-testing-e2e-cypress-4.1.4.tgz#b73d5b0f847014a20d45edf0cd2aab3631aa7cea"
-  integrity sha512-vx4Bra40bvCxW2vRFnvaWbtcSwWyZ2SbkdY0WZihxSLgvJ4wMJA/TtUVBmBxwm7FSk7PdC8+3E0CwHgSJan6oQ==
+"@quasar/quasar-app-extension-testing-e2e-cypress@4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-testing-e2e-cypress/-/quasar-app-extension-testing-e2e-cypress-4.2.0.tgz#a46576bf4bf1a941fde48ed092d0b2cccb495cd7"
+  integrity sha512-v3pR3US8Er2oNH3NPf5Cg3r7iCnQNb8ilA3Ll0+lw/NaXXgbCELKiIHFc0D34KFo7mdq/NakD60AZth3vBQ8vA==
   dependencies:
     "@cypress/code-coverage" "^3.9.12"
     "@cypress/vite-dev-server" "^2.2.2"
