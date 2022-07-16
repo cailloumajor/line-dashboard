@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.9](https://github.com/cailloumajor/factory-frontend/compare/v0.3.8...v0.3.9) (2022-07-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.14.3 ([dedba52](https://github.com/cailloumajor/factory-frontend/commit/dedba5277e231662049347096ed7c1f1c8ee0c12))
+* **deps:** update dependency caddy to v2.5.2 ([42afcca](https://github.com/cailloumajor/factory-frontend/commit/42afccaf00e178522d0012705dc934ebfe790614))
+* **deps:** update dependency pinia to v2.0.16 ([bfc05e7](https://github.com/cailloumajor/factory-frontend/commit/bfc05e79571e26366067bb9d8897084e2a267e40))
+
 ## [0.3.8](https://github.com/cailloumajor/factory-frontend/compare/v0.3.7...v0.3.8) (2022-07-12)
 
 
