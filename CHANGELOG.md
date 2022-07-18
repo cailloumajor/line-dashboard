@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.10](https://github.com/cailloumajor/factory-frontend/compare/v0.3.9...v0.3.10) (2022-07-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v8.9.4 ([10f3523](https://github.com/cailloumajor/factory-frontend/commit/10f352385e178b082c850fc584b89576aaebf906))
+* **deps:** update dependency vue-i18n to v9.2.0-beta.39 ([de9061e](https://github.com/cailloumajor/factory-frontend/commit/de9061ed7996855d722369022e3e2c5e6769e4ee))
+* **deps:** update dependency zod to v3.17.8 ([7377f54](https://github.com/cailloumajor/factory-frontend/commit/7377f54a18c2e6d6a5003d86e16623ec4392bb6e))
+
 ## [0.3.9](https://github.com/cailloumajor/factory-frontend/compare/v0.3.8...v0.3.9) (2022-07-16)
 
 
