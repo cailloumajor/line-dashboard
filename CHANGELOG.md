@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.3.11](https://github.com/cailloumajor/factory-frontend/compare/v0.3.10...v0.3.11) (2022-07-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.15.0 ([190e173](https://github.com/cailloumajor/factory-frontend/commit/190e173e336b3cf73bb3fd50deaf592c7e2b8e9a))
+* **deps:** update dependency vue-i18n to v9.2.0-beta.40 ([3b2e4b6](https://github.com/cailloumajor/factory-frontend/commit/3b2e4b6b1e66ad3584ef9a3f583aba2276f35d79))
+* **deps:** update dependency zod to v3.17.10 ([ccde862](https://github.com/cailloumajor/factory-frontend/commit/ccde862381661bddc43feb1d3b6e5ad6e9a70a80))
+* **deps:** update dependency zod to v3.17.9 ([ac31075](https://github.com/cailloumajor/factory-frontend/commit/ac31075c1d594e6428b5fcc13d541954e1e150e4))
+
 ## [0.3.10](https://github.com/cailloumajor/factory-frontend/compare/v0.3.9...v0.3.10) (2022-07-18)
 
 
