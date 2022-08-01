@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@quasar/extras": "1.15.0",
-    "@vueuse/core": "8.9.4",
+    "@vueuse/core": "9.0.2",
     "centrifuge": "2.8.5",
     "locale-matcher": "2.0.0",
     "mande": "2.0.2",
