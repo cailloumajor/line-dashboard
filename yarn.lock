@@ -5586,10 +5586,10 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-mande@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/mande/-/mande-2.0.2.tgz#206528fa17b653596cdf064c57c6a48292aed8dd"
-  integrity sha512-HdWr3WJkld0MLjQb9GKYW49UkrcUgJr7w6fsHqz7XzFq8yv/GfMyoR/qxS4w9mjSQrdw5MXb2q9oJfALkzJ37Q==
+mande@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/mande/-/mande-2.0.3.tgz#48288ea2089a21af30891590d96cdfba5c0352ed"
+  integrity sha512-rWIgfcpx6nlUHDOQbHu9dSYFxib3hV85lo7KnoA7T+uBRLiSM6dy00M/+NABNkDCVgJNcm8Ib4nobLfERhrvxA==
 
 map-stream@~0.1.0:
   version "0.1.0"
