@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.13](https://github.com/cailloumajor/factory-frontend/compare/v0.3.12...v0.3.13) (2022-08-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.15.1 ([6e87bb5](https://github.com/cailloumajor/factory-frontend/commit/6e87bb5efb14a0f7ed4c3b111f27bd89cf9c5156))
+* **deps:** update dependency @vueuse/core to v9.1.0 ([7507168](https://github.com/cailloumajor/factory-frontend/commit/75071682e6db8059e997142cfd75dd257a4aafd0))
+* **deps:** update dependency mande to v2.0.3 ([5b6cc47](https://github.com/cailloumajor/factory-frontend/commit/5b6cc478d6d1625d980c7405948660f4f65702ea))
+* **deps:** update dependency pinia to v2.0.18 ([eabd0e9](https://github.com/cailloumajor/factory-frontend/commit/eabd0e905ea1e59676e77f8d76469aff6c086527))
+* **deps:** update dependency quasar to v2.7.7 ([6048e8a](https://github.com/cailloumajor/factory-frontend/commit/6048e8a95929249f4abca82f452f6638a41a0293))
+* **deps:** update dependency vue-i18n to v9.2.2 ([4c7b43d](https://github.com/cailloumajor/factory-frontend/commit/4c7b43d6931676f2bf4502dd09ee1db61a36da4a))
+* **deps:** update dependency zod to v3.18.0 ([067a287](https://github.com/cailloumajor/factory-frontend/commit/067a287afa96a022040114e95b638a01ba2b7cc1))
+* **deps:** update node.js to v16.17.0 ([5899b64](https://github.com/cailloumajor/factory-frontend/commit/5899b64a9fd851ec2149b3c7db902da707f4267a))
+
 ## [0.3.12](https://github.com/cailloumajor/factory-frontend/compare/v0.3.11...v0.3.12) (2022-08-01)
 
 
