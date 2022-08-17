@@ -19,7 +19,7 @@
     "@vueuse/core": "9.1.0",
     "centrifuge": "2.8.5",
     "locale-matcher": "2.0.0",
-    "mande": "2.0.2",
+    "mande": "2.0.3",
     "pinia": "2.0.18",
     "quasar": "2.7.7",
     "rxjs": "7.5.6",
