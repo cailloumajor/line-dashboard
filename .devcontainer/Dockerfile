@@ -1,4 +1,4 @@
-FROM node:16.16.0-bullseye
+FROM node:16.17.0-bullseye
 
 # [Option] Install zsh
 ARG INSTALL_ZSH="true"
