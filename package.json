@@ -35,7 +35,7 @@
     "@quasar/app-vite": "1.0.6",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "4.2.1",
     "@rushstack/eslint-patch": "1.1.4",
-    "@types/node": "16.11.55",
+    "@types/node": "16.11.56",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/eslint-config-typescript": "11.0.0",
     "autoprefixer": "10.4.8",
