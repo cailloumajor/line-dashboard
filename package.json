@@ -38,7 +38,7 @@
     "@types/node": "16.11.58",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/eslint-config-typescript": "11.0.1",
-    "autoprefixer": "10.4.8",
+    "autoprefixer": "10.4.9",
     "colortranslator": "1.9.2",
     "dotenv": "16.0.2",
     "eslint": "8.23.0",
