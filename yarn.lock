@@ -2870,10 +2870,10 @@ colors@1.4.0:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
   integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
-colortranslator@1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.9.2.tgz#baff13493677ae21355468366fb9f4a6242f9f39"
-  integrity sha512-Hr1qCLwL/5gbGhcRwfhl1+JbvHmybTGbecpbhyzn3IyizgYFxMpLpX8OGhAcvSPB0+K2bwrAcFIbeF60wqOJLg==
+colortranslator@1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.9.3.tgz#44bf8b678b576145f0d099fda8bd6ad29b20cf8a"
+  integrity sha512-51O07JAa8J0uIZT08FOGirqRBK9DVG0luuTNjYk9FdawE4tFc3yp7jQhRkZQsUDRwCnKa4CwMRuJIiaSeXsGvg==
 
 combine-source-map@^0.8.0, combine-source-map@~0.8.0:
   version "0.8.0"
