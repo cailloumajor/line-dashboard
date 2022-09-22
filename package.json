@@ -37,7 +37,7 @@
     "@rushstack/eslint-patch": "1.2.0",
     "@types/node": "16.11.59",
     "@vue/eslint-config-prettier": "7.0.0",
-    "@vue/eslint-config-typescript": "11.0.1",
+    "@vue/eslint-config-typescript": "11.0.2",
     "autoprefixer": "10.4.12",
     "colortranslator": "1.9.3",
     "dotenv": "16.0.2",
