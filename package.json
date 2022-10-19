@@ -40,7 +40,7 @@
     "@vue/eslint-config-typescript": "11.0.2",
     "autoprefixer": "10.4.12",
     "colortranslator": "1.9.3",
-    "dotenv": "16.0.2",
+    "dotenv": "16.0.3",
     "eslint": "8.24.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-import": "2.26.0",
