@@ -4,19 +4,21 @@
 	"name": "Node.js",
 
 	"build": {
-        "args": {
-            "http_proxy": "${localEnv:http_proxy}",
-            "https_proxy": "${localEnv:https_proxy}",
-            "no_proxy": "${localEnv:no_proxy}"
-        },
+		"args": {
+			"http_proxy": "${localEnv:http_proxy}",
+			"https_proxy": "${localEnv:https_proxy}",
+			"no_proxy": "${localEnv:no_proxy}"
+		},
 		"dockerfile": "Dockerfile"
 	},
 
-    "containerEnv": {
-        "http_proxy": "${localEnv:http_proxy}",
-        "https_proxy": "${localEnv:https_proxy}",
-        "no_proxy": "${localEnv:no_proxy}"
-    },
+	"forwardPorts": [5901, 6080],
+
+	"containerEnv": {
+		"http_proxy": "${localEnv:http_proxy}",
+		"https_proxy": "${localEnv:https_proxy}",
+		"no_proxy": "${localEnv:no_proxy}"
+	},
 
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:1": {
