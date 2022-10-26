@@ -15,7 +15,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run-ct"
   },
   "dependencies": {
-    "@quasar/extras": "1.15.3",
+    "@quasar/extras": "1.15.5",
     "@vueuse/core": "9.4.0",
     "centrifuge": "2.8.5",
     "locale-matcher": "2.0.0",
