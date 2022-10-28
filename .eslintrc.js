@@ -27,9 +27,18 @@ module.exports = {
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier",
 
-    "plugin:cypress/recommended",
-
     "plugin:@intlify/vue-i18n/recommended",
+  ],
+
+  overrides: [
+    {
+      files: ["**/*.cy.{jx,jsx,ts,tsx}"],
+      extends: [
+        // Add Cypress-specific lint rules, globals and Cypress plugin
+        // See https://github.com/cypress-io/eslint-plugin-cypress#rules
+        "plugin:cypress/recommended",
+      ],
+    },
   ],
 
   plugins: ["import"],
@@ -49,6 +58,7 @@ module.exports = {
     defineEmits: "readonly", // Vue SFC setup compiler macro
     defineExpose: "readonly", // Vue SFC setup compiler macro
   },
+
   rules: {
     quotes: ["warn", "double", { avoidEscape: true }],
 

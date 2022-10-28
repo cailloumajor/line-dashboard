@@ -1,4 +1,4 @@
-import { mountCallback } from "@cypress/vue"
+import { mountCallback } from "cypress/vue"
 import { SessionStorage } from "quasar"
 
 import ErrorRedirectWrapper from "app/test/cypress/wrappers/ErrorRedirectWrapper.vue"

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { Dialog } from "quasar"
 import { defineComponent } from "vue"
 

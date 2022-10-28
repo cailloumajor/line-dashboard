@@ -1,7 +1,5 @@
 import EventEmitter from "events"
 
-import { mount } from "@cypress/vue"
-
 import MachineDataLinkBootWrapper from "app/test/cypress/wrappers/MachineDataLinkBootWrapper.vue"
 import errorRedirectComposable from "src/composables/error-redirect"
 import { heartbeatTimeout, maybeUint32 } from "src/composables/machine-data"
@@ -69,7 +67,7 @@ describe("machine data link boot composable", () => {
   })
 
   it("changes Centrifugo status on connection and disconnection", () => {
-    mount(MachineDataLinkBootWrapper)
+    cy.mount(MachineDataLinkBootWrapper)
 
     cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
@@ -85,7 +83,7 @@ describe("machine data link boot composable", () => {
   })
 
   it("subscribes to data changes and heartbeat", () => {
-    mount(MachineDataLinkBootWrapper, {
+    cy.mount(MachineDataLinkBootWrapper, {
       props: {
         ns: "namespacefortesting",
         nsURI: "urn:unit.tests",
@@ -112,7 +110,7 @@ describe("machine data link boot composable", () => {
 
   context("on data change subscription error", () => {
     it("redirects to error page if not resubscribing", () => {
-      mount(MachineDataLinkBootWrapper)
+      cy.mount(MachineDataLinkBootWrapper)
 
       cy.get("@data-change-subscription").invoke("emit", "error", {
         message: "Testing subscription error",
@@ -124,7 +122,7 @@ describe("machine data link boot composable", () => {
     })
 
     it("does not redirect to error page if resubscribing", () => {
-      mount(MachineDataLinkBootWrapper)
+      cy.mount(MachineDataLinkBootWrapper)
 
       cy.get("@data-change-subscription").invoke("emit", "error", {
         message: "Testing subscription error",
@@ -136,7 +134,7 @@ describe("machine data link boot composable", () => {
   })
 
   it("updates machine data on data change publication", () => {
-    mount(MachineDataLinkBootWrapper)
+    cy.mount(MachineDataLinkBootWrapper)
 
     cy.get("@data-change-subscription").invoke("publishData", {
       first: 800,
@@ -161,7 +159,7 @@ describe("machine data link boot composable", () => {
   it("changes proxy link status depending on publications", () => {
     cy.clock()
 
-    mount(MachineDataLinkBootWrapper)
+    cy.mount(MachineDataLinkBootWrapper)
 
     cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
@@ -186,7 +184,7 @@ describe("machine data link boot composable", () => {
   })
 
   it("changes OPC-UA link status depending on heartbeat publications", () => {
-    mount(MachineDataLinkBootWrapper)
+    cy.mount(MachineDataLinkBootWrapper)
 
     cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
@@ -202,13 +200,13 @@ describe("machine data link boot composable", () => {
   })
 
   it("connects to Centrifugo", () => {
-    mount(MachineDataLinkBootWrapper)
+    cy.mount(MachineDataLinkBootWrapper)
 
     cy.get("@centrifuge").its("connect").should("have.been.called")
   })
 
   it("disconnects on unmount", () => {
-    mount(MachineDataLinkBootWrapper).as("wrapper")
+    cy.mount(MachineDataLinkBootWrapper).as("wrapper")
 
     cy.get("@centrifuge").its("disconnect").should("not.have.been.called")
     cy.get("@wrapper").invoke("unmount")
