@@ -2,7 +2,7 @@
 
 services:
   centrifugo:
-    image: centrifugo/centrifugo
+    image: centrifugo/centrifugo:v3
     environment:
       - CENTRIFUGO_TOKEN_HMAC_SECRET_KEY=dfa244ee-587f-43f9-adc5-b727a081d5de
       - CENTRIFUGO_API_KEY=dc1e276a-9eb5-4950-a8bc-c13fe848154a
