@@ -863,10 +863,9 @@
   resolved "https://registry.yarnpkg.com/@quasar/fastclick/-/fastclick-1.1.5.tgz#948e79c44098cced6c3d1645315683ebc29ed834"
   integrity sha512-p3JKgTjRlJ1YQXbqTw3Bsa4j0mQdt5dq+WfYvyb7MgKGdephHCKdR/kxA5PCTAmJanGJuDKqRdyGYX/hYN4KGw==
 
-"@quasar/quasar-app-extension-testing-e2e-cypress@^5.0.0-beta.5":
+"@quasar/quasar-app-extension-testing-e2e-cypress@https://gitpkg.now.sh/cailloumajor/quasar-testing/packages/e2e-cypress?dev":
   version "5.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-testing-e2e-cypress/-/quasar-app-extension-testing-e2e-cypress-5.0.0-beta.5.tgz#0a12911aa1dba66f96d1751181f0ce5867eacfde"
-  integrity sha512-yVTaxhdOVy9JWyPs584UI8H1eWjOUjKAI4RPfsBCZY9xNOsN/9I13+gxRAJDHZJo8w1emG+wYmQjmC50GbTJ3Q==
+  resolved "https://gitpkg.now.sh/cailloumajor/quasar-testing/packages/e2e-cypress?dev#832e00f84cedf97c405cbe550efeba4d76adf74a"
   dependencies:
     "@cypress/code-coverage" "^3.10.0"
     cross-env "^7.0.3"
