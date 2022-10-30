@@ -1,4 +1,3 @@
-import { mount } from "@cypress/vue"
 import { mande } from "mande"
 import { Response } from "miragejs"
 import { z } from "zod"
@@ -54,7 +53,7 @@ const statusCases = [
 ]
 
 const mountWithSetupChild = (setup: () => Promise<void>) =>
-  mount(LineInterfaceLayout, {
+  cy.mount(LineInterfaceLayout, {
     global: {
       stubs: {
         RouterView: {
@@ -67,13 +66,13 @@ const mountWithSetupChild = (setup: () => Promise<void>) =>
 
 describe("LineInterfaceLayout", () => {
   it("sets dark mode on", () => {
-    mount(LineInterfaceLayout)
+    cy.mount(LineInterfaceLayout)
 
     cy.get("body").should("have.class", "body--dark")
   })
 
   it("gets its title from the common line interface config store", () => {
-    mount(LineInterfaceLayout)
+    cy.mount(LineInterfaceLayout)
 
     cy.dataCy("layout-title").as("title")
 
@@ -117,7 +116,7 @@ describe("LineInterfaceLayout", () => {
       ] = tc
 
       it("displays statuses according to link states", () => {
-        mount(LineInterfaceLayout)
+        cy.mount(LineInterfaceLayout)
 
         cy.wrap(useMachineDataLinkStatusStore()).as("store")
 

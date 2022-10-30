@@ -1,7 +1,8 @@
-import { mount } from "@cypress/vue"
 import { ColorTranslator } from "colortranslator"
 import { colors } from "quasar"
-import { h, ref } from "vue"
+import { h } from "vue"
+
+import DashboardMetricWrapper from "app/test/cypress/wrappers/DashboardMetricWrapper.vue"
 
 import DashboardMetric from "../DashboardMetric.vue"
 
@@ -9,7 +10,7 @@ const { getPaletteColor } = colors
 
 describe("DashboardMetric", () => {
   it("shows fallback title if slot is not provided", () => {
-    mount(DashboardMetric, {
+    cy.mount(DashboardMetric, {
       props: {
         value: 42,
         dataValid: true,
@@ -20,7 +21,7 @@ describe("DashboardMetric", () => {
   })
 
   it("renders the title from default slot", () => {
-    mount(DashboardMetric, {
+    cy.mount(DashboardMetric, {
       props: {
         value: 42,
         dataValid: true,
@@ -37,7 +38,7 @@ describe("DashboardMetric", () => {
   })
 
   it("displays numeric value according to props", () => {
-    mount(DashboardMetric, {
+    cy.mount(DashboardMetric, {
       props: {
         value: 5616,
         dataValid: true,
@@ -48,7 +49,7 @@ describe("DashboardMetric", () => {
   })
 
   it("displays text value according to props", () => {
-    mount(DashboardMetric, {
+    cy.mount(DashboardMetric, {
       props: {
         value: "37.0",
         dataValid: true,
@@ -64,24 +65,14 @@ describe("DashboardMetric", () => {
     const elColor = ($el: JQuery<HTMLElement>) =>
       new ColorTranslator($el.css("color"))
 
-    const color = ref<string>()
-
-    mount(DashboardMetric, {
-      props: {
-        value: 42,
-        color,
-        dataValid: true,
-      },
-    })
+    cy.mount(DashboardMetricWrapper)
 
     cy.dataCy("metric-value-text").should(($el) => {
       expect($el).to.have.css("color")
       expect(elColor($el).HEXA).to.not.equal(exp.HEXA)
     })
 
-    cy.wrap(color).then((ref) => {
-      ref.value = testColor
-    })
+    cy.dataCy("color-input").type(testColor)
 
     cy.dataCy("metric-value-text").should(($el) => {
       expect($el).to.have.css("color")
@@ -90,20 +81,13 @@ describe("DashboardMetric", () => {
   })
 
   it("displays a skeleton while data is not valid", () => {
-    const dataValid = ref(false)
+    cy.mount(DashboardMetricWrapper)
 
-    mount(DashboardMetric, {
-      props: {
-        value: 42,
-        dataValid,
-      },
-    })
+    cy.dataCy("data-valid-input").uncheck()
 
     cy.dataCy("metric-value-section").find(".q-skeleton").should("exist")
 
-    cy.wrap(dataValid).then((ref) => {
-      ref.value = true
-    })
+    cy.dataCy("data-valid-input").check()
 
     cy.dataCy("metric-value-section").find(".q-skeleton").should("not.exist")
   })

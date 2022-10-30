@@ -28,38 +28,41 @@ import "@quasar/extras/material-icons/material-icons.css"
 
 import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
-import { config } from "@vue/test-utils"
+import { VueTestUtils } from "cypress/vue"
 import { Dialog, Loading, SessionStorage } from "quasar"
-import {
-  VueRouterMock,
-  createRouterMock,
-  injectRouterMock,
-} from "vue-router-mock"
+import { createMemoryHistory, createRouter } from "vue-router"
 
 import { i18n } from "src/boot/i18n"
 
 import type { TestingPinia } from "@pinia/testing"
+import type { Router } from "vue-router"
+
+// Since Cypress v10 we cannot import `config` directly from VTU as Cypress bundles its own version of it
+// See https://github.com/cypress-io/cypress/issues/22611
+const { config } = VueTestUtils
 
 // You can modify the global config here for all tests or pass in the configuration per test
 // For example use the actual i18n instance or mock it
 config.global.plugins.push(i18n)
 
-// vue-router-mock
-const router = createRouterMock({
-  spy: {
-    create: (fn) => Cypress.sinon.spy(fn),
-    reset: (spy) => spy.resetHistory(),
-  },
+// Vue router
+const router = createRouter({
+  routes: [],
+  history: createMemoryHistory(),
 })
-const routerBackSpy = Cypress.sinon.spy(router.back)
-router.back = routerBackSpy
+const stubbedMethods: Array<keyof Router> = ["back", "push"]
+const stubs = stubbedMethods.map((methodName) =>
+  Cypress.sinon.stub(router, methodName)
+)
 beforeEach(() => {
   cy.wrap(router).as("router-mock")
-  router.reset()
-  routerBackSpy.resetHistory()
-  injectRouterMock(router)
+  stubs.forEach((stub) => stub.resetHistory())
 })
-config.plugins.VueWrapper.install(VueRouterMock)
+config.global.plugins.push({
+  install(app) {
+    app.use(router)
+  },
+})
 
 // Pinia
 let testingPinia: TestingPinia

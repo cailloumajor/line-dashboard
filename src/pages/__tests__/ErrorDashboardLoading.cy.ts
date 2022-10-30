@@ -1,4 +1,3 @@
-import { mount } from "@cypress/vue"
 import { SessionStorage } from "quasar"
 
 import { loadingErrorStorageKey } from "src/global"
@@ -15,7 +14,7 @@ describe("ErrorDashboardLogging", () => {
       "third error",
     ])
 
-    mount(ErrorDashboardLogging)
+    cy.mount(ErrorDashboardLogging)
 
     cy.dataCy("error").should(($el) => {
       expect($el).to.have.length(3)
@@ -26,13 +25,13 @@ describe("ErrorDashboardLogging", () => {
   })
 
   it("does not display the countdown when no time is passed", () => {
-    mount(ErrorDashboardLogging)
+    cy.mount(ErrorDashboardLogging)
 
     cy.dataCy("countdown").should("be.hidden")
   })
 
   it("shows a countdown line when a time is passed", () => {
-    mount(ErrorDashboardLogging, {
+    cy.mount(ErrorDashboardLogging, {
       props: {
         autoback: 10,
       },
@@ -44,7 +43,7 @@ describe("ErrorDashboardLogging", () => {
   it("routes to previous page when countdown elapses", () => {
     cy.clock()
 
-    mount(ErrorDashboardLogging, {
+    cy.mount(ErrorDashboardLogging, {
       props: {
         autoback: 1,
       },

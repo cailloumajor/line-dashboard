@@ -9,10 +9,10 @@
     "lint": "eslint --ext .js,.json,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
-    "test:e2e": "cross-env start-test \"quasar dev\" http-get://localhost:9000 \"cypress open\"",
-    "test:e2e:ci": "cross-env start-test \"quasar dev\" http-get://localhost:9000 \"cypress run\"",
-    "test:component": "cross-env NODE_ENV=test cypress open-ct",
-    "test:component:ci": "cross-env NODE_ENV=test cypress run-ct"
+    "test:e2e": "cross-env start-test \"quasar dev\" http-get://localhost:9000 \"cypress open --e2e\"",
+    "test:e2e:ci": "cross-env start-test \"quasar dev\" http-get://localhost:9000 \"cypress run --e2e\"",
+    "test:component": "cross-env NODE_ENV=test cypress open --component",
+    "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
     "@quasar/extras": "1.15.5",
@@ -33,24 +33,25 @@
     "@intlify/vite-plugin-vue-i18n": "6.0.3",
     "@pinia/testing": "0.0.14",
     "@quasar/app-vite": "1.1.3",
-    "@quasar/quasar-app-extension-testing-e2e-cypress": "4.2.2",
+    "@quasar/quasar-app-extension-testing-e2e-cypress": "https://gitpkg.now.sh/cailloumajor/quasar-testing/packages/e2e-cypress?dev",
     "@rushstack/eslint-patch": "1.2.0",
     "@types/node": "18.11.7",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/eslint-config-typescript": "11.0.2",
     "autoprefixer": "10.4.13",
     "colortranslator": "1.9.3",
+    "cypress": "^10.11.0",
     "dotenv": "16.0.3",
     "eslint": "8.26.0",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-vue": "9.6.0",
+    "events": "^3.3.0",
     "miragejs": "0.1.45",
     "prettier": "2.7.1",
     "prettier-plugin-jsdoc": "0.4.2",
     "typescript": "4.8.4",
-    "vite-plugin-compression": "0.5.1",
-    "vue-router-mock": "0.1.9"
+    "vite-plugin-compression": "0.5.1"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",

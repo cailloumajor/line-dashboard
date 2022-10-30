@@ -1,4 +1,3 @@
-import { mount } from "@cypress/vue"
 import { Subject } from "rxjs"
 
 import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
@@ -21,7 +20,7 @@ const checkFontSize = (selector: string, expSize: number, delta: number) => {
 }
 
 const mountComponent = ({ id = "_" } = {}) => {
-  mount(LineDashboardWrapper, {
+  cy.mount(LineDashboardWrapper, {
     props: {
       id,
     },
