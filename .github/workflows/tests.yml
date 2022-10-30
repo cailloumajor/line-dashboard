@@ -51,7 +51,7 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v2.1.0
       - name: Run components tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           command: yarn test:component:ci
       - name: Upload coverage to Codecov ☂️
@@ -60,7 +60,7 @@ jobs:
           flags: unittests
           fail_ci_if_error: true
       - name: Run end-to-end tests 🧪
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         env:
           CYPRESS_TRASH_ASSETS_BEFORE_RUNS: false
         with:
