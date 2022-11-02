@@ -15,5 +15,6 @@
   "stopNoFault": "Arrêt sans défaut",
   "runUnderCadence": "Marche en sous-cadence",
   "runAtCadence": "Marche à cadence",
+  "campaignChange": "Changement de campagne",
   "version": "Version :"
 }

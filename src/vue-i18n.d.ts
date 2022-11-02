@@ -18,6 +18,7 @@ declare module "vue-i18n" {
     stopNoFault: string
     runUnderCadence: string
     runAtCadence: string
+    campaignChange: string
     version: string
   }
 }
