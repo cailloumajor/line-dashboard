@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.3.15](https://github.com/cailloumajor/factory-frontend/compare/v0.3.14...v0.3.15) (2022-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update caddy docker tag to v2.6.2 ([8613475](https://github.com/cailloumajor/factory-frontend/commit/8613475d2609c08c2c84050cdfca382a9c05480f))
+* **deps:** update dependency @quasar/extras to v1.15.2 ([b7e5aad](https://github.com/cailloumajor/factory-frontend/commit/b7e5aad85de3f053116291b9728027e88946ebf6))
+* **deps:** update dependency @quasar/extras to v1.15.3 ([37084e0](https://github.com/cailloumajor/factory-frontend/commit/37084e0e776599852a261d81afa2ff91eb315d87))
+* **deps:** update dependency @quasar/extras to v1.15.5 ([c98bff0](https://github.com/cailloumajor/factory-frontend/commit/c98bff0342106f742e6d504ebaa4543665c1266a))
+* **deps:** update dependency @vueuse/core to v9.2.0 ([3c3802a](https://github.com/cailloumajor/factory-frontend/commit/3c3802a11e94d413dc93bf53913033dd04eb1ea3))
+* **deps:** update dependency @vueuse/core to v9.4.0 ([84b41fa](https://github.com/cailloumajor/factory-frontend/commit/84b41fad7346055a9f4eb712949bfb83a47bfc47))
+* **deps:** update dependency pinia to v2.0.22 ([d0191a7](https://github.com/cailloumajor/factory-frontend/commit/d0191a7f22cb51adf785b2ffc6260de938ae1221))
+* **deps:** update dependency pinia to v2.0.23 ([3022f90](https://github.com/cailloumajor/factory-frontend/commit/3022f90be4564a2c9c1c41b0bbdfe86b51e0f60f))
+* **deps:** update dependency quasar to v2.10.0 ([03cb519](https://github.com/cailloumajor/factory-frontend/commit/03cb519ff0ea226ae899b9d40b38aee5840b69fb))
+* **deps:** update dependency quasar to v2.10.1 ([67f6054](https://github.com/cailloumajor/factory-frontend/commit/67f605406c4168641f422761a1ac30cafe316b07))
+* **deps:** update dependency quasar to v2.8.4 ([8397b91](https://github.com/cailloumajor/factory-frontend/commit/8397b919b4bd5339ae8ad0fd3d94c1e3e6fd8f96))
+* **deps:** update dependency rxjs to v7.5.7 ([45b6147](https://github.com/cailloumajor/factory-frontend/commit/45b6147fadc6e3c6f24742066773ca8fa54efcc5))
+* **deps:** update dependency vue to v3.2.38 ([f2c6cc1](https://github.com/cailloumajor/factory-frontend/commit/f2c6cc1e9a891f0cbc1603d6ea59f20700ee5290))
+* **deps:** update dependency vue to v3.2.39 ([4b238f8](https://github.com/cailloumajor/factory-frontend/commit/4b238f8fa27acbc88424d1b12147df623d3f317a))
+* **deps:** update dependency vue to v3.2.41 ([6e4c753](https://github.com/cailloumajor/factory-frontend/commit/6e4c7536eed8a88b6f0d9cb3255d09e51d716476))
+* **deps:** update dependency vue-router to v4.1.6 ([bab8b75](https://github.com/cailloumajor/factory-frontend/commit/bab8b7563c5f5dfff8b7c6153129324dbda3ca69))
+* **deps:** update dependency zod to v3.19.0 ([bd0b7e2](https://github.com/cailloumajor/factory-frontend/commit/bd0b7e288d7fde1fdb1bceeacad20c9e979409be))
+* **deps:** update dependency zod to v3.19.1 ([22a62eb](https://github.com/cailloumajor/factory-frontend/commit/22a62eb228bf5c76c87185a28d8d4736348596c4))
+* **deps:** update node.js to v16.18.0 ([ee8ee88](https://github.com/cailloumajor/factory-frontend/commit/ee8ee8885761f176cd162b0d48bc429d369d0555))
+* **deps:** yarn upgrade ([a4d5765](https://github.com/cailloumajor/factory-frontend/commit/a4d5765006679a38f08342db2e908744251ac32c))
+* follow eslint configuration file renaming ([dcbd96d](https://github.com/cailloumajor/factory-frontend/commit/dcbd96dc105c10b6f4b04273c972de292d989eff))
+* **tests:** move to Cypress v10 ([84c76e0](https://github.com/cailloumajor/factory-frontend/commit/84c76e0a5d09954f199ffcb4b5bc5a44d22cfa9e))
+* use custom e2e testing extension ([a3310fe](https://github.com/cailloumajor/factory-frontend/commit/a3310fee092229e0639d4887c4c3564b25f8e47d))
+
 ## [0.3.14](https://github.com/cailloumajor/factory-frontend/compare/v0.3.13...v0.3.14) (2022-08-26)
 
 
