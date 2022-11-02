@@ -5,7 +5,7 @@
 !public/
 !src/
 !.eslintignore
-!.eslintrc.cjs
+!.eslintrc.js
 !.prettierrc
 !index.html
 !postcss.config.js

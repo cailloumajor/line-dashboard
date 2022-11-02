@@ -13,7 +13,7 @@ COPY public ./public
 COPY src ./src
 COPY index.html \
      .eslintignore \
-     .eslintrc.cjs \
+     .eslintrc.js \
      .prettierrc \
      postcss.config.js \
      quasar.config.js \
