@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/cailloumajor/factory-frontend/compare/v0.4.1...v0.4.2) (2022-11-03)
+
+
+### Bug Fixes
+
+* set default value of target cycle time ([c491653](https://github.com/cailloumajor/factory-frontend/commit/c4916537286edfb6efe3aa416f3fe2aab644b327))
+
 ## [0.4.1](https://github.com/cailloumajor/factory-frontend/compare/v0.4.0...v0.4.1) (2022-11-03)
 
 
