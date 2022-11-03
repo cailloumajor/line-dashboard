@@ -15,5 +15,6 @@
   "stopNoFault": "Stopped without fault",
   "runUnderCadence": "Running under cadence",
   "runAtCadence": "Running at cadence",
+  "campaignChange": "Campaign change",
   "version": "Version:"
 }

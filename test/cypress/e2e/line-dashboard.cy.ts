@@ -6,7 +6,7 @@ interface PublicationParams {
 const centrifugoHost = Cypress.env("CI") ? "localhost" : "centrifugo"
 const url = "/line-dashboard/e2e-tests"
 
-const hearbeat = (status: number) => ({
+const heartbeat = (status: number) => ({
   channel: "e2e-tests:heartbeat",
   data: { status },
 })
@@ -45,14 +45,14 @@ describe("Line dashboard", () => {
   })
 
   it("shows skeletons if links are not all good", () => {
-    centrifugoPublish(hearbeat(1))
+    centrifugoPublish(heartbeat(1))
 
     cy.dataCy("metric-value-text").should("not.exist")
     cy.get(".q-skeleton").should("have.length", 6)
   })
 
   it("shows all green status", () => {
-    centrifugoPublish(hearbeat(0))
+    centrifugoPublish(heartbeat(0))
 
     cy.dataCy("status-0").should("contain.text", "swap_horiz")
     cy.dataCy("status-1").should("contain.text", "swap_horiz")
@@ -60,7 +60,7 @@ describe("Line dashboard", () => {
   })
 
   it("shows published values", () => {
-    centrifugoPublish(hearbeat(0))
+    centrifugoPublish(heartbeat(0))
     centrifugoPublish({
       channel: "e2e-tests:machine-data@1000",
       data: {
@@ -73,7 +73,7 @@ describe("Line dashboard", () => {
     cy.dataCy("metric-0").dataCy("metric-value-text").should("have.text", 5641)
     cy.dataCy("metric-1")
       .dataCy("metric-value-text")
-      .should("have.text", "987.0")
+      .should("have.text", "98.7")
     cy.dataCy("metric-3").dataCy("metric-value-text").should("have.text", 849)
     cy.dataCy("metric-4")
       .dataCy("metric-value-text")
@@ -82,14 +82,14 @@ describe("Line dashboard", () => {
   })
 
   it("shows status", () => {
-    centrifugoPublish(hearbeat(0))
+    centrifugoPublish(heartbeat(0))
 
     cy.dataCy("status-text").should("contain", "Stopped")
 
     centrifugoPublish({
       channel: "e2e-tests:machine-data@1000",
       data: {
-        3: true,
+        4: true,
       },
     })
 
@@ -97,7 +97,7 @@ describe("Line dashboard", () => {
   })
 
   it("shows striped background if not running", () => {
-    centrifugoPublish(hearbeat(0))
+    centrifugoPublish(heartbeat(0))
 
     cy.get(".q-page")
       .invoke("css", "background")
@@ -106,7 +106,7 @@ describe("Line dashboard", () => {
     centrifugoPublish({
       channel: "e2e-tests:machine-data@1000",
       data: {
-        3: true,
+        4: true,
       },
     })
 

@@ -41,8 +41,25 @@ import DashboardMetric from "components/DashboardMetric.vue"
 import machineDataComposable from "composables/machine-data"
 import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
+import { useCampaignDataStore } from "src/stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
+
+export type MachineData = {
+  goodParts: number
+  scrapParts: number
+  averageCycleTime: number
+  campChange: boolean
+  cycle: boolean
+  cycleTimeOver: boolean
+  fault: boolean
+}
+
+enum CycleTimeStatus {
+  Good,
+  OverTarget,
+  OverMax,
+}
 
 interface Status {
   text: string
@@ -57,6 +74,7 @@ const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 })
+const campaignDataStore = useCampaignDataStore()
 const commonStore = useCommonLineInterfaceConfigStore()
 const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
@@ -64,21 +82,22 @@ const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
-const machineData = reactive({
+const machineData: MachineData = reactive({
   goodParts: 0,
   scrapParts: 0,
-  cycleTime: 0,
-  inCycle: false,
+  averageCycleTime: 0,
+  campChange: false,
+  cycle: false,
+  cycleTimeOver: false,
   fault: false,
 })
 
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 
-const targetCycleTime = ref(25)
 const productionObjective = ref(3500)
 
 const stopped = computed(
-  () => machineDataLinkStatusStore.dataValid && !machineData.inCycle
+  () => machineDataLinkStatusStore.dataValid && !machineData.cycle
 )
 
 const effectiveness = computed(() => {
@@ -114,9 +133,15 @@ const cardHeight = computed(() => {
 const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
 const metricValueFontHeight = computed(() => `${cardHeight.value * 0.7}px`)
 
-const cycleTimeRatio = computed(
-  () => machineData.cycleTime / targetCycleTime.value
-)
+const cycleTime = computed(() => machineData.averageCycleTime / 10)
+const cycleTimeStatus = computed(() => {
+  const ratio = cycleTime.value / campaignDataStore.targetCycleTime
+  return ratio >= 1.1
+    ? CycleTimeStatus.OverMax
+    : ratio >= 1.05
+    ? CycleTimeStatus.OverTarget
+    : CycleTimeStatus.Good
+})
 
 const metrics = computed(() => {
   const fixedFractional = new Intl.NumberFormat(languages.value.slice(), {
@@ -133,18 +158,19 @@ const metrics = computed(() => {
     {
       iconName: "timer",
       title: t("cycleTime"),
-      value: fixedFractional.format(machineData.cycleTime),
+      value: fixedFractional.format(cycleTime.value),
       color:
-        cycleTimeRatio.value >= 1.1 || machineData.cycleTime <= 0
+        cycleTimeStatus.value === CycleTimeStatus.OverMax ||
+        cycleTime.value <= 0
           ? "negative"
-          : cycleTimeRatio.value >= 1.05
+          : cycleTimeStatus.value === CycleTimeStatus.OverTarget
           ? "warning"
           : "positive",
     },
     {
       iconName: "track_changes",
       title: t("targetCycleTime"),
-      value: fixedFractional.format(targetCycleTime.value),
+      value: fixedFractional.format(campaignDataStore.targetCycleTime),
     },
     {
       iconName: "delete_outline",
@@ -161,13 +187,16 @@ const metrics = computed(() => {
 })
 
 const statusCard = computed<Status>(() =>
-  machineData.fault
+  machineData.cycle
+    ? machineData.cycleTimeOver ||
+      cycleTimeStatus.value !== CycleTimeStatus.Good
+      ? { text: t("runUnderCadence"), color: "warning" }
+      : { text: t("runAtCadence"), color: "positive" }
+    : machineData.campChange
+    ? { text: t("campaignChange"), color: "info" }
+    : machineData.fault
     ? { text: t("stopFault"), color: "negative" }
-    : !machineData.inCycle
-    ? { text: t("stopNoFault"), color: "orange" }
-    : cycleTimeRatio.value >= 1.05
-    ? { text: t("runUnderCadence"), color: "warning" }
-    : { text: t("runAtCadence"), color: "positive" }
+    : { text: t("stopNoFault"), color: "orange" }
 )
 
 const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)

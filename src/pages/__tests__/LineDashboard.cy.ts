@@ -6,12 +6,12 @@ import machineDataComposable from "src/composables/machine-data"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
+import { useCampaignDataStore } from "src/stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
+import type { MachineData } from "../LineDashboard.vue"
 import type { Server } from "miragejs"
-
-type MachineData = Record<string, unknown>
 
 const checkFontSize = (selector: string, expSize: number, delta: number) => {
   cy.get(selector).should(($el) => {
@@ -141,8 +141,10 @@ describe("LineDashboard", () => {
       {
         goodParts: 0,
         scrapParts: 0,
-        cycleTime: 0,
-        inCycle: false,
+        averageCycleTime: 0,
+        campChange: false,
+        cycle: false,
+        cycleTimeOver: false,
         fault: false,
       },
       { test: "nodeID" },
@@ -155,14 +157,18 @@ describe("LineDashboard", () => {
     cy.get("@machine-data-link-boot-stub").invoke(
       "callsFake",
       (machineData: Record<string, unknown>) => {
-        machineData.cycleTime = 105.49
+        machineData.averageCycleTime = 1055
       }
     )
 
     mountComponent()
 
+    cy.wrap(useCampaignDataStore()).invoke("$patch", {
+      targetCycleTime: 60,
+    })
+
     cy.dataCy("metric-1").dataCy("value").should("have.text", "105.5")
-    cy.dataCy("metric-2").dataCy("value").should("have.text", "25.0")
+    cy.dataCy("metric-2").dataCy("value").should("have.text", "60.0")
   })
 
   context("machine data reactivity", () => {
@@ -209,20 +215,24 @@ describe("LineDashboard", () => {
     })
 
     it("gives contextual colors to metrics", () => {
+      cy.wrap(useCampaignDataStore()).invoke("$patch", {
+        targetCycleTime: 100,
+      })
+
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        cycleTime: 26.5,
+        averageCycleTime: 1051,
         scrapParts: 1,
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "warning")
       cy.dataCy("metric-3").dataCy("color").should("have.text", "negative")
 
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        cycleTime: 30,
+        averageCycleTime: 1101,
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
 
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        cycleTime: 25.0,
+        averageCycleTime: 1000,
         scrapParts: 0,
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
@@ -236,24 +246,39 @@ describe("LineDashboard", () => {
         opcUaLinkStatus: LinkStatus.Up,
       })
 
+      cy.wrap(useCampaignDataStore()).invoke("$patch", {
+        targetCycleTime: 100,
+      })
+
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        cycleTime: 26.5,
-        inCycle: true,
+        campChange: true,
+      })
+      cy.dataCy("status-text").should("have.class", "text-info")
+
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
+        averageCycleTime: 1051,
+        campChange: false,
+        cycle: true,
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
 
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        cycleTime: 25,
+        averageCycleTime: 1000,
       })
       cy.dataCy("status-text").should("have.class", "text-positive")
 
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        inCycle: false,
+        cycleTimeOver: true,
+      })
+      cy.dataCy("status-text").should("have.class", "text-warning")
+
+      cy.get<Subject<MachineData>>("@subject").invoke("next", {
+        cycle: false,
       })
       cy.dataCy("status-text").should("have.class", "text-orange")
 
       cy.get<Subject<MachineData>>("@subject").invoke("next", {
-        inCycle: false,
+        cycle: false,
         fault: true,
       })
       cy.dataCy("status-text").should("have.class", "text-negative")
