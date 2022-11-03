@@ -9,14 +9,11 @@ export default defineConfig({
   video: true,
 
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
-      registerCodeCoverageTasks(on, config)
-      config.env.CI = process.env.CI
+      config.env.CENTRIFUGO_HOST = process.env.CENTRIFUGO_HOST
       return config
     },
-    baseUrl: "http://localhost:9000/",
+    baseUrl: "http://localhost:9090/",
     supportFile: "test/cypress/support/e2e.ts",
     specPattern: "test/cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
   },

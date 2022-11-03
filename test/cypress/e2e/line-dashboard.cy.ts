@@ -3,7 +3,7 @@ interface PublicationParams {
   data: Record<string, unknown>
 }
 
-const centrifugoHost = Cypress.env("CI") ? "localhost" : "centrifugo"
+const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
 const url = "/line-dashboard/e2e-tests"
 
 const heartbeat = (status: number) => ({
@@ -25,13 +25,6 @@ const centrifugoPublish = (params: PublicationParams) => {
   })
 }
 
-before(() => {
-  cy.on("uncaught:exception", () => false)
-  cy.visit(url)
-  cy.reload(true)
-  cy.get("main.q-page", { timeout: 10000 }).should("be.visible")
-})
-
 describe("Line dashboard", () => {
   beforeEach(() => {
     cy.visit(url)
@@ -41,7 +34,7 @@ describe("Line dashboard", () => {
   })
 
   it("gets header title from config API", () => {
-    cy.dataCy("layout-title").should("have.text", "Test Title")
+    cy.dataCy("layout-title").should("have.text", "End-to-end tests")
   })
 
   it("shows skeletons if links are not all good", () => {

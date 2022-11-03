@@ -107,9 +107,7 @@ module.exports = configure(function (/* ctx */) {
       proxy: {
         "/centrifugo": {
           rewrite: (path) => path.replace(/^\/centrifugo/, ""),
-          target: process.env.CI
-            ? "ws://localhost:8000"
-            : process.env.CENTRIFUGO_WS,
+          target: process.env.CENTRIFUGO_WS,
           ws: true,
         },
       },
