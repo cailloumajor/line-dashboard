@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0](https://github.com/cailloumajor/factory-frontend/compare/v0.3.15...v0.4.0) (2022-11-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* adapt to new machine data tags
+
+### Bug Fixes
+
+* adapt to new machine data tags ([9fe51c2](https://github.com/cailloumajor/factory-frontend/commit/9fe51c298a059f5f3889dc374cd4dab11126f063))
+
 ## [0.3.15](https://github.com/cailloumajor/factory-frontend/compare/v0.3.14...v0.3.15) (2022-11-02)
 
 
