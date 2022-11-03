@@ -6,6 +6,7 @@
       :value="metric.value"
       :color="metric.color"
       :data-valid="machineDataLinkStatusStore.dataValid"
+      :disable-value="metric.disableValue"
       :data-cy="`metric-${index}`"
       :style="{ height: cardHeight * 0.95 + 'px' }"
     >
@@ -171,6 +172,7 @@ const metrics = computed(() => {
       iconName: "track_changes",
       title: t("targetCycleTime"),
       value: fixedFractional.format(campaignDataStore.targetCycleTime),
+      disableValue: true,
     },
     {
       iconName: "delete_outline",
@@ -182,6 +184,7 @@ const metrics = computed(() => {
       iconName: "speed",
       title: t("performance") + " (%)",
       value: fixedFractional.format(effectiveness.value),
+      disableValue: true,
     },
   ]
 })

@@ -11,6 +11,7 @@
     >
       <div
         v-if="dataValid"
+        v-show="!disableValue"
         :class="color !== undefined ? `text-${color}` : undefined"
         data-cy="metric-value-text"
       >
@@ -26,6 +27,7 @@ defineProps<{
   value: number | string
   color?: string
   dataValid: boolean
+  disableValue?: boolean
 }>()
 </script>
 
