@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/cailloumajor/factory-frontend/compare/v0.4.0...v0.4.1) (2022-11-03)
+
+
+### Bug Fixes
+
+* temporarily mask values for not ready metrics ([768bbfe](https://github.com/cailloumajor/factory-frontend/commit/768bbfe4639d0ec6341246842f942d2a669fde3b))
+
 ## [0.4.0](https://github.com/cailloumajor/factory-frontend/compare/v0.3.15...v0.4.0) (2022-11-03)
 
 
