@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.3](https://github.com/cailloumajor/factory-frontend/compare/v0.4.2...v0.4.3) (2022-11-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v9.5.0 ([9903a73](https://github.com/cailloumajor/factory-frontend/commit/9903a73bc32d876feec29d9bca06baf4e45c8f97))
+* **deps:** update dependency vue to v3.2.45 ([df81e7b](https://github.com/cailloumajor/factory-frontend/commit/df81e7beeb30fc1fc684645bb03e8897f439fd6b))
+* **deps:** update node.js to v16.18.1 ([ce832b9](https://github.com/cailloumajor/factory-frontend/commit/ce832b9493ceb46fc8f35b69d511886509702261))
+
 ## [0.4.2](https://github.com/cailloumajor/factory-frontend/compare/v0.4.1...v0.4.2) (2022-11-03)
 
 
