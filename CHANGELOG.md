@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.4](https://github.com/cailloumajor/factory-frontend/compare/v0.4.3...v0.4.4) (2022-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency quasar to v2.10.2 ([a78f89b](https://github.com/cailloumajor/factory-frontend/commit/a78f89b3d3963cfedcdf8d07466d2e3e9cc52f2b))
+* restore using upstream quasar testing AE ([90d900a](https://github.com/cailloumajor/factory-frontend/commit/90d900aa857c1e65bd2009897a27ab32f1cc3d9b))
+
 ## [0.4.3](https://github.com/cailloumajor/factory-frontend/compare/v0.4.2...v0.4.3) (2022-11-11)
 
 
