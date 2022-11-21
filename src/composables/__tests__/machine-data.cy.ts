@@ -206,7 +206,7 @@ describe("machine data link boot composable", () => {
   })
 
   it("disconnects on unmount", () => {
-    cy.mount(MachineDataLinkBootWrapper).as("wrapper")
+    cy.mount(MachineDataLinkBootWrapper).its("wrapper").as("wrapper")
 
     cy.get("@centrifuge").its("disconnect").should("not.have.been.called")
     cy.get("@wrapper").invoke("unmount")

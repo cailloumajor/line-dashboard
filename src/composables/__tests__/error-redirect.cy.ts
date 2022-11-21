@@ -1,11 +1,10 @@
-import { mountCallback } from "cypress/vue"
 import { SessionStorage } from "quasar"
 
 import ErrorRedirectWrapper from "app/test/cypress/wrappers/ErrorRedirectWrapper.vue"
 import { loadingErrorStorageKey } from "src/global"
 
 describe("error redirect composable", () => {
-  beforeEach(mountCallback(ErrorRedirectWrapper))
+  beforeEach(() => cy.mount(ErrorRedirectWrapper))
 
   it("writes errors to session storage", () => {
     cy.wrap(SessionStorage)
