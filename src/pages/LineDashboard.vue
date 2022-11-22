@@ -206,8 +206,7 @@ const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
-const { centrifugoNamespace, opcUaNodeIds, opcUaNsURI } = config
-machineDataLinkBoot(machineData, opcUaNodeIds, centrifugoNamespace, opcUaNsURI)
+machineDataLinkBoot(machineData, props.id)
 </script>
 
 <style module lang="scss">

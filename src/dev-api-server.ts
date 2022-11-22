@@ -10,11 +10,8 @@ export function makeServer({ environment = "test" } = {}) {
     environment,
 
     routes() {
-      this.get(`${staticConfigApi}/:id/line-dashboard`, (schema, request) => ({
+      this.get(`${staticConfigApi}/:id/line-dashboard`, () => ({
         title: "Test Title",
-        centrifugoNamespace: request.params.id,
-        opcUaNsURI: "urn:test",
-        opcUaNodeIds: {},
         ...maybeJSON(import.meta.env.VITE_CONFIG_API as string | undefined),
       }))
     },
