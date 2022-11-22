@@ -1,17 +1,7 @@
-interface PublicationParams {
-  channel: string
-  data: Record<string, unknown>
-}
-
 const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
 const url = "/line-dashboard/e2e-tests"
 
-const heartbeat = (status: number) => ({
-  channel: "e2e-tests:heartbeat",
-  data: { status },
-})
-
-const centrifugoPublish = (params: PublicationParams) => {
+const centrifugoPublish = (data: Record<string, unknown>) => {
   cy.request({
     method: "POST",
     url: `http://${centrifugoHost}:8000/api`,
@@ -20,7 +10,10 @@ const centrifugoPublish = (params: PublicationParams) => {
     },
     body: {
       method: "publish",
-      params,
+      params: {
+        channel: "opcua.data:e2e-tests",
+        data,
+      },
     },
   })
 }
@@ -37,30 +30,34 @@ describe("Line dashboard", () => {
     cy.dataCy("layout-title").should("have.text", "End-to-end tests")
   })
 
-  it("shows skeletons if links are not all good", () => {
-    centrifugoPublish(heartbeat(1))
+  context("with clock mocked", () => {
+    before(() => {
+      cy.clock()
+    })
 
-    cy.dataCy("metric-value-text").should("not.exist")
-    cy.get(".q-skeleton").should("have.length", 6)
+    after(() => {
+      cy.clock().invoke("restore")
+    })
+
+    it("shows skeletons if links are not all good", () => {
+      cy.tick(20000)
+      cy.dataCy("metric-value-text").should("not.exist")
+      cy.get(".q-skeleton").should("have.length", 6)
+    })
   })
 
   it("shows all green status", () => {
-    centrifugoPublish(heartbeat(0))
+    centrifugoPublish({})
 
     cy.dataCy("status-0").should("contain.text", "swap_horiz")
     cy.dataCy("status-1").should("contain.text", "swap_horiz")
-    cy.dataCy("status-2").should("contain.text", "swap_horiz")
   })
 
   it("shows published values", () => {
-    centrifugoPublish(heartbeat(0))
     centrifugoPublish({
-      channel: "e2e-tests:machine-data@1000",
-      data: {
-        0: 5641,
-        1: 849,
-        2: 987,
-      },
+      goodParts: 5641,
+      scrapParts: 849,
+      averageCycleTime: 987,
     })
 
     cy.dataCy("metric-0").dataCy("metric-value-text").should("have.text", 5641)
@@ -75,32 +72,26 @@ describe("Line dashboard", () => {
   })
 
   it("shows status", () => {
-    centrifugoPublish(heartbeat(0))
+    centrifugoPublish({})
 
     cy.dataCy("status-text").should("contain", "Stopped")
 
     centrifugoPublish({
-      channel: "e2e-tests:machine-data@1000",
-      data: {
-        4: true,
-      },
+      cycle: true,
     })
 
     cy.dataCy("status-text").should("contain", "Running")
   })
 
   it("shows striped background if not running", () => {
-    centrifugoPublish(heartbeat(0))
+    centrifugoPublish({})
 
     cy.get(".q-page")
       .invoke("css", "background")
       .should("contain", "repeating-linear-gradient")
 
     centrifugoPublish({
-      channel: "e2e-tests:machine-data@1000",
-      data: {
-        4: true,
-      },
+      cycle: true,
     })
 
     cy.get(".q-page")

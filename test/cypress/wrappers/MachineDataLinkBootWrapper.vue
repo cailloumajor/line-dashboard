@@ -16,8 +16,7 @@ import machineDataComposable from "../../../src/composables/machine-data"
 const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 
 const props = defineProps<{
-  ns?: string
-  nsURI?: string
+  partnerID?: string
 }>()
 
 const machineData = reactive({
@@ -25,10 +24,5 @@ const machineData = reactive({
   second: "initial",
 })
 
-machineDataLinkBoot(
-  machineData,
-  { second: 42 },
-  props.ns ?? "",
-  props.nsURI ?? ""
-)
+machineDataLinkBoot(machineData, props.partnerID ?? "")
 </script>

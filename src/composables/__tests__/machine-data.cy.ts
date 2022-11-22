@@ -2,24 +2,18 @@ import EventEmitter from "events"
 
 import MachineDataLinkBootWrapper from "app/test/cypress/wrappers/MachineDataLinkBootWrapper.vue"
 import errorRedirectComposable from "src/composables/error-redirect"
-import { heartbeatTimeout, maybeUint32 } from "src/composables/machine-data"
+import { heartbeatTimeoutMillis } from "src/composables/machine-data"
 import { deps } from "src/composables/machine-data"
 import { LinkStatus } from "src/global"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 class MockedSubscription extends EventEmitter {
-  constructor(private nodes?: (string | number)[]) {
+  constructor() {
     super()
   }
 
-  publishData(changes: Record<string | number, unknown>) {
-    const data = Object.fromEntries(
-      Object.entries(changes).map(([k, v]) => [
-        this.nodes?.findIndex((elem) => elem === maybeUint32(k)),
-        v,
-      ])
-    )
-    super.emit("publish", { data })
+  subscribe() {
+    return null
   }
 }
 
@@ -36,7 +30,7 @@ class MockedCentrifuge extends EventEmitter {
     return null
   }
 
-  subscribe() {
+  newSubscription() {
     return null
   }
 }
@@ -48,21 +42,16 @@ describe("machine data link boot composable", () => {
     cy.stub(errorRedirectComposable, "useErrorRedirect").returns({
       errorRedirect: errorRedirectStub,
     })
-    const mockedHeartbeatSubscription = new MockedSubscription()
-    cy.wrap(mockedHeartbeatSubscription).as("heartbeat-subscription")
     const mockedCentrifuge = new MockedCentrifuge()
     cy.wrap(mockedCentrifuge).as("centrifuge")
     cy.stub(mockedCentrifuge, "connect")
     cy.stub(mockedCentrifuge, "disconnect")
-    cy.stub(mockedCentrifuge, "subscribe")
-      .onFirstCall()
-      .callsFake((channel, events, { data: { nodes } }) => {
-        const mockedDataChangeSubscription = new MockedSubscription(nodes)
-        cy.wrap(mockedDataChangeSubscription).as("data-change-subscription")
-        return mockedDataChangeSubscription
-      })
-      .onSecondCall()
-      .returns(mockedHeartbeatSubscription)
+    cy.stub(mockedCentrifuge, "newSubscription").callsFake(() => {
+      const mockedDataChangeSubscription = new MockedSubscription()
+      cy.stub(mockedDataChangeSubscription, "subscribe")
+      cy.wrap(mockedDataChangeSubscription).as("data-change-subscription")
+      return mockedDataChangeSubscription
+    })
     cy.stub(deps, "Centrifuge").returns(mockedCentrifuge)
   })
 
@@ -74,129 +63,93 @@ describe("machine data link boot composable", () => {
     cy.get("@store")
       .its("centrifugoLinkStatus")
       .should("equal", LinkStatus.Unknown)
-    cy.get("@centrifuge").invoke("emit", "connect")
+    cy.get("@centrifuge").invoke("emit", "connected")
     cy.get("@store").its("centrifugoLinkStatus").should("equal", LinkStatus.Up)
-    cy.get("@centrifuge").invoke("emit", "disconnect")
+    cy.get("@centrifuge").invoke("emit", "disconnected")
     cy.get("@store")
       .its("centrifugoLinkStatus")
       .should("equal", LinkStatus.Down)
   })
 
-  it("subscribes to data changes and heartbeat", () => {
+  it("subscribes to data changes", () => {
     cy.mount(MachineDataLinkBootWrapper, {
       props: {
-        ns: "namespacefortesting",
-        nsURI: "urn:unit.tests",
+        partnerID: "testid",
       },
     })
 
     cy.get("@centrifuge")
+      .its("newSubscription")
+      .should("have.been.calledWith", "opcua.data:testid")
+    cy.get("@data-change-subscription")
       .its("subscribe")
-      .should(
-        "have.been.calledWith",
-        "namespacefortesting:machine-data@1000",
-        undefined,
-        Cypress.sinon.match
-          .hasNested("data.namespaceURI", "urn:unit.tests")
-          .and(
-            Cypress.sinon.match.hasNested(
-              "data.nodes",
-              Cypress.sinon.match.array.contains(["first", 42])
-            )
-          )
-      )
-      .and("have.been.calledWith", "namespacefortesting:heartbeat")
+      .should("have.been.calledOnce")
   })
 
-  context("on data change subscription error", () => {
-    it("redirects to error page if not resubscribing", () => {
+  context("when data change subscription is unsubscribed", () => {
+    it("redirects to error page", () => {
       cy.mount(MachineDataLinkBootWrapper)
 
-      cy.get("@data-change-subscription").invoke("emit", "error", {
-        message: "Testing subscription error",
+      cy.get("@data-change-subscription").invoke("emit", "unsubscribed", {
+        reason: "Testing unsubscribed event",
       })
 
       cy.get("@error-redirect-stub").should("have.been.calledWithExactly", [
-        "Testing subscription error",
+        "Testing unsubscribed event",
       ])
     })
+  })
 
-    it("does not redirect to error page if resubscribing", () => {
-      cy.mount(MachineDataLinkBootWrapper)
+  it("gets initial data on subscription", () => {
+    cy.mount(MachineDataLinkBootWrapper)
 
-      cy.get("@data-change-subscription").invoke("emit", "error", {
-        message: "Testing subscription error",
-        isResubscribe: true,
-      })
+    cy.wrap(useMachineDataLinkStatusStore()).as("store")
+    cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Unknown)
 
-      cy.get("@error-redirect-stub").should("not.have.been.called")
+    cy.get("@data-change-subscription").invoke("emit", "subscribed", {
+      data: { first: 42, second: "somevalue" },
     })
+    cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Up)
+    cy.dataCy("first").should("have.text", 42)
+    cy.dataCy("second").should("have.text", "somevalue")
   })
 
   it("updates machine data on data change publication", () => {
     cy.mount(MachineDataLinkBootWrapper)
 
-    cy.get("@data-change-subscription").invoke("publishData", {
-      first: 800,
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { first: 800 },
     })
     cy.dataCy("first").should("have.text", 800)
     cy.dataCy("second").should("have.text", "initial")
 
-    cy.get("@data-change-subscription").invoke("publishData", {
-      "42": "changed-1",
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { second: "changed-1" },
     })
     cy.dataCy("first").should("have.text", 800)
     cy.dataCy("second").should("have.text", "changed-1")
 
-    cy.get("@data-change-subscription").invoke("publishData", {
-      first: 54,
-      42: "changed-2",
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { first: 54, second: "changed-2" },
     })
     cy.dataCy("first").should("have.text", 54)
     cy.dataCy("second").should("have.text", "changed-2")
   })
 
-  it("changes proxy link status depending on publications", () => {
+  it("changes PLC link status depending on publications", () => {
     cy.clock()
 
     cy.mount(MachineDataLinkBootWrapper)
 
     cy.wrap(useMachineDataLinkStatusStore()).as("store")
 
-    cy.get("@store")
-      .its("opcUaProxyLinkStatus")
-      .should("equal", LinkStatus.Unknown)
-    cy.get("@data-change-subscription").invoke("emit", "publish", { data: {} })
-    cy.get("@store").its("opcUaProxyLinkStatus").should("equal", LinkStatus.Up)
-    cy.tick(heartbeatTimeout + 500)
-    cy.get("@store")
-      .its("opcUaProxyLinkStatus")
-      .should("equal", LinkStatus.Down)
-    cy.get("@heartbeat-subscription").invoke("emit", "publish", {
-      data: { status: null },
+    cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Unknown)
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: {},
     })
-    cy.tick(1000)
-    cy.get("@store").its("opcUaProxyLinkStatus").should("equal", LinkStatus.Up)
-    cy.tick(heartbeatTimeout + 500)
-    cy.get("@store")
-      .its("opcUaProxyLinkStatus")
-      .should("equal", LinkStatus.Down)
-  })
-
-  it("changes OPC-UA link status depending on heartbeat publications", () => {
-    cy.mount(MachineDataLinkBootWrapper)
-
-    cy.wrap(useMachineDataLinkStatusStore()).as("store")
-
-    cy.get("@store").its("opcUaLinkStatus").should("equal", LinkStatus.Unknown)
-    cy.get("@heartbeat-subscription").invoke("emit", "publish", {
-      data: { status: 0 },
-    })
-    cy.get("@store").its("opcUaLinkStatus").should("equal", LinkStatus.Up)
-    cy.get("@heartbeat-subscription").invoke("emit", "publish", {
-      data: { status: 1 },
-    })
-    cy.get("@store").its("opcUaLinkStatus").should("equal", LinkStatus.Down)
+    cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Up)
+    cy.tick(heartbeatTimeoutMillis + 500)
+    cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Down)
   })
 
   it("connects to Centrifugo", () => {

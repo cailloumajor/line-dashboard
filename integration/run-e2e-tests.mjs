@@ -30,9 +30,6 @@ server.on("upgrade", (req, socket, head) => {
 app.get("/static-config-api/*", (req, res) => {
   res.json({
     title: "End-to-end tests",
-    centrifugoNamespace: "e2e-tests",
-    opcUaNsURI: "urn:tests:e2e",
-    opcUaNodeIds: {},
   })
 })
 

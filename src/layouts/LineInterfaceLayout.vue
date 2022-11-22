@@ -75,9 +75,8 @@ const statuses = computed(() => {
   })
 
   return [
-    { text: "Pub/Sub", ...graphical(statusStore.centrifugoStatus) },
-    { text: "OPC-UA proxy", ...graphical(statusStore.opcUaProxyStatus) },
-    { text: "OPC-UA", ...graphical(statusStore.opcUaStatus) },
+    { text: "Centrifugo", ...graphical(statusStore.centrifugoStatus) },
+    { text: "PLC", ...graphical(statusStore.plcStatus) },
   ]
 })
 

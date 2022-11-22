@@ -2,7 +2,7 @@ version: "3"
 
 services:
   centrifugo:
-    image: centrifugo/centrifugo:v3
+    image: centrifugo/centrifugo:v4.0
     command:
       - centrifugo
       - --config=/usr/local/etc/centrifugo.toml
