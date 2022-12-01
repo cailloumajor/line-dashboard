@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/cailloumajor/factory-frontend/compare/v1.0.0...v1.1.0) (2022-12-01)
+
+
+### Features
+
+* add PLC heartbeat state icon ([295a970](https://github.com/cailloumajor/factory-frontend/commit/295a970bc82a4572bd3e9f90ba97bb1c732c4916))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v9.6.0 ([90a6cce](https://github.com/cailloumajor/factory-frontend/commit/90a6cceb6a06b25f0a5c52cee528cd1f843fece5))
+* **deps:** update dependency pinia to v2.0.26 ([6b0ce0c](https://github.com/cailloumajor/factory-frontend/commit/6b0ce0cca857768af9c188f6e0b282f756f73899))
+* **deps:** update dependency pinia to v2.0.27 ([d3d3420](https://github.com/cailloumajor/factory-frontend/commit/d3d342066fb4120e2e71bc39021cc01db20eb512))
+
 ## [1.0.0](https://github.com/cailloumajor/factory-frontend/compare/v0.4.4...v1.0.0) (2022-11-22)
 
 
