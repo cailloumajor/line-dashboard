@@ -6,6 +6,7 @@ export const useMachineDataLinkStatusStore = defineStore("machine-data-link", {
   state: () => ({
     centrifugoLinkStatus: LinkStatus.Unknown,
     plcLinkStatus: LinkStatus.Unknown,
+    plcHeartbeat: false,
   }),
 
   getters: {
@@ -17,5 +18,8 @@ export const useMachineDataLinkStatusStore = defineStore("machine-data-link", {
       state.centrifugoLinkStatus === LinkStatus.Up
         ? state.plcLinkStatus
         : LinkStatus.Unknown,
+    heartbeat(): boolean {
+      return this.plcStatus === LinkStatus.Up && this.plcHeartbeat
+    },
   },
 })

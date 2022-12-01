@@ -152,6 +152,22 @@ describe("machine data link boot composable", () => {
     cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Down)
   })
 
+  it("updates PLC heartbeat state in the store", () => {
+    cy.mount(MachineDataLinkBootWrapper)
+
+    cy.wrap(useMachineDataLinkStatusStore()).as("store")
+
+    cy.get("@store").its("plcHeartbeat").should("be.false")
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { heartbeat: true },
+    })
+    cy.get("@store").its("plcHeartbeat").should("be.true")
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { heartbeat: false },
+    })
+    cy.get("@store").its("plcHeartbeat").should("be.false")
+  })
+
   it("connects to Centrifugo", () => {
     cy.mount(MachineDataLinkBootWrapper)
 

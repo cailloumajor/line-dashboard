@@ -25,6 +25,8 @@ import "quasar/src/css/index.sass"
 // If you use multiple or different icon-sets then the default, be sure to import them here.
 import "quasar/dist/icon-set/material-icons.umd.prod"
 import "@quasar/extras/material-icons/material-icons.css"
+import "quasar/dist/icon-set/material-icons-outlined.umd.prod"
+import "@quasar/extras/material-icons-outlined/material-icons-outlined.css"
 
 import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"

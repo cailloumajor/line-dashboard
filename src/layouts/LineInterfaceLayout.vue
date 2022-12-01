@@ -25,9 +25,15 @@
           :data-cy="`status-${index}`"
           class="q-ml-md"
         >
-          <q-icon :name="status.icon" :color="status.color" size="sm" />
           {{ status.text }}
+          <q-icon :name="status.icon" :color="status.color" size="sm" />
         </span>
+        <q-icon
+          :color="statusStore.heartbeat ? 'positive' : 'grey-7'"
+          data-cy="heartbeat-icon"
+          name="o_monitor_heart"
+          size="sm"
+        />
       </q-toolbar>
     </q-footer>
   </q-layout>
