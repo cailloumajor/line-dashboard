@@ -4,6 +4,7 @@ import { z } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
+import { LinkStatus } from "src/global"
 import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
@@ -105,6 +106,31 @@ describe("LineInterfaceLayout", () => {
         checkIcons(expStatuses)
       })
     }
+
+    it("displays PLC heartbeat state", () => {
+      cy.mount(LineInterfaceLayout)
+
+      cy.wrap(useMachineDataLinkStatusStore()).as("store")
+
+      cy.get("@store").invoke("$patch", {
+        plcHeartbeat: true,
+      })
+
+      cy.dataCy("heartbeat-icon").should("not.have.class", "text-positive")
+
+      cy.get("@store").invoke("$patch", {
+        centrifugoLinkStatus: LinkStatus.Up,
+        plcLinkStatus: LinkStatus.Up,
+      })
+
+      cy.dataCy("heartbeat-icon").should("have.class", "text-positive")
+
+      cy.get("@store").invoke("$patch", {
+        plcHeartbeat: false,
+      })
+
+      cy.dataCy("heartbeat-icon").should("not.have.class", "text-positive")
+    })
   })
 
   describe("redirects to error page", () => {
