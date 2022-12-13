@@ -44,7 +44,7 @@
     "autoprefixer": "10.4.13",
     "colortranslator": "1.9.3",
     "connect-history-api-fallback": "2.0.0",
-    "cypress": "12.0.2",
+    "cypress": "12.1.0",
     "dotenv": "16.0.3",
     "eslint": "8.29.0",
     "eslint-plugin-cypress": "2.12.1",
