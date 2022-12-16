@@ -1,11 +1,11 @@
 <template>
-  <q-card :class="$style.card" class="text-center">
-    <q-card-section class="no-padding">
+  <QCard :class="$style.card" class="text-center">
+    <QCardSection class="no-padding">
       <div class="metric-title text-uppercase" data-cy="metric-title-content">
         <slot>???</slot>
       </div>
-    </q-card-section>
-    <q-card-section
+    </QCardSection>
+    <QCardSection
       class="metric-value no-padding"
       data-cy="metric-value-section"
     >
@@ -17,9 +17,9 @@
       >
         {{ value }}
       </div>
-      <q-skeleton v-else type="text" class="q-mx-auto" width="1em"></q-skeleton>
-    </q-card-section>
-  </q-card>
+      <QSkeleton v-else type="text" class="q-mx-auto" width="1em"></QSkeleton>
+    </QCardSection>
+  </QCard>
 </template>
 
 <script setup lang="ts">

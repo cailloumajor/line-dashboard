@@ -3,11 +3,11 @@
     class="fullscreen bg-blue-grey-8 text-white text-center q-pa-md flex flex-center"
   >
     <div style="width: 90%">
-      <q-icon name="error_outline" color="negative" size="8rem"></q-icon>
+      <QIcon name="error_outline" color="negative" size="8rem"></QIcon>
 
       <div style="font-size: 6rem">{{ t("loadingError").toUpperCase() }}</div>
 
-      <q-card
+      <QCard
         bordered
         class="bg-red-8 q-pa-sm q-mx-auto q-mb-xl text-left"
         style="opacity: 0.8; width: 60%"
@@ -21,7 +21,7 @@
         >
           {{ error }}
         </p>
-      </q-card>
+      </QCard>
 
       <div
         :style="countdownStyle"
