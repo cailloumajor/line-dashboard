@@ -34,6 +34,8 @@ function useMachineDataLinkBoot() {
     function patchMachineData({
       data,
     }: SubscribedContext | PublicationContext) {
+      // Return if data is null or undefined
+      if (data == null) return
       Object.assign(machineData, data)
       if ("heartbeat" in data) {
         statusStore.plcHeartbeat = !!data.heartbeat

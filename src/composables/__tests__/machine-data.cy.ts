@@ -114,6 +114,14 @@ describe("machine data link boot composable", () => {
     cy.dataCy("second").should("have.text", "somevalue")
   })
 
+  it("accepts publications with undefined data", () => {
+    cy.mount(MachineDataLinkBootWrapper)
+
+    // No exception should be emitted.
+    cy.get("@data-change-subscription").invoke("emit", "subscribed", {})
+    cy.get("@data-change-subscription").invoke("emit", "publication", {})
+  })
+
   it("updates machine data on data change publication", () => {
     cy.mount(MachineDataLinkBootWrapper)
 
