@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/cailloumajor/factory-frontend/compare/v1.1.0...v1.1.1) (2022-12-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.15.7 ([89c7af5](https://github.com/cailloumajor/factory-frontend/commit/89c7af5288bc50b038a039afe2d17b03e708b373))
+* **deps:** update dependency @quasar/extras to v1.15.8 ([5edf039](https://github.com/cailloumajor/factory-frontend/commit/5edf03941fe43dc909c37d95f2fb745b3c632815))
+* **deps:** update dependency centrifuge to v3.1.0 ([4b44072](https://github.com/cailloumajor/factory-frontend/commit/4b44072131613ac1453f8a91a4c996afbe5b610a))
+* **deps:** update dependency pinia to v2.0.28 ([1257ccc](https://github.com/cailloumajor/factory-frontend/commit/1257ccc279fa3b4b49d86b9a0b43a3f3980cb038))
+* **deps:** update dependency zod to v3.20.2 ([6214bde](https://github.com/cailloumajor/factory-frontend/commit/6214bdecd4cd3ab696f36e94f02ecc9a4bc08a28))
+* **deps:** update node.js to v16.19.0 ([18ab618](https://github.com/cailloumajor/factory-frontend/commit/18ab618793ef776b155627fce00df3c338866707))
+
 ## [1.1.0](https://github.com/cailloumajor/factory-frontend/compare/v1.0.0...v1.1.0) (2022-12-01)
 
 
