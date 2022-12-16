@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/cailloumajor/factory-frontend/compare/v1.1.1...v1.1.2) (2022-12-16)
+
+
+### Bug Fixes
+
+* adjust typing and handling of machine data ([5d7c0f0](https://github.com/cailloumajor/factory-frontend/commit/5d7c0f0e4048956925b07d9aff4141a4d1a931ab))
+* handle undefined or null publication data ([3a37b49](https://github.com/cailloumajor/factory-frontend/commit/3a37b49b321a8e7c075531903b5b6283211e0e0c))
+
 ## [1.1.1](https://github.com/cailloumajor/factory-frontend/compare/v1.1.0...v1.1.1) (2022-12-16)
 
 
