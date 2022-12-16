@@ -83,7 +83,7 @@ const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 const { height: windowHeight } = useWindowSize()
 
-const machineData: MachineData = reactive({
+const machineData = reactive<MachineData>({
   goodParts: 0,
   scrapParts: 0,
   averageCycleTime: 0,

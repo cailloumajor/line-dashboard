@@ -7,11 +7,6 @@ import { LinkStatus, centrifugoNamespace } from "src/global"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
 import type { PublicationContext, SubscribedContext } from "centrifuge"
-import type { UnwrapNestedRefs } from "vue"
-
-interface MachineData {
-  heartbeat: boolean
-}
 
 export const heartbeatTimeoutMillis = 8000 // PLC heartbeat timeout in milliseconds
 
@@ -27,8 +22,8 @@ function useMachineDataLinkBoot() {
    * @param machineData Reactive data to keep up-to-date with machine data.
    * @param partnerID Partner ID.
    */
-  function machineDataLinkBoot<T extends MachineData>(
-    machineData: UnwrapNestedRefs<T>,
+  function machineDataLinkBoot<T extends object>(
+    machineData: T,
     partnerID: string
   ) {
     const upToDate = autoResetRef(false, heartbeatTimeoutMillis)
@@ -36,17 +31,13 @@ function useMachineDataLinkBoot() {
       statusStore.plcLinkStatus = newValue ? LinkStatus.Up : LinkStatus.Down
     })
 
-    watch(
-      () => machineData.heartbeat,
-      (hb) => {
-        statusStore.plcHeartbeat = hb
-      }
-    )
-
     function patchMachineData({
       data,
     }: SubscribedContext | PublicationContext) {
       Object.assign(machineData, data)
+      if ("heartbeat" in data) {
+        statusStore.plcHeartbeat = !!data.heartbeat
+      }
       upToDate.value = true
     }
 
