@@ -1,9 +1,9 @@
 <template>
-  <dashboard-metric
+  <DashboardMetric
     :value="value"
     :color="color"
     :data-valid="dataValid"
-  ></dashboard-metric>
+  ></DashboardMetric>
   <div>
     <input v-model="value" type="number" data-cy="number-input" />
     <input v-model="color" type="text" data-cy="color-input" />

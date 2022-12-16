@@ -1,6 +1,6 @@
 <template>
-  <q-page ref="pageElem" :class="[$style.page, stopped ? $style.stopped : '']">
-    <dashboard-metric
+  <QPage ref="pageElem" :class="[$style.page, stopped ? $style.stopped : '']">
+    <DashboardMetric
       v-for="(metric, index) in metrics"
       :key="`metric-${index}`"
       :value="metric.value"
@@ -10,10 +10,10 @@
       :data-cy="`metric-${index}`"
       :style="{ height: cardHeight * 0.95 + 'px' }"
     >
-      <q-icon :name="metric.iconName" :class="$style.iconStyle" />
+      <QIcon :name="metric.iconName" :class="$style.iconStyle" />
       {{ metric.title }}
-    </dashboard-metric>
-    <q-card
+    </DashboardMetric>
+    <QCard
       :class="$style.statusCard"
       class="column q-my-auto text-center"
       data-cy="status-card"
@@ -26,9 +26,9 @@
       >
         {{ statusCard.text }}
       </div>
-      <q-skeleton v-else type="text" width="80%" class="q-mx-auto q-my-auto" />
-    </q-card>
-  </q-page>
+      <QSkeleton v-else type="text" width="80%" class="q-mx-auto q-my-auto" />
+    </QCard>
+  </QPage>
 </template>
 
 <script setup lang="ts">

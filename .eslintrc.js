@@ -112,6 +112,12 @@ module.exports = {
         ignorePattern: "^[?]{3}$",
       },
     ],
+
+    "vue/component-name-in-template-casing": [
+      "error",
+      "PascalCase",
+      { registeredComponentsOnly: false },
+    ],
   },
 
   settings: {

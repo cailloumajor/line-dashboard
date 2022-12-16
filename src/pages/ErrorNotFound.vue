@@ -7,7 +7,7 @@
 
       <div class="text-h2" style="opacity: 0.4">{{ t("nothingHere") }}</div>
 
-      <q-btn
+      <QBtn
         :label="t('goHome')"
         :to="{ name: 'home' }"
         class="q-mt-xl"

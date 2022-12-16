@@ -1,24 +1,24 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-grey-9 text-white">
-      <q-toolbar>
-        <q-toolbar-title class="text-center" data-cy="layout-title">
+  <QLayout view="hHh lpR fFf">
+    <QHeader elevated class="bg-grey-9 text-white">
+      <QToolbar>
+        <QToolbarTitle class="text-center" data-cy="layout-title">
           {{ configStore.title }}
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+        </QToolbarTitle>
+      </QToolbar>
+    </QHeader>
 
-    <q-page-container>
+    <QPageContainer>
       <Suspense @pending="$q.loading.show" @resolve="$q.loading.hide">
-        <router-view />
+        <RouterView />
       </Suspense>
-    </q-page-container>
+    </QPageContainer>
 
-    <q-footer elevated class="bg-grey-10 text-white">
-      <q-toolbar>
+    <QFooter elevated class="bg-grey-10 text-white">
+      <QToolbar>
         <span :class="$style.version">{{ t("version") }}</span>
         <span>{{ appVersion }}</span>
-        <q-space />
+        <QSpace />
         <span
           v-for="(status, index) in statuses"
           :key="`status-${index}`"
@@ -26,17 +26,17 @@
           class="q-ml-md"
         >
           {{ status.text }}
-          <q-icon :name="status.icon" :color="status.color" size="sm" />
+          <QIcon :name="status.icon" :color="status.color" size="sm" />
         </span>
-        <q-icon
+        <QIcon
           :color="statusStore.heartbeat ? 'positive' : 'grey-7'"
           data-cy="heartbeat-icon"
           name="o_monitor_heart"
           size="sm"
         />
-      </q-toolbar>
-    </q-footer>
-  </q-layout>
+      </QToolbar>
+    </QFooter>
+  </QLayout>
 </template>
 
 <script setup lang="ts">

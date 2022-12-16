@@ -1,7 +1,7 @@
 <template>
-  <q-layout>
-    <component :is="component" v-bind="$attrs" />
-  </q-layout>
+  <QLayout>
+    <Component :is="component" v-bind="$attrs" />
+  </QLayout>
 </template>
 
 <script lang="ts">

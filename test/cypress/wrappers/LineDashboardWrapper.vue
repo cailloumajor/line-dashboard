@@ -2,7 +2,7 @@
   <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <div v-if="ready" data-cy="async-ready">READY</div>
   <Suspense @resolve="ready = true">
-    <line-dashboard :id="id" />
+    <LineDashboard :id="id" />
   </Suspense>
 </template>
 
