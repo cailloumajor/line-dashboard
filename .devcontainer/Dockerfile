@@ -1,4 +1,4 @@
-FROM node:16.19.0-bullseye
+FROM node:18.12.1
 
 ARG USERNAME=node
 ARG NPM_GLOBAL=/usr/local/share/npm-global
