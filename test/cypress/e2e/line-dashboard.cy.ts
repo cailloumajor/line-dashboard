@@ -100,17 +100,17 @@ describe("Line dashboard", () => {
   })
 
   it("does not overflow", () => {
-    const check = () => {
+    const check = (viewportHeight: number) => {
       cy.get("html").should(($html) => {
+        expect($html.height()).to.equal(viewportHeight)
         const { clientHeight, scrollHeight } = $html[0]
         expect(scrollHeight).to.not.be.above(clientHeight)
       })
     }
 
-    cy.viewport(Cypress.config("viewportWidth"), 800)
-    check()
-
-    cy.viewport(Cypress.config("viewportWidth"), 600)
-    check()
+    for (const height of [800, 650]) {
+      cy.viewport(height * 1.777, height)
+      check(height)
+    }
   })
 })
