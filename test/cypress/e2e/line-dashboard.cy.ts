@@ -98,4 +98,19 @@ describe("Line dashboard", () => {
       .invoke("css", "background")
       .should("not.contain", "repeating-linear-gradient")
   })
+
+  it("does not overflow", () => {
+    const check = () => {
+      cy.get("html").should(($html) => {
+        const { clientHeight, scrollHeight } = $html[0]
+        expect(scrollHeight).to.not.be.above(clientHeight)
+      })
+    }
+
+    cy.viewport(Cypress.config("viewportWidth"), 800)
+    check()
+
+    cy.viewport(Cypress.config("viewportWidth"), 600)
+    check()
+  })
 })
