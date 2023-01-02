@@ -16,6 +16,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
+    "@cailloumajor/influxdb-timeline": "1.4.0",
     "@quasar/extras": "1.15.8",
     "@vueuse/core": "9.6.0",
     "centrifuge": "3.1.0",

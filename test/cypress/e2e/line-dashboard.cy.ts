@@ -1,5 +1,5 @@
 const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
-const url = "/line-dashboard/e2e-tests"
+const influxdbHost = Cypress.env("INFLUXDB_HOST")
 
 const centrifugoPublish = (data: Record<string, unknown>) => {
   cy.request({
@@ -19,8 +19,45 @@ const centrifugoPublish = (data: Record<string, unknown>) => {
 }
 
 describe("Line dashboard", () => {
+  before(() => {
+    const commonOptions = {
+      qs: {
+        org: "e2e-tests-org",
+        bucket: "e2e-tests-bucket",
+        precision: "ms",
+      },
+      headers: {
+        Authorization: "Token e2e-tests-token",
+      },
+    }
+    const startDate = new Date(Date.now() - 24 * 3600 * 1000)
+    const endDate = new Date()
+    cy.request({
+      ...commonOptions,
+      method: "POST",
+      url: `http://${influxdbHost}:8086/api/v2/delete`,
+      body: {
+        start: startDate.toISOString(),
+        stop: endDate.toISOString(),
+      },
+    })
+    const body = [3, 2, 1, 0]
+      .map((minutes) => {
+        const ts = Date.now() - minutes * 60 * 1000
+        return `opcua.data,id=e2e-tests campChange=false,cycle=false,cycleTimeOver=false ${ts}`
+      })
+      .join("\n")
+    cy.request({
+      ...commonOptions,
+      method: "POST",
+      url: `http://${influxdbHost}:8086/api/v2/write`,
+      body,
+    })
+  })
+
   beforeEach(() => {
-    cy.visit(url)
+    cy.intercept("/influxdb/api/v2/query*").as("influxQuery")
+    cy.visit("/line-dashboard/e2e-tests")
     cy.get("main.q-page").should("be.visible")
     cy.get(".q-loading").should("not.exist")
     cy.dataCy("status-0").should("contain.text", "swap_horiz")
@@ -81,6 +118,25 @@ describe("Line dashboard", () => {
     })
 
     cy.dataCy("status-text").should("contain", "Running")
+  })
+
+  it("displays the timeline", () => {
+    cy.wait("@influxQuery")
+      .its("response.body")
+      .should((body: string) => {
+        const lines = body.split(/\r\n/)
+        expect(lines).to.have.length.that.is.above(1440)
+      })
+
+    cy.dataCy<HTMLCanvasElement>("timeline-canvas").should(($canvas) => {
+      expect($canvas).to.have.lengthOf(1)
+      const canvasElem = $canvas[0]
+      const context = canvasElem.getContext("2d")
+      const { height, width } = canvasElem
+      const imageData = context?.getImageData(0, 0, width, height)
+      const pixels = new Uint32Array((imageData as ImageData).data.buffer)
+      expect(pixels.some((pixel) => pixel !== 0)).to.be.true
+    })
   })
 
   it("shows striped background if not running", () => {

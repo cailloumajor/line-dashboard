@@ -14,6 +14,10 @@
 
 	"forwardPorts": [5901, 6080],
 
+	"mounts": [
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.npmrc,target=/home/node/.npmrc,type=bind,consistency=cached"
+	],
+
 	"containerEnv": {
 		"http_proxy": "${localEnv:http_proxy}",
 		"https_proxy": "${localEnv:https_proxy}",

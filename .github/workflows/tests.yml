@@ -75,6 +75,7 @@ jobs:
         uses: cypress-io/github-action@v4
         env:
           CENTRIFUGO_HOST: localhost
+          INFLUXDB_HOST: localhost
         with:
           command: yarn test:e2e:ci
       - name: Upload Cypress screenshots and videos 🖥️📽️

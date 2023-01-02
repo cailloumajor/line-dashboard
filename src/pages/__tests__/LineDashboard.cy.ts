@@ -2,6 +2,8 @@ import { ref, watch } from "vue"
 
 import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
+import QPage from "app/test/cypress/wrappers/QPageStub.vue"
+import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
 import machineDataComposable from "src/composables/machine-data"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
@@ -14,9 +16,15 @@ import type { MachineData } from "../LineDashboard.vue"
 import type { Server } from "miragejs"
 import type { Ref } from "vue"
 
-const checkFontSize = (selector: string, expSize: number, delta: number) => {
-  cy.get(selector).should(($el) => {
-    expect(parseFloat($el.css("font-size"))).to.be.closeTo(expSize, delta)
+const checkCssSize = (
+  selector: string,
+  property: string,
+  expSize: number,
+  delta: number
+) => {
+  cy.dataCy(selector).should(($el) => {
+    expect($el).to.have.css(property)
+    expect(parseFloat($el.css(property))).to.be.closeTo(expSize, delta)
   })
 }
 
@@ -28,9 +36,8 @@ const mountComponent = ({ id = "_" } = {}) => {
     global: {
       stubs: {
         DashboardMetric,
-        QPage: {
-          template: "<main><slot /></main>",
-        },
+        TimelineDisplay,
+        QPage,
       },
     },
   })
@@ -43,7 +50,12 @@ describe("LineDashboard", () => {
     cy.wrap(server).as("api-server")
     cy.stub(lineDashboardConfigSchema, "parseAsync")
       .as("schema-parse-stub")
-      .resolves({ title: "Stubbed Title" })
+      .resolves({
+        title: "",
+        influxdbOrg: "",
+        influxdbToken: "",
+        influxdbBucket: "",
+      })
     const machineDataLinkBoot = cy.stub()
     cy.wrap(machineDataLinkBoot).as("machine-data-link-boot-stub")
     cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
@@ -55,16 +67,18 @@ describe("LineDashboard", () => {
     cy.get("@api-server").invoke("shutdown")
   })
 
-  it("sets the font size on metrics", () => {
+  it("sets font size on metrics and height on timeline", () => {
     mountComponent()
 
-    checkFontSize(".metric-title", 19, 1)
-    checkFontSize(".metric-value", 72, 2)
+    checkCssSize("metric-title", "font-size", 22.5, 0.1)
+    checkCssSize("metric-value", "font-size", 85.3, 0.5)
+    checkCssSize("timeline", "height", 154.3, 0.5)
 
-    cy.viewport(Cypress.config("viewportWidth"), 543)
+    cy.viewport(Cypress.config("viewportWidth"), 480)
 
-    checkFontSize(".metric-title", 15, 1)
-    checkFontSize(".metric-value", 57, 2)
+    checkCssSize("metric-title", "font-size", 16.4, 0.1)
+    checkCssSize("metric-value", "font-size", 62, 0.5)
+    checkCssSize("timeline", "height", 112.3, 0.5)
   })
 
   it("passes data valid status to metrics components", () => {
@@ -100,10 +114,6 @@ describe("LineDashboard", () => {
   it("validates config data against schema", () => {
     const data = { sentinel: "value" }
 
-    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
-      title: "",
-    })
-
     cy.get("@api-server").invoke(
       "get",
       `${staticConfigApi}/sentinel-id/line-dashboard`,
@@ -119,6 +129,13 @@ describe("LineDashboard", () => {
   })
 
   it("sets the title in the common line interface store", () => {
+    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
+      title: "Stubbed Title",
+      influxdbOrg: "",
+      influxdbToken: "",
+      influxdbBucket: "",
+    })
+
     mountComponent()
 
     cy.wrap(useCommonLineInterfaceConfigStore())
@@ -127,10 +144,6 @@ describe("LineDashboard", () => {
   })
 
   it("calls machine data link bootstrap function", () => {
-    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
-      title: "",
-    })
-
     mountComponent({ id: "anid" })
 
     cy.get("@machine-data-link-boot-stub").should(
@@ -316,6 +329,30 @@ describe("LineDashboard", () => {
 
       cy.dataCy("status-card").find(".q-skeleton").should("not.exist")
       cy.dataCy("status-text").should("not.be.empty")
+    })
+  })
+
+  it("passes props to timeline", () => {
+    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
+      influxdbOrg: "someOrg",
+      influxdbToken: "someToken",
+      influxdbBucket: "someBucket",
+    })
+
+    mountComponent({ id: "something" })
+
+    cy.dataCy("influxdb-org").should("have.text", "someOrg")
+    cy.dataCy("influxdb-token").should("have.text", "someToken")
+    cy.dataCy("flux-query")
+      .should("contain.text", 'from(bucket: "someBucket")')
+      .and("contain.text", 'r.id == "something"')
+    cy.dataCy("timeline-opacity")
+      .invoke("text")
+      .should((opacity) => {
+        expect(parseFloat(opacity)).to.be.within(0, 1)
+      })
+    cy.dataCy("timeline-legend").should(($el) => {
+      expect($el.text()).to.not.be.empty
     })
   })
 })

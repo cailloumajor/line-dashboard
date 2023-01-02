@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+
   centrifugo:
     image: centrifugo/centrifugo:v4.0
     command:
@@ -10,3 +11,16 @@ services:
       - 8000:8000
     volumes:
       - ./centrifugo.toml:/usr/local/etc/centrifugo.toml:ro
+
+  influxdb:
+    image: influxdb:2.6
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=user
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=e2e-tests-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=e2e-tests-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=e2e-tests-token
+      - INFLUXD_E2E_TESTING=true
+    ports:
+      - 8086:8086
