@@ -5,9 +5,10 @@ FROM --platform=$BUILDPLATFORM node:18.12.1 AS frontend-builder
 WORKDIR /usr/src/app
 
 ENV YARN_CACHE_FOLDER=/var/cache/yarn
-COPY package.json yarn.lock ./
+COPY .npmrc package.json yarn.lock ./
 RUN --mount=type=cache,target=/var/cache/yarn \
-    yarn install
+    --mount=type=secret,id=GHP_AUTH_TOKEN \
+    GHP_AUTH_TOKEN=$(cat /run/secrets/GHP_AUTH_TOKEN) yarn install
 
 COPY public ./public
 COPY src ./src
@@ -19,7 +20,8 @@ COPY index.html \
      quasar.config.js \
      tsconfig.json \
      ./
-RUN yarn run quasar build --mode spa
+RUN --mount=type=secret,id=GHP_AUTH_TOKEN \
+    GHP_AUTH_TOKEN=$(cat /run/secrets/GHP_AUTH_TOKEN) yarn run quasar build --mode spa
 
 
 FROM caddy:2.6.2
