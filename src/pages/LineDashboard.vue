@@ -244,6 +244,8 @@ filterFields = (r) =>
   r._field == "cycle" or
   r._field == "cycleTimeOver"
 
+dropColumns = (column) => filterFields(r: { _field: column })
+
 colorFromStatuses = (r) => ({ r with color:
   if r.cycle then
     if r.cycleTimeOver then
@@ -264,7 +266,7 @@ from(bucket: "${config.influxdbBucket}")
   |> filter(fn: filterFields)
   |> schema.fieldsAsCols()
   |> map(fn: colorFromStatuses)
-  |> drop(columns: ["campChange", "cycle", "cycleTimeOver"])
+  |> drop(fn: dropColumns)
   |> aggregateWindow(every: 1m, fn: last, column: "color")
 `
 
