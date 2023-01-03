@@ -196,6 +196,11 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
+"@cailloumajor/influxdb-timeline@1.4.0":
+  version "1.4.0"
+  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-timeline/1.4.0/3fca758d63ce68a1e36c3b6b530527b4ca1adbce#3fca758d63ce68a1e36c3b6b530527b4ca1adbce"
+  integrity sha512-QMepveKDX3cPAEu/ISN7EzanxQbwitQAE5bqFD4Gwb8brxyGugcF0nwOaK8Dk/f7Td3zhQ2j/n5vLZ+HhuHOiw==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"

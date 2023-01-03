@@ -112,7 +112,7 @@ onErrorCaptured((err) => {
       })
     )
   } else {
-    throw err
+    errors.push(String(err))
   }
 
   errorRedirect(errors)

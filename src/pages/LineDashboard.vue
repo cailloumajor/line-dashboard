@@ -2,18 +2,20 @@
   <QPage ref="pageElem" :class="[$style.page, stopped ? $style.stopped : '']">
     <DashboardMetric
       v-for="(metric, index) in metrics"
+      v-show="rowsHeightValid"
       :key="`metric-${index}`"
       :value="metric.value"
       :color="metric.color"
       :data-valid="machineDataLinkStatusStore.dataValid"
       :disable-value="metric.disableValue"
       :data-cy="`metric-${index}`"
-      :style="{ height: cardHeight * 0.95 + 'px' }"
+      :style="metricStyle"
     >
       <QIcon :name="metric.iconName" :class="$style.iconStyle" />
       {{ metric.title }}
     </DashboardMetric>
     <QCard
+      v-show="rowsHeightValid"
       :class="$style.statusCard"
       class="column q-my-auto text-center"
       data-cy="status-card"
@@ -28,18 +30,35 @@
       </div>
       <QSkeleton v-else type="text" width="80%" class="q-mx-auto q-my-auto" />
     </QCard>
+    <TimelineDisplay
+      v-show="rowsHeightValid"
+      :class="$style.timeline"
+      :style="timelineStyle"
+      :influxdb-org="config.influxdbOrg"
+      :influxdb-token="config.influxdbToken"
+      :flux-query="fluxQuery"
+      :opacity="0.7"
+      :legend="timelineLegend"
+      data-cy="timeline"
+    />
   </QPage>
 </template>
 
 <script setup lang="ts">
-import { useNow, usePreferredLanguages, useWindowSize } from "@vueuse/core"
+import {
+  useDebounceFn,
+  useEventListener,
+  useNow,
+  usePreferredLanguages,
+} from "@vueuse/core"
 import { mande } from "mande"
-import { QPage } from "quasar"
-import { computed, reactive, ref } from "vue"
+import { QPage, colors } from "quasar"
+import { computed, onMounted, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
 import machineDataComposable from "composables/machine-data"
+import TimelineDisplay from "src/components/TimelineDisplay.vue"
 import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "src/stores/campaign-data"
@@ -81,7 +100,6 @@ const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
 const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
-const { height: windowHeight } = useWindowSize()
 
 const machineData = reactive<MachineData>({
   goodParts: 0,
@@ -112,27 +130,37 @@ const effectiveness = computed(() => {
   return (machineData.goodParts / expectedProductionNow) * 100
 })
 
-const cardHeight = computed(() => {
-  if (pageElem.value === null) return 0
-  const { paddingTop, paddingBottom, rowGap } = window.getComputedStyle(
-    pageElem.value.$el
-  )
-  const topBarHeight = 50
-  const bottomBarHeight = 30
-  return Math.max(
-    (windowHeight.value -
-      topBarHeight -
-      bottomBarHeight -
-      parseFloat(paddingTop) -
-      3 * parseFloat(rowGap) -
-      parseFloat(paddingBottom)) /
-      4,
-    60
-  )
-})
+const rowsHeightValid = ref(false)
+const rowsHeight = ref([0, 0, 0, 0])
 
-const metricTitleFontHeight = computed(() => `${cardHeight.value * 0.185}px`)
-const metricValueFontHeight = computed(() => `${cardHeight.value * 0.7}px`)
+const updateRowsHeight = () => {
+  if (pageElem.value === null) {
+    return
+  }
+  const { gridTemplateRows } = window.getComputedStyle(pageElem.value.$el)
+  rowsHeight.value = gridTemplateRows.split(" ").map(parseFloat)
+  rowsHeightValid.value = true
+}
+const debouncedUpdateRowHeight = useDebounceFn(updateRowsHeight, 200)
+
+onMounted(updateRowsHeight)
+useEventListener(
+  "resize",
+  () => {
+    rowsHeightValid.value = false
+    debouncedUpdateRowHeight()
+  },
+  { passive: true }
+)
+
+const metricStyle = computed(() => ({
+  height: `${rowsHeight.value[0] * 0.95}px`,
+}))
+const metricTitleFontHeight = computed(() => `${rowsHeight.value[0] * 0.185}px`)
+const metricValueFontHeight = computed(() => `${rowsHeight.value[0] * 0.7}px`)
+const timelineStyle = computed(() => ({
+  height: `${rowsHeight.value[3] * 0.95}px`,
+}))
 
 const cycleTime = computed(() => machineData.averageCycleTime / 10)
 const cycleTimeStatus = computed(() => {
@@ -206,19 +234,60 @@ const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
+const { getPaletteColor } = colors
+
+// Putting the import on its own line makes Cypress stop working!
+const fluxQuery = `import "influxdata/influxdb/schema"
+
+filterFields = (r) =>
+  r._field == "campChange" or
+  r._field == "cycle" or
+  r._field == "cycleTimeOver"
+
+colorFromStatuses = (r) => ({ r with color:
+  if r.cycle then
+    if r.cycleTimeOver then
+      "${getPaletteColor("warning")}"
+    else
+      "${getPaletteColor("positive")}"
+  else
+    if r.campChange then
+      "${getPaletteColor("info")}"
+    else
+      "${getPaletteColor("negative")}"
+})
+
+from(bucket: "${config.influxdbBucket}")
+  |> range(start: -24h)
+  |> filter(fn: (r) => r["_measurement"] == "opcua.data")
+  |> filter(fn: (r) => r.id == "${props.id}")
+  |> filter(fn: filterFields)
+  |> schema.fieldsAsCols()
+  |> map(fn: colorFromStatuses)
+  |> drop(columns: ["campChange", "cycle", "cycleTimeOver"])
+  |> aggregateWindow(every: 1m, fn: last, column: "color")
+`
+
+const timelineLegend = computed(() => [
+  { text: t("runAtCadence"), color: "positive" },
+  { text: t("runUnderCadence"), color: "warning" },
+  { text: t("campaignChange"), color: "info" },
+  { text: t("stopped"), color: "negative" },
+])
+
 machineDataLinkBoot(machineData, props.id)
 </script>
 
 <style module lang="scss">
 @use "sass:color";
 
-$grid-gap: 5vh 7vw;
+$grid-gap: 3vh 7vw;
 
 .page {
   display: grid;
   gap: $grid-gap;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 3fr) 4fr;
   padding: $grid-gap;
 }
 
@@ -247,6 +316,10 @@ $grid-gap: 5vh 7vw;
   height: 60%;
   width: 100%;
   margin: auto;
+}
+
+.timeline {
+  grid-column: 1/-1;
 }
 </style>
 

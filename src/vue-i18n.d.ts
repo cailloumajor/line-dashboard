@@ -14,6 +14,7 @@ declare module "vue-i18n" {
     targetCycleTime: string
     performance: string
     fetchError: string
+    stopped: string
     stopFault: string
     stopNoFault: string
     runUnderCadence: string

@@ -7,8 +7,8 @@
     <div>
       Color: <span data-cy="color">{{ color }}</span>
     </div>
-    <div class="metric-title" style="height: 10px"></div>
-    <div class="metric-value" style="height: 10px"></div>
+    <div class="metric-title" data-cy="metric-title" style="height: 10px"></div>
+    <div class="metric-value" data-cy="metric-value" style="height: 10px"></div>
     <div v-show="dataValid" data-cy="data-valid">Data is valid</div>
   </div>
 </template>

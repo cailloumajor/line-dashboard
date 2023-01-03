@@ -6,6 +6,7 @@
 !src/
 !.eslintignore
 !.eslintrc.js
+!.npmrc
 !.prettierrc
 !index.html
 !postcss.config.js
