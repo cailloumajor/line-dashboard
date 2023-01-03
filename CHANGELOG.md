@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/cailloumajor/factory-frontend/compare/v1.1.2...v1.2.0) (2023-01-03)
+
+
+### Features
+
+* add timeline ([5abad14](https://github.com/cailloumajor/factory-frontend/commit/5abad14d1c5c2f2bd0e77ac4ffcbc3497c887b38))
+
+
+### Bug Fixes
+
+* **ci:** allow ghp authentication ([e521bcb](https://github.com/cailloumajor/factory-frontend/commit/e521bcb8339c58c4c210a3512a93e617212a927e))
+* **deps:** update dependency @quasar/extras to v1.15.9 ([6854164](https://github.com/cailloumajor/factory-frontend/commit/6854164e5ba2b9b74f4e151e6e98d8e2c525905f))
+* **deps:** update dependency @vueuse/core to v9.9.0 ([3e7c806](https://github.com/cailloumajor/factory-frontend/commit/3e7c80669b21bedf8658e466bc413bcd3530d93d))
+* **deps:** update dependency quasar to v2.11.3 ([321a45c](https://github.com/cailloumajor/factory-frontend/commit/321a45c1adae7f174ffa68d8e901e1de178c84ce))
+* **deps:** update node.js to v18 ([ba00acf](https://github.com/cailloumajor/factory-frontend/commit/ba00acf2f2acb642c98acbca38a0a38149d642f4))
+* move to PascalCase component names ([929a3eb](https://github.com/cailloumajor/factory-frontend/commit/929a3ebee287bac99fbac077b1352f682b10b3e4))
+
 ## [1.1.2](https://github.com/cailloumajor/factory-frontend/compare/v1.1.1...v1.1.2) (2022-12-16)
 
 
