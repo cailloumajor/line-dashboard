@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@cailloumajor/influxdb-timeline": "1.4.0",
-    "@quasar/extras": "1.15.8",
+    "@quasar/extras": "1.15.9",
     "@vueuse/core": "9.6.0",
     "centrifuge": "3.1.0",
     "locale-matcher": "2.0.0",
