@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/cailloumajor/factory-frontend/compare/v1.2.1...v1.3.0) (2023-01-05)
+
+
+### Features
+
+* implement part reference handling ([9c725c4](https://github.com/cailloumajor/factory-frontend/commit/9c725c4f2b9ee20718e3284820e07074bf9a5ce9))
+
+
+### Bug Fixes
+
+* use stores directory alias ([fd56b8a](https://github.com/cailloumajor/factory-frontend/commit/fd56b8a88da4054e26e28b0ebd429943100e7268))
+
 ## [1.2.1](https://github.com/cailloumajor/factory-frontend/compare/v1.2.0...v1.2.1) (2023-01-05)
 
 
