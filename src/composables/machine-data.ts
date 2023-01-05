@@ -4,6 +4,7 @@ import { onUnmounted, watch } from "vue"
 
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus, centrifugoNamespace } from "src/global"
+import { useCampaignDataStore } from "stores/campaign-data"
 import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 import type { PublicationContext, SubscribedContext } from "centrifuge"
@@ -14,6 +15,7 @@ export const deps = { Centrifuge }
 
 function useMachineDataLinkBoot() {
   const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
+  const campaignDataStore = useCampaignDataStore()
   const statusStore = useMachineDataLinkStatusStore()
 
   /**
@@ -39,6 +41,9 @@ function useMachineDataLinkBoot() {
       Object.assign(machineData, data)
       if ("heartbeat" in data) {
         statusStore.plcHeartbeat = !!data.heartbeat
+      }
+      if ("partRef" in data) {
+        campaignDataStore.updateCampaign(data.partRef)
       }
       upToDate.value = true
     }

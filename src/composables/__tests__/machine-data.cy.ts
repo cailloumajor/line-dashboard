@@ -5,6 +5,7 @@ import errorRedirectComposable from "composables/error-redirect"
 import { heartbeatTimeoutMillis } from "composables/machine-data"
 import { deps } from "composables/machine-data"
 import { LinkStatus } from "src/global"
+import { useCampaignDataStore } from "stores/campaign-data"
 import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 class MockedSubscription extends EventEmitter {
@@ -174,6 +175,17 @@ describe("machine data link boot composable", () => {
       data: { heartbeat: false },
     })
     cy.get("@store").its("plcHeartbeat").should("be.false")
+  })
+
+  it("calls the store action on campaign change", () => {
+    cy.mount(MachineDataLinkBootWrapper)
+
+    cy.get("@data-change-subscription").invoke("emit", "publication", {
+      data: { partRef: "NEW-REFERENCE" },
+    })
+    cy.wrap(useCampaignDataStore())
+      .its("updateCampaign")
+      .should("have.been.calledOnceWithExactly", "NEW-REFERENCE")
   })
 
   it("connects to Centrifugo", () => {

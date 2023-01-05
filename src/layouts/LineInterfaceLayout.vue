@@ -3,7 +3,11 @@
     <QHeader elevated class="bg-grey-9 text-white">
       <QToolbar>
         <QToolbarTitle class="text-center" data-cy="layout-title">
-          {{ configStore.title }}
+          {{
+            configStore.title +
+            "&nbsp;&mdash;&nbsp;" +
+            campaignDataStore.currentCampaign
+          }}
         </QToolbarTitle>
       </QToolbar>
     </QHeader>
@@ -48,6 +52,7 @@ import { ZodError } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
+import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
@@ -56,6 +61,7 @@ import type { MandeError } from "mande"
 const appVersion = process.env.APP_VERSION ?? "unknown"
 
 const $q = useQuasar()
+const campaignDataStore = useCampaignDataStore()
 const configStore = useCommonLineInterfaceConfigStore()
 const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
 const { t } = useI18n({

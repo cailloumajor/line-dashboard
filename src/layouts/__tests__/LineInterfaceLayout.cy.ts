@@ -5,6 +5,7 @@ import { z } from "zod"
 import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus } from "src/global"
+import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
@@ -54,18 +55,21 @@ describe("LineInterfaceLayout", () => {
     cy.get("body").should("have.class", "body--dark")
   })
 
-  it("gets its title from the common line interface config store", () => {
+  it("gets its title from stores", () => {
     cy.mount(LineInterfaceLayout)
 
     cy.dataCy("layout-title").as("title")
 
-    cy.get("@title").should("have.text", "⏳")
+    cy.get("@title").should("have.text", "⏳\xa0—\xa0?")
 
     cy.wrap(useCommonLineInterfaceConfigStore()).invoke("$patch", {
       title: "Test Title",
     })
+    cy.wrap(useCampaignDataStore()).invoke("$patch", {
+      currentCampaign: "CAMPAIGN",
+    })
 
-    cy.get("@title").should("have.text", "Test Title")
+    cy.get("@title").should("have.text", "Test Title\xa0—\xa0CAMPAIGN")
   })
 
   it("displays loading state", () => {
