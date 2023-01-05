@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.1](https://github.com/cailloumajor/factory-frontend/compare/v1.2.0...v1.2.1) (2023-01-05)
+
+
+### Bug Fixes
+
+* add flux query composable ([444a71a](https://github.com/cailloumajor/factory-frontend/commit/444a71af4e8a8f4758f7d5e54e60bc43448fbb9d))
+* **deps:** update dependency @vueuse/core to v9.10.0 ([edb5bb1](https://github.com/cailloumajor/factory-frontend/commit/edb5bb15f60fea12585402b1dfd71af8ee817d53))
+* do not repeat columns for drop operation ([02144b9](https://github.com/cailloumajor/factory-frontend/commit/02144b9adb320f6b0dc4e2fdd6d2b8c63cd77b0d))
+
 ## [1.2.0](https://github.com/cailloumajor/factory-frontend/compare/v1.1.2...v1.2.0) (2023-01-03)
 
 
