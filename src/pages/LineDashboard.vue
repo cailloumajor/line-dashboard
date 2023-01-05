@@ -57,6 +57,7 @@ import { computed, onMounted, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
+import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
 import TimelineDisplay from "src/components/TimelineDisplay.vue"
 import { shiftDurationMillis, staticConfigApi } from "src/global"
@@ -96,6 +97,8 @@ const { t } = useI18n({
 })
 const campaignDataStore = useCampaignDataStore()
 const commonStore = useCommonLineInterfaceConfigStore()
+const { getPaletteColor } = colors
+const { makeFluxQuery } = fluxQueryComposable.useFluxQuery()
 const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
 const now = useNow({ interval: 1000 })
@@ -234,41 +237,15 @@ const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
-const { getPaletteColor } = colors
-
-// Putting the import on its own line makes Cypress stop working!
-const fluxQuery = `import "influxdata/influxdb/schema"
-
-filterFields = (r) =>
-  r._field == "campChange" or
-  r._field == "cycle" or
-  r._field == "cycleTimeOver"
-
-dropColumns = (column) => filterFields(r: { _field: column })
-
-colorFromStatuses = (r) => ({ r with color:
-  if r.cycle then
-    if r.cycleTimeOver then
-      "${getPaletteColor("warning")}"
-    else
-      "${getPaletteColor("positive")}"
-  else
-    if r.campChange then
-      "${getPaletteColor("info")}"
-    else
-      "${getPaletteColor("negative")}"
+const { default: rawQuery } = await import("assets/timeline-query.flux?raw")
+const fluxQuery = makeFluxQuery(rawQuery, {
+  cycleTimeOverColor: getPaletteColor("warning"),
+  cycleColor: getPaletteColor("positive"),
+  campChangeColor: getPaletteColor("info"),
+  stoppedColor: getPaletteColor("negative"),
+  bucket: config.influxdbBucket,
+  id: props.id,
 })
-
-from(bucket: "${config.influxdbBucket}")
-  |> range(start: -24h)
-  |> filter(fn: (r) => r["_measurement"] == "opcua.data")
-  |> filter(fn: (r) => r.id == "${props.id}")
-  |> filter(fn: filterFields)
-  |> schema.fieldsAsCols()
-  |> map(fn: colorFromStatuses)
-  |> drop(fn: dropColumns)
-  |> aggregateWindow(every: 1m, fn: last, column: "color")
-`
 
 const timelineLegend = computed(() => [
   { text: t("runAtCadence"), color: "positive" },
