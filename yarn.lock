@@ -332,6 +332,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@influxdata/influxdb-client-browser@1.33.0":
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client-browser/-/influxdb-client-browser-1.33.0.tgz#8d468175c2f71132642bca4211b1a6d22c269ca0"
+  integrity sha512-ii2wxxBoEkH/oS1Qo/ZZciCnsbvxKCmQAgbh1jDr36O1VokCB1Gb+MV6/s+kOaeFZeq9xBbTYwFIBEqBmM9CEw==
+
 "@intlify/bundle-utils@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@intlify/bundle-utils/-/bundle-utils-3.2.1.tgz#f1a00fb31716567c8da63fbb351c3199ca12d467"

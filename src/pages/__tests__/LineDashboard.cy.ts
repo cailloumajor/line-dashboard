@@ -4,7 +4,8 @@ import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
 import QPage from "app/test/cypress/wrappers/QPageStub.vue"
 import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
-import machineDataComposable from "src/composables/machine-data"
+import fluxQueryComposable from "composables/flux-query"
+import machineDataComposable from "composables/machine-data"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
@@ -56,10 +57,18 @@ describe("LineDashboard", () => {
         influxdbToken: "",
         influxdbBucket: "",
       })
-    const machineDataLinkBoot = cy.stub()
-    cy.wrap(machineDataLinkBoot).as("machine-data-link-boot-stub")
+
+    const machineDataLinkBoot = cy.stub().as("machine-data-link-boot-stub")
     cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
       machineDataLinkBoot,
+    })
+
+    const makeFluxQueryStub = cy
+      .stub()
+      .as("make-flux-query-stub")
+      .returns("Some stubbed Flux query")
+    cy.stub(fluxQueryComposable, "useFluxQuery").returns({
+      makeFluxQuery: makeFluxQueryStub,
     })
   })
 
@@ -341,11 +350,24 @@ describe("LineDashboard", () => {
 
     mountComponent({ id: "something" })
 
+    cy.get("@make-flux-query-stub").should(
+      "have.been.calledOnceWith",
+      Cypress.sinon
+        .match("params = {")
+        .and(Cypress.sinon.match("from(bucket: params.bucket)")),
+      {
+        cycleTimeOverColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
+        cycleColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
+        campChangeColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
+        stoppedColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
+        bucket: "someBucket",
+        id: "something",
+      }
+    )
+
     cy.dataCy("influxdb-org").should("have.text", "someOrg")
     cy.dataCy("influxdb-token").should("have.text", "someToken")
-    cy.dataCy("flux-query")
-      .should("contain.text", 'from(bucket: "someBucket")')
-      .and("contain.text", 'r.id == "something"')
+    cy.dataCy("flux-query").should("have.text", "Some stubbed Flux query")
     cy.dataCy("timeline-opacity")
       .invoke("text")
       .should((opacity) => {

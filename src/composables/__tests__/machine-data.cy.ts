@@ -1,9 +1,9 @@
 import EventEmitter from "events"
 
 import MachineDataLinkBootWrapper from "app/test/cypress/wrappers/MachineDataLinkBootWrapper.vue"
-import errorRedirectComposable from "src/composables/error-redirect"
-import { heartbeatTimeoutMillis } from "src/composables/machine-data"
-import { deps } from "src/composables/machine-data"
+import errorRedirectComposable from "composables/error-redirect"
+import { heartbeatTimeoutMillis } from "composables/machine-data"
+import { deps } from "composables/machine-data"
 import { LinkStatus } from "src/global"
 import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
 
