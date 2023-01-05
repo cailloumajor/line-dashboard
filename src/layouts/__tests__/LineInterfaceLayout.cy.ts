@@ -5,8 +5,8 @@ import { z } from "zod"
 import errorRedirectComposable from "composables/error-redirect"
 import { makeServer } from "src/dev-api-server"
 import { LinkStatus } from "src/global"
-import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
+import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
+import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 import LineInterfaceLayout from "../LineInterfaceLayout.vue"
 

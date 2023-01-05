@@ -62,9 +62,9 @@ import machineDataComposable from "composables/machine-data"
 import TimelineDisplay from "src/components/TimelineDisplay.vue"
 import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
-import { useCampaignDataStore } from "src/stores/campaign-data"
-import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
+import { useCampaignDataStore } from "stores/campaign-data"
+import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
+import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 export type MachineData = {
   goodParts: number

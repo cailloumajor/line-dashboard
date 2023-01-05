@@ -5,7 +5,7 @@ import errorRedirectComposable from "composables/error-redirect"
 import { heartbeatTimeoutMillis } from "composables/machine-data"
 import { deps } from "composables/machine-data"
 import { LinkStatus } from "src/global"
-import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
+import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 class MockedSubscription extends EventEmitter {
   constructor() {

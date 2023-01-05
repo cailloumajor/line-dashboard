@@ -48,8 +48,8 @@ import { ZodError } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
-import { useCommonLineInterfaceConfigStore } from "src/stores/common-line-interface-config"
-import { useMachineDataLinkStatusStore } from "src/stores/machine-data"
+import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
+import { useMachineDataLinkStatusStore } from "stores/machine-data"
 
 import type { MandeError } from "mande"
 
