@@ -63,8 +63,12 @@ describe("Line dashboard", () => {
     cy.dataCy("status-0").should("contain.text", "swap_horiz")
   })
 
-  it("gets header title from config API", () => {
-    cy.dataCy("layout-title").should("have.text", "End-to-end tests")
+  it("has dynamic header title", () => {
+    centrifugoPublish({ partRef: "E2E-CAMPAIGN" })
+    cy.dataCy("layout-title").should(
+      "have.text",
+      "End-to-end tests\xa0—\xa0E2E-CAMPAIGN"
+    )
   })
 
   context("with clock mocked", () => {

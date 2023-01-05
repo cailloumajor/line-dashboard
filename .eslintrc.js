@@ -109,7 +109,7 @@ module.exports = {
             "aria-valuetext",
           ],
         },
-        ignorePattern: "^[?]{3}$",
+        ignorePattern: "^[-—#:()&?]+$",
       },
     ],
 

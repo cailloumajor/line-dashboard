@@ -71,7 +71,6 @@ let testingPinia: TestingPinia
 beforeEach(() => {
   testingPinia = createTestingPinia({
     createSpy: Cypress.sinon.spy,
-    fakeApp: true,
   })
   config.global.plugins.push(testingPinia)
 })
