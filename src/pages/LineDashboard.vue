@@ -12,7 +12,12 @@
       :style="metricStyle"
     >
       <QIcon :name="metric.iconName" :class="$style.iconStyle" />
-      {{ metric.title }}
+      <span class="text-uppercase" data-cy="metric-title-text">
+        {{ metric.title }}
+      </span>
+      <span v-if="metric.unit" data-cy="metric-unit">
+        ({{ metric.unit }})
+      </span>
     </DashboardMetric>
     <QCard
       v-show="rowsHeightValid"
@@ -190,6 +195,7 @@ const metrics = computed(() => {
     {
       iconName: "timer",
       title: t("cycleTime"),
+      unit: "s",
       value: fixedFractional.format(cycleTime.value),
       color:
         cycleTimeStatus.value === CycleTimeStatus.OverMax ||
@@ -213,7 +219,8 @@ const metrics = computed(() => {
     },
     {
       iconName: "speed",
-      title: t("performance") + " (%)",
+      title: t("performance"),
+      unit: "%",
       value: fixedFractional.format(effectiveness.value),
       disableValue: true,
     },

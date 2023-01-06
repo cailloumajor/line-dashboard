@@ -90,6 +90,18 @@ describe("LineDashboard", () => {
     checkCssSize("timeline", "height", 112.3, 0.5)
   })
 
+  it("defines metrics titles", () => {
+    mountComponent()
+
+    cy.dataCy("metric-title").children("i.q-icon").should("have.length", 5)
+    cy.dataCy("metric-title-text").should(
+      "have.css",
+      "text-transform",
+      "uppercase"
+    )
+    cy.dataCy("metric-unit").should("have.length", 2)
+  })
+
   it("passes data valid status to metrics components", () => {
     mountComponent()
 

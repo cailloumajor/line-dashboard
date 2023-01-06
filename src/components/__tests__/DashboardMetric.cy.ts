@@ -17,7 +17,7 @@ describe("DashboardMetric", () => {
       },
     })
 
-    cy.dataCy("metric-title-content").should("have.text", "???")
+    cy.dataCy("metric-title-section").should("have.text", "???")
   })
 
   it("renders the title from default slot", () => {
@@ -31,7 +31,7 @@ describe("DashboardMetric", () => {
       },
     })
 
-    cy.dataCy("metric-title-content").should(
+    cy.dataCy("metric-title-section").should(
       "have.html",
       "<code>Title slot</code>"
     )

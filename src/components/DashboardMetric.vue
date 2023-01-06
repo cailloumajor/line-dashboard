@@ -1,9 +1,10 @@
 <template>
   <QCard :class="$style.card" class="text-center">
-    <QCardSection class="no-padding">
-      <div class="metric-title text-uppercase" data-cy="metric-title-content">
-        <slot>???</slot>
-      </div>
+    <QCardSection
+      class="metric-title no-padding"
+      data-cy="metric-title-section"
+    >
+      <slot>???</slot>
     </QCardSection>
     <QCardSection
       class="metric-value no-padding"
