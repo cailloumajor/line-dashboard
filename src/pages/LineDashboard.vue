@@ -209,7 +209,6 @@ const metrics = computed(() => {
       iconName: "track_changes",
       title: t("targetCycleTime"),
       value: fixedFractional.format(campaignDataStore.targetCycleTime),
-      disableValue: true,
     },
     {
       iconName: "delete_outline",
