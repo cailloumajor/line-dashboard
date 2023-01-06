@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/cailloumajor/factory-frontend/compare/v1.3.0...v1.3.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* allow free units in metrics title ([7d9c9fe](https://github.com/cailloumajor/factory-frontend/commit/7d9c9fecb015b01761c4da5a74ff1da85a60bf6b))
+* set empiric target cycle time ([6a1011c](https://github.com/cailloumajor/factory-frontend/commit/6a1011c4ac754a5b22ea0332411385e04b9b87c2))
+
 ## [1.3.0](https://github.com/cailloumajor/factory-frontend/compare/v1.2.1...v1.3.0) (2023-01-05)
 
 
