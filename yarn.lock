@@ -1705,10 +1705,10 @@ colorette@^2.0.16:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.19.tgz#cdf044f47ad41a0f4b56b3a0d5b4e6e1a2d5a798"
   integrity sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==
 
-colortranslator@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.10.0.tgz#178ea2bdbc24b82e02e78b6391137feb2293f50f"
-  integrity sha512-ql90gXDemkrFGkrPViaJgaqOd1xifoB5wKOX92YlJcmC0SEQaKp8mUxisrYSjCPaVaJewA8SLL0lGNAgpiFP7w==
+colortranslator@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/colortranslator/-/colortranslator-1.10.1.tgz#f833d75326307fd18ebbc64fe1e964fc4c9efbdf"
+  integrity sha512-+R87TgLFBGR+fZCJCoycP0XL/hXSasiwW/Lp57D1DfDL7PeI2HN8TP0wmMh0CNbzj3MIT8PG3PRqkbCCGXeRHw==
 
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
