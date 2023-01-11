@@ -7,7 +7,7 @@
   "retryIn": "@:newTry maintenant | @:newTry dans {n} seconde | @:newTry dans {n} secondes",
   "goodParts": "Pièces bonnes",
   "scrapParts": "Pièces mauvaises",
-  "cycleTime": "Temps de cycle",
+  "averageCycleTime": "Tps cycle moyen",
   "targetCycleTime": "Tps cycle standard",
   "performance": "Performance",
   "fetchError": "requête vers {url}: erreur {status} ({statusText})",

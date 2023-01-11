@@ -7,7 +7,7 @@
   "retryIn": "@:newTry now | @:newTry in {n} second | @:newTry in {n} seconds",
   "goodParts": "Good parts",
   "scrapParts": "Scrap parts",
-  "cycleTime": "Cycle time",
+  "averageCycleTime": "Average cycle time",
   "targetCycleTime": "Standard cycle time",
   "performance": "Performance",
   "fetchError": "querying {url}: got error {status} ({statusText})",

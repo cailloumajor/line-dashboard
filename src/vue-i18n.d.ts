@@ -10,7 +10,7 @@ declare module "vue-i18n" {
     retryIn: string
     goodParts: string
     scrapParts: string
-    cycleTime: string
+    averageCycleTime: string
     targetCycleTime: string
     performance: string
     fetchError: string

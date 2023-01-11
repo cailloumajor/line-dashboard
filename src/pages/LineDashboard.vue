@@ -194,7 +194,7 @@ const metrics = computed(() => {
     },
     {
       iconName: "timer",
-      title: t("cycleTime"),
+      title: t("averageCycleTime"),
       unit: "s",
       value: fixedFractional.format(cycleTime.value),
       color:
