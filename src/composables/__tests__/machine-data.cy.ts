@@ -6,7 +6,7 @@ import { heartbeatTimeoutMillis } from "composables/machine-data"
 import { deps } from "composables/machine-data"
 import { LinkStatus } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
-import { useMachineDataLinkStatusStore } from "stores/machine-data"
+import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
 class MockedSubscription extends EventEmitter {
   constructor() {

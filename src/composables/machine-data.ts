@@ -5,7 +5,7 @@ import { onUnmounted, watch } from "vue"
 import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus, centrifugoNamespace } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
-import { useMachineDataLinkStatusStore } from "stores/machine-data"
+import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
 import type { PublicationContext, SubscribedContext } from "centrifuge"
 

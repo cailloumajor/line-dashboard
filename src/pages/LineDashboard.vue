@@ -69,7 +69,7 @@ import { shiftDurationMillis, staticConfigApi } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
-import { useMachineDataLinkStatusStore } from "stores/machine-data"
+import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
 export type MachineData = {
   goodParts: number

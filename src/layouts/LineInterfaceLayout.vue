@@ -54,7 +54,7 @@ import errorRedirectComposable from "composables/error-redirect"
 import { LinkStatus } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
-import { useMachineDataLinkStatusStore } from "stores/machine-data"
+import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
 import type { MandeError } from "mande"
 
