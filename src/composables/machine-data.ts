@@ -1,4 +1,4 @@
-import { autoResetRef } from "@vueuse/core"
+import { refAutoReset } from "@vueuse/core"
 import { Centrifuge } from "centrifuge"
 import { onUnmounted, watch } from "vue"
 
@@ -28,7 +28,7 @@ function useMachineDataLinkBoot() {
     machineData: T,
     partnerID: string
   ) {
-    const upToDate = autoResetRef(false, heartbeatTimeoutMillis)
+    const upToDate = refAutoReset(false, heartbeatTimeoutMillis)
     watch(upToDate, (newValue) => {
       statusStore.plcLinkStatus = newValue ? LinkStatus.Up : LinkStatus.Down
     })
