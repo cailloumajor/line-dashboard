@@ -5,6 +5,7 @@ import { LinkStatus } from "src/global"
 export const useMachineDataLinkStatusStore = defineStore("machine-data-link", {
   state: () => ({
     centrifugoLinkStatus: LinkStatus.Unknown,
+    centrifugoTransport: "",
     plcLinkStatus: LinkStatus.Unknown,
     plcHeartbeat: false,
   }),

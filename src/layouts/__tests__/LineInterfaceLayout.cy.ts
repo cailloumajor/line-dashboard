@@ -13,11 +13,12 @@ import LineInterfaceLayout from "../LineInterfaceLayout.vue"
 
 const checkIcons = (expStatuses: number[]) => {
   for (const [index, expStatus] of expStatuses.entries()) {
+    const dataCy = ["centrifugo-status", "plc-status"][index]
     const expClass = ["text-warning", "text-negative", "text-positive"][
       expStatus
     ]
     const expText = ["question_mark", "link_off", "swap_horiz"][expStatus]
-    cy.dataCy(`status-${index}`)
+    cy.dataCy(dataCy)
       .find(".q-icon")
       .should("have.class", expClass)
       .and("have.text", expText)
@@ -110,6 +111,31 @@ describe("LineInterfaceLayout", () => {
         checkIcons(expStatuses)
       })
     }
+
+    it("displays Centrifugo transport", () => {
+      cy.mount(LineInterfaceLayout)
+
+      cy.wrap(useMachineDataLinkStatusStore()).as("store")
+
+      cy.get("@store").invoke("$patch", {
+        centrifugoTransport: "websocket",
+      })
+      cy.dataCy("centrifugo-transport")
+        .should("have.class", "text-positive")
+        .and("have.text", "(WS)")
+
+      cy.get("@store").invoke("$patch", {
+        centrifugoTransport: "sse",
+      })
+      cy.dataCy("centrifugo-transport")
+        .should("have.class", "text-warning")
+        .and("have.text", "(SSE)")
+
+      cy.get("@store").invoke("$patch", {
+        centrifugoTransport: "",
+      })
+      cy.dataCy("centrifugo-transport").should("not.be.visible")
+    })
 
     it("displays PLC heartbeat state", () => {
       cy.mount(LineInterfaceLayout)

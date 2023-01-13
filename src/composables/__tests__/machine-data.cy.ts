@@ -57,6 +57,9 @@ describe("machine data link boot composable", () => {
   })
 
   it("changes Centrifugo status on connection and disconnection", () => {
+    const getStore = () =>
+      cy.get<ReturnType<typeof useMachineDataLinkStatusStore>>("@store")
+
     cy.mount(MachineDataLinkBootWrapper)
 
     cy.wrap(useMachineDataLinkStatusStore()).as("store")
@@ -64,12 +67,18 @@ describe("machine data link boot composable", () => {
     cy.get("@store")
       .its("centrifugoLinkStatus")
       .should("equal", LinkStatus.Unknown)
-    cy.get("@centrifuge").invoke("emit", "connected")
-    cy.get("@store").its("centrifugoLinkStatus").should("equal", LinkStatus.Up)
+    cy.get("@centrifuge").invoke("emit", "connected", {
+      transport: "some_transport",
+    })
+    getStore().should((store) => {
+      expect(store.centrifugoLinkStatus).to.equal(LinkStatus.Up)
+      expect(store.centrifugoTransport).to.equal("some_transport")
+    })
     cy.get("@centrifuge").invoke("emit", "disconnected")
-    cy.get("@store")
-      .its("centrifugoLinkStatus")
-      .should("equal", LinkStatus.Down)
+    getStore().should((store) => {
+      expect(store.centrifugoLinkStatus).to.equal(LinkStatus.Down)
+      expect(store.centrifugoTransport).to.equal("")
+    })
   })
 
   it("subscribes to data changes", () => {

@@ -60,7 +60,7 @@ describe("Line dashboard", () => {
     cy.visit("/line-dashboard/e2e-tests")
     cy.get("main.q-page").should("be.visible")
     cy.get(".q-loading").should("not.exist")
-    cy.dataCy("status-0").should("contain.text", "swap_horiz")
+    cy.dataCy("centrifugo-status").should("contain.text", "swap_horiz")
   })
 
   it("has dynamic header title", () => {
@@ -90,8 +90,11 @@ describe("Line dashboard", () => {
   it("shows all green status", () => {
     centrifugoPublish({})
 
-    cy.dataCy("status-0").should("contain.text", "swap_horiz")
-    cy.dataCy("status-1").should("contain.text", "swap_horiz")
+    cy.dataCy("centrifugo-status").should("contain.text", "swap_horiz")
+    cy.dataCy("centrifugo-transport")
+      .should("have.text", "(WS)")
+      .and("have.class", "text-positive")
+    cy.dataCy("plc-status").should("contain.text", "swap_horiz")
   })
 
   it("shows published values", () => {
