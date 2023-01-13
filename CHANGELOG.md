@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/cailloumajor/factory-frontend/compare/v1.3.1...v1.4.0) (2023-01-13)
+
+
+### Features
+
+* add Centrifugo SSE fallback ([b8bed97](https://github.com/cailloumajor/factory-frontend/commit/b8bed97db5137c49fe2eaf7c9aa1e38d54f5cd4f))
+
+
+### Bug Fixes
+
+* alias use ([cac1f96](https://github.com/cailloumajor/factory-frontend/commit/cac1f96fbd442e30fc3952d48e156305c4dff76a))
+* metric naming ([4d91101](https://github.com/cailloumajor/factory-frontend/commit/4d9110153a638c1183cdc8d525cbd94d2711bc85))
+* module naming ([5e181bf](https://github.com/cailloumajor/factory-frontend/commit/5e181bf277b0871f6057a11e59b5aeebf326b2ad))
+
 ## [1.3.1](https://github.com/cailloumajor/factory-frontend/compare/v1.3.0...v1.3.1) (2023-01-06)
 
 
