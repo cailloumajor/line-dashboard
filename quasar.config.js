@@ -106,10 +106,14 @@ module.exports = configure(function (/* ctx */) {
       // https: true
       open: false, // opens browser window automatically
       proxy: {
-        "/centrifugo": {
+        "/centrifugo/connection/websocket": {
           rewrite: (path) => path.replace(/^\/centrifugo/, ""),
           target: process.env.CENTRIFUGO_WS,
           ws: true,
+        },
+        "^/centrifugo/(emulation|connection/sse)": {
+          rewrite: (path) => path.replace(/^\/centrifugo/, ""),
+          target: process.env.CENTRIFUGO_HTTP,
         },
         "/influxdb": {
           rewrite: (path) => path.replace(/^\/influxdb/, ""),

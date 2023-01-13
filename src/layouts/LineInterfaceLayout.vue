@@ -23,14 +23,29 @@
         <span :class="$style.version">{{ t("version") }}</span>
         <span>{{ appVersion }}</span>
         <QSpace />
-        <span
-          v-for="(status, index) in statuses"
-          :key="`status-${index}`"
-          :data-cy="`status-${index}`"
-          class="q-ml-md"
-        >
-          {{ status.text }}
-          <QIcon :name="status.icon" :color="status.color" size="sm" />
+        <span data-cy="centrifugo-status" class="q-ml-md">
+          {{ statuses.centrifugo.text }}
+          <span
+            :class="[
+              $style.centrifugoTransport,
+              `text-${centrifugoTransport.color}`,
+            ]"
+            data-cy="centrifugo-transport"
+            >{{ centrifugoTransport.text }}</span
+          >
+          <QIcon
+            :name="statuses.centrifugo.icon"
+            :color="statuses.centrifugo.color"
+            size="sm"
+          />
+        </span>
+        <span data-cy="plc-status" class="q-ml-md">
+          {{ statuses.plc.text }}
+          <QIcon
+            :name="statuses.plc.icon"
+            :color="statuses.plc.color"
+            size="sm"
+          />
         </span>
         <QIcon
           :color="statusStore.heartbeat ? 'positive' : 'grey-7'"
@@ -86,10 +101,28 @@ const statuses = computed(() => {
     }[status],
   })
 
-  return [
-    { text: "Centrifugo", ...graphical(statusStore.centrifugoStatus) },
-    { text: "PLC", ...graphical(statusStore.plcStatus) },
-  ]
+  return {
+    centrifugo: {
+      text: "Centrifugo",
+      ...graphical(statusStore.centrifugoStatus),
+    },
+    plc: {
+      text: "PLC",
+      ...graphical(statusStore.plcStatus),
+    },
+  }
+})
+
+const centrifugoTransport = computed(() => {
+  const transport =
+    {
+      websocket: "WS",
+      sse: "SSE",
+    }[statusStore.centrifugoTransport] ?? ""
+  const text = transport && `(${transport})`
+  const color = transport === "WS" ? "positive" : "warning"
+
+  return { text, color }
 })
 
 onErrorCaptured((err) => {
@@ -130,6 +163,10 @@ onErrorCaptured((err) => {
 <style module lang="scss">
 .version {
   margin-right: 0.25em;
+}
+
+.centrifugoTransport {
+  font-weight: bold;
 }
 </style>
 

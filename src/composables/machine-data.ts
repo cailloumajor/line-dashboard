@@ -7,7 +7,11 @@ import { LinkStatus, centrifugoNamespace } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
-import type { PublicationContext, SubscribedContext } from "centrifuge"
+import type {
+  PublicationContext,
+  SubscribedContext,
+  TransportEndpoint,
+} from "centrifuge"
 
 export const heartbeatTimeoutMillis = 8000 // PLC heartbeat timeout in milliseconds
 
@@ -48,18 +52,31 @@ function useMachineDataLinkBoot() {
       upToDate.value = true
     }
 
-    const url = `ws://${window.location.host}/centrifugo/connection/websocket`
-    const centrifuge = new deps.Centrifuge(url, {
+    const transports: TransportEndpoint[] = [
+      {
+        transport: "websocket",
+        endpoint: `ws://${window.location.host}/centrifugo/connection/websocket`,
+      },
+      {
+        transport: "sse",
+        endpoint: `http://${window.location.host}/centrifugo/connection/sse`,
+      },
+    ]
+    const centrifuge = new deps.Centrifuge(transports, {
+      name: `Frontend (${partnerID})`,
       debug: import.meta.env.DEV,
+      emulationEndpoint: `http://${window.location.host}/centrifugo/emulation`,
       maxReconnectDelay: 5000,
     })
 
     // Centrifugo link status
-    centrifuge.on("connected", () => {
+    centrifuge.on("connected", (ctx) => {
       statusStore.centrifugoLinkStatus = LinkStatus.Up
+      statusStore.centrifugoTransport = ctx.transport
     })
     centrifuge.on("disconnected", () => {
       statusStore.centrifugoLinkStatus = LinkStatus.Down
+      statusStore.centrifugoTransport = ""
     })
 
     // Data change subscription
