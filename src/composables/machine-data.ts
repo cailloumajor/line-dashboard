@@ -17,6 +17,11 @@ export const heartbeatTimeoutMillis = 8000 // PLC heartbeat timeout in milliseco
 
 export const deps = { Centrifuge }
 
+interface MachineData {
+  val: object
+  ts: Record<string, string>
+}
+
 function useMachineDataLinkBoot() {
   const { errorRedirect } = errorRedirectComposable.useErrorRedirect()
   const campaignDataStore = useCampaignDataStore()
@@ -28,7 +33,7 @@ function useMachineDataLinkBoot() {
    * @param machineData Reactive data to keep up-to-date with machine data.
    * @param partnerID Partner ID.
    */
-  function machineDataLinkBoot<T extends object>(
+  function machineDataLinkBoot<T extends MachineData>(
     machineData: T,
     partnerID: string
   ) {
@@ -40,14 +45,15 @@ function useMachineDataLinkBoot() {
     function patchMachineData({
       data,
     }: SubscribedContext | PublicationContext) {
-      // Return if data is null or undefined
-      if (data == null) return
-      Object.assign(machineData, data)
-      if ("heartbeat" in data) {
-        statusStore.plcHeartbeat = !!data.heartbeat
+      // Return if data is null, undefined or not an object
+      if (data == null || typeof data !== "object") return
+      Object.assign(machineData.val, data.val)
+      Object.assign(machineData.ts, data.ts)
+      if ("heartbeat" in (data.val ?? {})) {
+        statusStore.plcHeartbeat = !!data.val.heartbeat
       }
-      if ("partRef" in data) {
-        campaignDataStore.updateCampaign(data.partRef)
+      if ("partRef" in (data.val ?? {})) {
+        campaignDataStore.updateCampaign(data.val.partRef)
       }
       upToDate.value = true
     }

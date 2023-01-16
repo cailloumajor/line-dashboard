@@ -117,11 +117,22 @@ describe("machine data link boot composable", () => {
     cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Unknown)
 
     cy.get("@data-change-subscription").invoke("emit", "subscribed", {
-      data: { first: 42, second: "somevalue" },
+      data: {
+        val: {
+          first: 42,
+          second: "somevalue",
+        },
+        ts: {
+          one: "tsone",
+          two: "tstwo",
+        },
+      },
     })
     cy.get("@store").its("plcLinkStatus").should("equal", LinkStatus.Up)
     cy.dataCy("first").should("have.text", 42)
     cy.dataCy("second").should("have.text", "somevalue")
+    cy.dataCy("ts-one").should("have.text", "tsone")
+    cy.dataCy("ts-two").should("have.text", "tstwo")
   })
 
   it("accepts publications with undefined data", () => {
@@ -136,22 +147,51 @@ describe("machine data link boot composable", () => {
     cy.mount(MachineDataLinkBootWrapper)
 
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { first: 800 },
+      data: {
+        val: {
+          first: 800,
+        },
+        ts: {
+          one: "sometime",
+        },
+      },
     })
     cy.dataCy("first").should("have.text", 800)
     cy.dataCy("second").should("have.text", "initial")
+    cy.dataCy("ts-one").should("have.text", "sometime")
+    cy.dataCy("ts-two").should("have.text", "other_ts")
 
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { second: "changed-1" },
+      data: {
+        val: {
+          second: "changed-1",
+        },
+        ts: {
+          two: "anytime",
+        },
+      },
     })
     cy.dataCy("first").should("have.text", 800)
     cy.dataCy("second").should("have.text", "changed-1")
+    cy.dataCy("ts-one").should("have.text", "sometime")
+    cy.dataCy("ts-two").should("have.text", "anytime")
 
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { first: 54, second: "changed-2" },
+      data: {
+        val: {
+          first: 54,
+          second: "changed-2",
+        },
+        ts: {
+          one: "far",
+          two: "past",
+        },
+      },
     })
     cy.dataCy("first").should("have.text", 54)
     cy.dataCy("second").should("have.text", "changed-2")
+    cy.dataCy("ts-one").should("have.text", "far")
+    cy.dataCy("ts-two").should("have.text", "past")
   })
 
   it("changes PLC link status depending on publications", () => {
@@ -177,11 +217,19 @@ describe("machine data link boot composable", () => {
 
     cy.get("@store").its("plcHeartbeat").should("be.false")
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { heartbeat: true },
+      data: {
+        val: {
+          heartbeat: true,
+        },
+      },
     })
     cy.get("@store").its("plcHeartbeat").should("be.true")
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { heartbeat: false },
+      data: {
+        val: {
+          heartbeat: false,
+        },
+      },
     })
     cy.get("@store").its("plcHeartbeat").should("be.false")
   })
@@ -190,7 +238,11 @@ describe("machine data link boot composable", () => {
     cy.mount(MachineDataLinkBootWrapper)
 
     cy.get("@data-change-subscription").invoke("emit", "publication", {
-      data: { partRef: "NEW-REFERENCE" },
+      data: {
+        val: {
+          partRef: "NEW-REFERENCE",
+        },
+      },
     })
     cy.wrap(useCampaignDataStore())
       .its("updateCampaign")

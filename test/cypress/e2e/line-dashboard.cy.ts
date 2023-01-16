@@ -1,7 +1,12 @@
+interface MachineData {
+  val?: object
+  ts?: Record<string, string>
+}
+
 const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
 const influxdbHost = Cypress.env("INFLUXDB_HOST")
 
-const centrifugoPublish = (data: Record<string, unknown>) => {
+const centrifugoPublish = (data: MachineData) => {
   cy.request({
     method: "POST",
     url: `http://${centrifugoHost}:8000/api`,
@@ -64,7 +69,11 @@ describe("Line dashboard", () => {
   })
 
   it("has dynamic header title", () => {
-    centrifugoPublish({ partRef: "E2E-CAMPAIGN" })
+    centrifugoPublish({
+      val: {
+        partRef: "E2E-CAMPAIGN",
+      },
+    })
     cy.dataCy("layout-title").should(
       "have.text",
       "End-to-end tests\xa0—\xa0E2E-CAMPAIGN"
@@ -99,9 +108,11 @@ describe("Line dashboard", () => {
 
   it("shows published values", () => {
     centrifugoPublish({
-      goodParts: 5641,
-      scrapParts: 849,
-      averageCycleTime: 987,
+      val: {
+        goodParts: 5641,
+        scrapParts: 849,
+        averageCycleTime: 987,
+      },
     })
 
     cy.dataCy("metric-0").dataCy("metric-value-text").should("have.text", 5641)
@@ -121,7 +132,9 @@ describe("Line dashboard", () => {
     cy.dataCy("status-text").should("contain", "Stopped")
 
     centrifugoPublish({
-      cycle: true,
+      val: {
+        cycle: true,
+      },
     })
 
     cy.dataCy("status-text").should("contain", "Running")
@@ -154,7 +167,9 @@ describe("Line dashboard", () => {
       .should("contain", "repeating-linear-gradient")
 
     centrifugoPublish({
-      cycle: true,
+      val: {
+        cycle: true,
+      },
     })
 
     cy.get(".q-page")
