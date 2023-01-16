@@ -71,15 +71,7 @@ import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
-export type MachineData = {
-  goodParts: number
-  scrapParts: number
-  averageCycleTime: number
-  campChange: boolean
-  cycle: boolean
-  cycleTimeOver: boolean
-  fault: boolean
-}
+import type { MachineData } from "src/global"
 
 enum CycleTimeStatus {
   Good,
@@ -110,13 +102,24 @@ const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 
 const machineData = reactive<MachineData>({
-  goodParts: 0,
-  scrapParts: 0,
-  averageCycleTime: 0,
-  campChange: false,
-  cycle: false,
-  cycleTimeOver: false,
-  fault: false,
+  val: {
+    goodParts: 0,
+    scrapParts: 0,
+    averageCycleTime: 0,
+    campChange: false,
+    cycle: false,
+    cycleTimeOver: false,
+    fault: false,
+  },
+  ts: {
+    goodParts: "",
+    scrapParts: "",
+    averageCycleTime: "",
+    campChange: "",
+    cycle: "",
+    cycleTimeOver: "",
+    fault: "",
+  },
 })
 
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
@@ -124,7 +127,7 @@ const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 const productionObjective = ref(3500)
 
 const stopped = computed(
-  () => machineDataLinkStatusStore.dataValid && !machineData.cycle
+  () => machineDataLinkStatusStore.dataValid && !machineData.val.cycle
 )
 
 const effectiveness = computed(() => {
@@ -135,7 +138,7 @@ const effectiveness = computed(() => {
   const shiftElapsedMillis = +now.value - (endMillis - shiftDurationMillis)
   const shiftElapsedRatio = shiftElapsedMillis / shiftDurationMillis
   const expectedProductionNow = productionObjective.value * shiftElapsedRatio
-  return (machineData.goodParts / expectedProductionNow) * 100
+  return (machineData.val.goodParts / expectedProductionNow) * 100
 })
 
 const rowsHeightValid = ref(false)
@@ -170,7 +173,7 @@ const timelineStyle = computed(() => ({
   height: `${rowsHeight.value[3] * 0.95}px`,
 }))
 
-const cycleTime = computed(() => machineData.averageCycleTime / 10)
+const cycleTime = computed(() => machineData.val.averageCycleTime / 10)
 const cycleTimeStatus = computed(() => {
   const ratio = cycleTime.value / campaignDataStore.targetCycleTime
   return ratio >= 1.1
@@ -190,7 +193,7 @@ const metrics = computed(() => {
     {
       iconName: "done_outline",
       title: t("goodParts"),
-      value: machineData.goodParts,
+      value: machineData.val.goodParts,
     },
     {
       iconName: "timer",
@@ -213,8 +216,8 @@ const metrics = computed(() => {
     {
       iconName: "delete_outline",
       title: t("scrapParts"),
-      value: machineData.scrapParts,
-      color: machineData.scrapParts > 0 ? "negative" : "positive",
+      value: machineData.val.scrapParts,
+      color: machineData.val.scrapParts > 0 ? "negative" : "positive",
     },
     {
       iconName: "speed",
@@ -227,14 +230,14 @@ const metrics = computed(() => {
 })
 
 const statusCard = computed<Status>(() =>
-  machineData.cycle
-    ? machineData.cycleTimeOver ||
+  machineData.val.cycle
+    ? machineData.val.cycleTimeOver ||
       cycleTimeStatus.value !== CycleTimeStatus.Good
       ? { text: t("runUnderCadence"), color: "warning" }
       : { text: t("runAtCadence"), color: "positive" }
-    : machineData.campChange
+    : machineData.val.campChange
     ? { text: t("campaignChange"), color: "info" }
-    : machineData.fault
+    : machineData.val.fault
     ? { text: t("stopFault"), color: "negative" }
     : { text: t("stopNoFault"), color: "orange" }
 )

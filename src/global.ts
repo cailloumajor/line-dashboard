@@ -14,3 +14,20 @@ export enum LinkStatus {
   Down,
   Up,
 }
+
+interface MachineDataValues {
+  goodParts: number
+  scrapParts: number
+  averageCycleTime: number
+  campChange: boolean
+  cycle: boolean
+  cycleTimeOver: boolean
+  fault: boolean
+}
+
+export interface MachineData {
+  val: MachineDataValues
+  ts: {
+    [K in keyof MachineDataValues]: string
+  }
+}

@@ -13,9 +13,14 @@ import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
-import type { MachineData } from "../LineDashboard.vue"
 import type { Server } from "miragejs"
+import type { MachineData } from "src/global"
 import type { Ref } from "vue"
+
+interface PartialMachineData {
+  val: Partial<MachineData["val"]>
+  ts: Partial<MachineData["ts"]>
+}
 
 const checkCssSize = (
   selector: string,
@@ -170,13 +175,24 @@ describe("LineDashboard", () => {
     cy.get("@machine-data-link-boot-stub").should(
       "have.been.calledOnceWith",
       {
-        goodParts: 0,
-        scrapParts: 0,
-        averageCycleTime: 0,
-        campChange: false,
-        cycle: false,
-        cycleTimeOver: false,
-        fault: false,
+        val: {
+          goodParts: 0,
+          scrapParts: 0,
+          averageCycleTime: 0,
+          campChange: false,
+          cycle: false,
+          cycleTimeOver: false,
+          fault: false,
+        },
+        ts: {
+          goodParts: "",
+          scrapParts: "",
+          averageCycleTime: "",
+          campChange: "",
+          cycle: "",
+          cycleTimeOver: "",
+          fault: "",
+        },
       },
       "anid"
     )
@@ -186,7 +202,7 @@ describe("LineDashboard", () => {
     cy.get("@machine-data-link-boot-stub").invoke(
       "callsFake",
       (machineData: MachineData) => {
-        machineData.averageCycleTime = 1055
+        machineData.val.averageCycleTime = 1055
       }
     )
 
@@ -202,14 +218,18 @@ describe("LineDashboard", () => {
 
   context("machine data reactivity", () => {
     beforeEach(() => {
-      const proxy = ref({})
+      const proxy: Ref<PartialMachineData> = ref({
+        val: {},
+        ts: {},
+      })
       cy.wrap(proxy).as("proxy")
 
       cy.get("@machine-data-link-boot-stub").invoke(
         "callsFake",
         (machineData: MachineData) => {
           watch(proxy, (data) => {
-            Object.assign(machineData, data)
+            Object.assign(machineData.val, data.val)
+            Object.assign(machineData.ts, data.ts)
           })
         }
       )
@@ -222,24 +242,33 @@ describe("LineDashboard", () => {
       cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
 
       cy.tick(shiftDurationMillis / 2)
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          goodParts: 1400,
+          val: {
+            goodParts: 1400,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "80.0")
 
       cy.tick(shiftDurationMillis / 2 - 1) // The millisecond just before next shift
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          goodParts: 3325,
+          val: {
+            goodParts: 3325,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "95.0")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          goodParts: 3693,
+          val: {
+            goodParts: 3693,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-4").dataCy("value").should("have.text", "105.5")
@@ -250,26 +279,35 @@ describe("LineDashboard", () => {
         targetCycleTime: 100,
       })
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          averageCycleTime: 1051,
-          scrapParts: 1,
+          val: {
+            averageCycleTime: 1051,
+            scrapParts: 1,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "warning")
       cy.dataCy("metric-3").dataCy("color").should("have.text", "negative")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          averageCycleTime: 1101,
+          val: {
+            averageCycleTime: 1101,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          averageCycleTime: 1000,
-          scrapParts: 0,
+          val: {
+            averageCycleTime: 1000,
+            scrapParts: 0,
+          },
+          ts: {},
         }
       })
       cy.dataCy("metric-1").dataCy("color").should("have.text", "negative")
@@ -286,47 +324,65 @@ describe("LineDashboard", () => {
         targetCycleTime: 100,
       })
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          campChange: true,
+          val: {
+            campChange: true,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-info")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          averageCycleTime: 1051,
-          campChange: false,
-          cycle: true,
+          val: {
+            averageCycleTime: 1051,
+            campChange: false,
+            cycle: true,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          averageCycleTime: 1000,
+          val: {
+            averageCycleTime: 1000,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-positive")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          cycleTimeOver: true,
+          val: {
+            cycleTimeOver: true,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          cycle: false,
+          val: {
+            cycle: false,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-orange")
 
-      cy.get<Ref<Partial<MachineData>>>("@proxy").then((proxy) => {
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          cycle: false,
-          fault: true,
+          val: {
+            cycle: false,
+            fault: true,
+          },
+          ts: {},
         }
       })
       cy.dataCy("status-text").should("have.class", "text-negative")
