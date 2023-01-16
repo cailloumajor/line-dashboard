@@ -4,11 +4,13 @@
   "hostRules": [
     {
       "matchHost": "npm.pkg.github.com",
+      "hostType": "npm",
       "encrypted": {
         "token": "wcFMA/xDdHCJBTolAQ//fnbHLtHii+EYTo1XkcHg8Pwze0QgZtII/TRLYgXsgJ/z0lfV4z50Zs6s1OTKEnF9X12n9UHtcZ81I7BSEQ2ABtQOV4CaWIsefrkU0aqWt+DdLGsZKShrl1d7TNQ+UtM9V1GMzdxI1aQ6PRkSXC4rG+IyKbT3vSVhccAtTiirKRA3p4nUTAiIVBFSquFToAApmVwZYT7yLpxipYd7b8e8DuxcnyWgLzzhHlAHeEKjGZcnfgfbXCWgHuYUzWmSL3AWE7PXbQ4mpMxm04UxdATKn0nYkN8FW9HRtUtEoDhTsOUNfOc/N40hJ4/Rd0A9RjR7UEWChWdON8Ug07FKWZ9LqzDQd1z6ipquBwByEhc1eXaZ4IgfAU7Dvm4SL1Avp/h6P4zsdZWD5Fb6o0Jn14mW0ES9AzZXAlnT+Pj4nj2yb2knc0QMP7HH87B8eJtKeaaM8Wi1pyjFqpaFZAaclVroZ+uR1iWBUEisD0KH/OroDDZtdNK+5ziSNXYoLh+yHBG8lX9Go7LdLnwcfMheSwxfYpSIw2RmwEczuymahYJbFMz+mgNKKUcuBilhJ1ZTGjC++7ypaAEPfNU/HfG+Iq/v1v1lkOYAB3M2adVJrrDRJitGNES9aTv+pDAwUirSW4xPSI2wipQhUuem6AqFuxOyHvGvYBSw/vTnmOqJ3pDksbnSewGSgkFD9yUJVhFv/Pn2DkktyR+3D7XTNl35z4C0RFWAyfcXU9zk2hu7lXDYnJgxE8ThsgWNjTFFLS3OIwNVt6pCt9foz2vTKpFTXDaNc4n7SBnK0tHoxkRxXQxWTeBeIVPKPvzSmvlyOTwobkP60DcuNa423x2Stb1dXQ"
       }
     }
   ],
+  "npmrc": "@cailloumajor:registry=https://npm.pkg.github.com/",
   "packageRules": [
     {
       "matchPackagePrefixes": ["@vueuse/"],
