@@ -1,3 +1,5 @@
+export {} // Prevent TypeScript TS1208 error
+
 interface MachineData {
   val?: object
   ts?: Record<string, string>

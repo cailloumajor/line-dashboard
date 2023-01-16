@@ -6,7 +6,7 @@
   "author": "Arnaud Rocher <arnaud.roche3@gmail.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.json,.ts,.vue ./",
+    "lint": "tsc --noEmit --skipLibCheck && eslint --ext .js,.json,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
     "serve:e2e": "quasar build --debug && node integration/run-e2e-tests.mjs",

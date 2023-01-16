@@ -4,8 +4,6 @@ import { loadingErrorStorageKey } from "src/global"
 
 import ErrorDashboardLogging from "../ErrorDashboardLoading.vue"
 
-import type { RouterMock } from "vue-router-mock"
-
 describe("ErrorDashboardLogging", () => {
   it("does display error text", () => {
     cy.wrap(SessionStorage).invoke("set", loadingErrorStorageKey, [
@@ -50,14 +48,10 @@ describe("ErrorDashboardLogging", () => {
     })
 
     cy.dataCy("countdown").should("contain.text", " 1 ")
-    cy.get<RouterMock>("@router-mock")
-      .its("back")
-      .should("not.have.been.called")
+    cy.get("@router-mock").its("back").should("not.have.been.called")
 
     cy.tick(1100)
     cy.dataCy("countdown").should("not.contain.text", " 1 ")
-    cy.get<RouterMock>("@router-mock")
-      .its("back")
-      .should("have.been.calledOnce")
+    cy.get("@router-mock").its("back").should("have.been.calledOnce")
   })
 })
