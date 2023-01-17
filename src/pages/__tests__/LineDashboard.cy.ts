@@ -181,7 +181,6 @@ describe("LineDashboard", () => {
           averageCycleTime: 0,
           campChange: false,
           cycle: false,
-          cycleTimeOver: false,
           fault: false,
         },
         ts: {
@@ -190,7 +189,6 @@ describe("LineDashboard", () => {
           averageCycleTime: "",
           campChange: "",
           cycle: "",
-          cycleTimeOver: "",
           fault: "",
         },
       },
@@ -315,6 +313,8 @@ describe("LineDashboard", () => {
     })
 
     it("gives contextual colors to status", () => {
+      cy.clock()
+
       cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
         centrifugoLinkStatus: LinkStatus.Up,
         plcLinkStatus: LinkStatus.Up,
@@ -337,11 +337,22 @@ describe("LineDashboard", () => {
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
           val: {
-            averageCycleTime: 1051,
             campChange: false,
-            cycle: true,
           },
           ts: {},
+        }
+      })
+      cy.dataCy("status-text").should("have.class", "text-negative")
+
+      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
+        proxy.value = {
+          val: {
+            averageCycleTime: 1051,
+            cycle: true,
+          },
+          ts: {
+            goodParts: new Date().toISOString(),
+          },
         }
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
@@ -358,33 +369,27 @@ describe("LineDashboard", () => {
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          val: {
-            cycleTimeOver: true,
+          val: {},
+          ts: {
+            goodParts: new Date(Date.now() - 350_000).toISOString(),
           },
-          ts: {},
         }
       })
-      cy.dataCy("status-text").should("have.class", "text-warning")
+      cy.tick(15)
+      cy.dataCy("status-text").should("have.class", "text-negative")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          val: {
-            cycle: false,
+          val: {},
+          ts: {
+            goodParts: new Date().toISOString(),
           },
-          ts: {},
         }
       })
-      cy.dataCy("status-text").should("have.class", "text-orange")
+      cy.tick(295_000)
+      cy.dataCy("status-text").should("have.class", "text-positive")
 
-      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
-        proxy.value = {
-          val: {
-            cycle: false,
-            fault: true,
-          },
-          ts: {},
-        }
-      })
+      cy.tick(5_001)
       cy.dataCy("status-text").should("have.class", "text-negative")
     })
   })

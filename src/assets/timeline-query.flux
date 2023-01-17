@@ -9,17 +9,20 @@ params = {
     id: "",
 }
 
-filterFields = (r) => r._field == "campChange" or r._field == "cycle" or r._field == "cycleTimeOver"
+filterFields = (r) =>
+    r._field == "averageCycleTime" or r._field == "campChange" or r._field == "cycle" or r._field == "goodPartsAge"
 
 dropColumns = (column) => filterFields(r: {_field: column})
 
 colorFromStatuses = (r) =>
     ({r with color:
             if r.cycle then
-                if r.cycleTimeOver then
-                    params.cycleTimeOverColor
-                else
+                if r.goodPartsAge > 63.72 then
+                    params.stoppedColor
+                else if float(v: r.averageCycleTime) / 10.0 < 22.3 then
                     params.cycleColor
+                else
+                    params.cycleTimeOverColor
             else if r.campChange then
                 params.campChangeColor
             else

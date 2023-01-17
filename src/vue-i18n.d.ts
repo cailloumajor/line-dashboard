@@ -15,8 +15,7 @@ declare module "vue-i18n" {
     performance: string
     fetchError: string
     stopped: string
-    stopFault: string
-    stopNoFault: string
+    outOfProduction: string
     runUnderCadence: string
     runAtCadence: string
     campaignChange: string
