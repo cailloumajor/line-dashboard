@@ -51,7 +51,7 @@ describe("Line dashboard", () => {
     const body = [3, 2, 1, 0]
       .map((minutes) => {
         const ts = Date.now() - minutes * 60 * 1000
-        return `opcua.data,id=e2e-tests campChange=false,cycle=false,cycleTimeOver=false ${ts}`
+        return `opcua.data,id=e2e-tests campChange=false,cycle=false ${ts}`
       })
       .join("\n")
     cy.request({
@@ -137,6 +137,9 @@ describe("Line dashboard", () => {
       val: {
         cycle: true,
       },
+      ts: {
+        goodParts: new Date().toISOString(),
+      },
     })
 
     cy.dataCy("status-text").should("contain", "Running")
@@ -171,6 +174,9 @@ describe("Line dashboard", () => {
     centrifugoPublish({
       val: {
         cycle: true,
+      },
+      ts: {
+        goodParts: new Date().toISOString(),
       },
     })
 

@@ -51,6 +51,7 @@
 
 <script setup lang="ts">
 import {
+  refAutoReset,
   useDebounceFn,
   useEventListener,
   useNow,
@@ -58,7 +59,7 @@ import {
 } from "@vueuse/core"
 import { mande } from "mande"
 import { QPage, colors } from "quasar"
-import { computed, onMounted, reactive, ref } from "vue"
+import { computed, onMounted, reactive, ref, watch } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
@@ -75,8 +76,8 @@ import type { MachineData } from "src/global"
 
 enum CycleTimeStatus {
   Good,
-  OverTarget,
-  OverMax,
+  Warning,
+  Error,
 }
 
 interface Status {
@@ -108,7 +109,6 @@ const machineData = reactive<MachineData>({
     averageCycleTime: 0,
     campChange: false,
     cycle: false,
-    cycleTimeOver: false,
     fault: false,
   },
   ts: {
@@ -117,7 +117,6 @@ const machineData = reactive<MachineData>({
     averageCycleTime: "",
     campChange: "",
     cycle: "",
-    cycleTimeOver: "",
     fault: "",
   },
 })
@@ -126,8 +125,26 @@ const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 
 const productionObjective = ref(3500)
 
+const goodPartsTimeout = ref(0)
+const outdatedGoodParts = refAutoReset(true, goodPartsTimeout)
+watch(
+  [() => machineData.ts.goodParts, () => campaignDataStore.targetCycleTime],
+  ([goodParts, targetCycleTime]) => {
+    const goodPartsTimestamp = Date.parse(goodParts)
+    if (isNaN(goodPartsTimestamp) || targetCycleTime <= 0) {
+      return
+    }
+    const deadlineMillis = goodPartsTimestamp + 3 * targetCycleTime * 1000
+    const timeout = Math.max(deadlineMillis - Date.now(), 0)
+    goodPartsTimeout.value = timeout
+    outdatedGoodParts.value = !(timeout > 0)
+  }
+)
+
 const stopped = computed(
-  () => machineDataLinkStatusStore.dataValid && !machineData.val.cycle
+  () =>
+    machineDataLinkStatusStore.dataValid &&
+    (!machineData.val.cycle || outdatedGoodParts.value)
 )
 
 const effectiveness = computed(() => {
@@ -175,11 +192,14 @@ const timelineStyle = computed(() => ({
 
 const cycleTime = computed(() => machineData.val.averageCycleTime / 10)
 const cycleTimeStatus = computed(() => {
+  if (cycleTime.value <= 0) {
+    return CycleTimeStatus.Error
+  }
   const ratio = cycleTime.value / campaignDataStore.targetCycleTime
   return ratio >= 1.1
-    ? CycleTimeStatus.OverMax
+    ? CycleTimeStatus.Error
     : ratio >= 1.05
-    ? CycleTimeStatus.OverTarget
+    ? CycleTimeStatus.Warning
     : CycleTimeStatus.Good
 })
 
@@ -201,10 +221,9 @@ const metrics = computed(() => {
       unit: "s",
       value: fixedFractional.format(cycleTime.value),
       color:
-        cycleTimeStatus.value === CycleTimeStatus.OverMax ||
-        cycleTime.value <= 0
+        cycleTimeStatus.value === CycleTimeStatus.Error
           ? "negative"
-          : cycleTimeStatus.value === CycleTimeStatus.OverTarget
+          : cycleTimeStatus.value === CycleTimeStatus.Warning
           ? "warning"
           : "positive",
     },
@@ -231,15 +250,14 @@ const metrics = computed(() => {
 
 const statusCard = computed<Status>(() =>
   machineData.val.cycle
-    ? machineData.val.cycleTimeOver ||
-      cycleTimeStatus.value !== CycleTimeStatus.Good
-      ? { text: t("runUnderCadence"), color: "warning" }
-      : { text: t("runAtCadence"), color: "positive" }
+    ? outdatedGoodParts.value
+      ? { text: t("outOfProduction"), color: "negative" }
+      : cycleTimeStatus.value === CycleTimeStatus.Good
+      ? { text: t("runAtCadence"), color: "positive" }
+      : { text: t("runUnderCadence"), color: "warning" }
     : machineData.val.campChange
     ? { text: t("campaignChange"), color: "info" }
-    : machineData.val.fault
-    ? { text: t("stopFault"), color: "negative" }
-    : { text: t("stopNoFault"), color: "orange" }
+    : { text: t("stopped"), color: "negative" }
 )
 
 const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
@@ -256,11 +274,11 @@ const fluxQuery = makeFluxQuery(rawQuery, {
   id: props.id,
 })
 
-const timelineLegend = computed(() => [
+const timelineLegend = computed<Status[]>(() => [
   { text: t("runAtCadence"), color: "positive" },
   { text: t("runUnderCadence"), color: "warning" },
   { text: t("campaignChange"), color: "info" },
-  { text: t("stopped"), color: "negative" },
+  { text: `${t("stopped")} / ${t("outOfProduction")}`, color: "negative" },
 ])
 
 machineDataLinkBoot(machineData, props.id)

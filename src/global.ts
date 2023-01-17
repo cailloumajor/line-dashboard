@@ -21,7 +21,6 @@ interface MachineDataValues {
   averageCycleTime: number
   campChange: boolean
   cycle: boolean
-  cycleTimeOver: boolean
   fault: boolean
 }
 
