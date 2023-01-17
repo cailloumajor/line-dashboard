@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.0](https://github.com/cailloumajor/factory-frontend/compare/v1.4.0...v1.5.0) (2023-01-17)
+
+
+### Features
+
+* follow MongoDB data document schema change ([9e47dc6](https://github.com/cailloumajor/factory-frontend/commit/9e47dc69a7a5aca304c1e9223b57602dc8fda9c7))
+* use good parts counter timeout ([16c1e29](https://github.com/cailloumajor/factory-frontend/commit/16c1e294b6c86e2fd10d7ce234d02c4a902140ae))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-timeline to v1.4.1 ([a376bd7](https://github.com/cailloumajor/factory-frontend/commit/a376bd79f118408e59245ec8ed11d5b11366309d))
+* **deps:** update dependency @vueuse/core to v9.11.0 ([8caf085](https://github.com/cailloumajor/factory-frontend/commit/8caf085e2053d811d63f5f09a96864b6439a6c3b))
+* **deps:** update dependency pinia to v2.0.29 ([2bf1605](https://github.com/cailloumajor/factory-frontend/commit/2bf1605edc80eee250ee604ffec9b7fd78871048))
+* **deps:** yarn upgrade ([e6d435f](https://github.com/cailloumajor/factory-frontend/commit/e6d435fb5a825f426393d9bd66309c15ad08dce9))
+
 ## [1.4.0](https://github.com/cailloumajor/factory-frontend/compare/v1.3.1...v1.4.0) (2023-01-13)
 
 
