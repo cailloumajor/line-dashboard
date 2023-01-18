@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/cailloumajor/factory-frontend/compare/v1.5.1...v1.5.2) (2023-01-18)
+
+
+### Bug Fixes
+
+* use icon instead of emoji ([a68755c](https://github.com/cailloumajor/factory-frontend/commit/a68755cd74693010f30a6cd95df27532bc0bc486))
+
 ## [1.5.1](https://github.com/cailloumajor/factory-frontend/compare/v1.5.0...v1.5.1) (2023-01-18)
 
 
