@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/cailloumajor/factory-frontend/compare/v1.5.0...v1.5.1) (2023-01-18)
+
+
+### Bug Fixes
+
+* show `tuning in progress` indicator ([6da843b](https://github.com/cailloumajor/factory-frontend/commit/6da843b431342a934d10f6caf6c6d4d68fc937b4))
+
 ## [1.5.0](https://github.com/cailloumajor/factory-frontend/compare/v1.4.0...v1.5.0) (2023-01-17)
 
 
