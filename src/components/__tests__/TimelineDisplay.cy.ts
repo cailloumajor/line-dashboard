@@ -1,7 +1,7 @@
 import TimelineDisplayWrapper from "app/test/cypress/wrappers/TimelineDisplayWrapper.vue"
 import { timelineRefreshMillis } from "src/global"
 
-import useTimeline from "../influxdb-timeline"
+import useInfluxdbUtils from "../influxdb-utils-wasm"
 
 class MockedTimeline {
   async draw() {
@@ -20,10 +20,12 @@ const mountComponent = () => {
 
 describe("TimelineDisplay", () => {
   beforeEach(() => {
-    cy.stub(useTimeline, "init").as("wasm-init-stub").resolves()
+    cy.stub(useInfluxdbUtils, "init").as("wasm-init-stub").resolves()
     const mockedTimeline = new MockedTimeline()
     cy.stub(mockedTimeline, "draw").as("draw-stub").resolves()
-    cy.stub(useTimeline, "Timeline").as("timeline-stub").returns(mockedTimeline)
+    cy.stub(useInfluxdbUtils, "Timeline")
+      .as("timeline-stub")
+      .returns(mockedTimeline)
   })
 
   it("shows error raised by draw method", () => {
@@ -66,7 +68,7 @@ describe("TimelineDisplay", () => {
 
     cy.get("@wasm-init-stub").should(
       "have.been.calledOnceWith",
-      useTimeline.wasmUrl
+      useInfluxdbUtils.wasmUrl
     )
   })
 
