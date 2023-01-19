@@ -41,7 +41,7 @@ import { computed, nextTick, onMounted, reactive, ref } from "vue"
 
 import { influxdbPath, timelineRefreshMillis } from "src/global"
 
-import influxdbTimeline from "./influxdb-timeline"
+import influxdbUtils from "./influxdb-utils-wasm"
 
 import type { ResizeObserverSize } from "@vueuse/core"
 
@@ -50,7 +50,7 @@ interface LegendItem {
   text: string
 }
 
-const { init, wasmUrl, Timeline } = influxdbTimeline
+const { init, wasmUrl, Timeline } = influxdbUtils
 
 const props = defineProps<{
   influxdbOrg: string
