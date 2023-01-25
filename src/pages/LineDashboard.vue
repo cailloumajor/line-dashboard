@@ -251,7 +251,7 @@ const metrics = computed(() => {
 const statusCard = computed<Status>(() =>
   machineData.val.cycle
     ? outdatedGoodParts.value
-      ? { text: t("outOfProduction"), color: "negative" }
+      ? { text: t("stopped"), color: "negative" }
       : cycleTimeStatus.value === CycleTimeStatus.Good
       ? { text: t("runAtCadence"), color: "positive" }
       : { text: t("runUnderCadence"), color: "warning" }
@@ -278,7 +278,7 @@ const timelineLegend = computed<Status[]>(() => [
   { text: t("runAtCadence"), color: "positive" },
   { text: t("runUnderCadence"), color: "warning" },
   { text: t("campaignChange"), color: "info" },
-  { text: `${t("stopped")} / ${t("outOfProduction")}`, color: "negative" },
+  { text: t("stopped"), color: "negative" },
 ])
 
 machineDataLinkBoot(machineData, props.id)
