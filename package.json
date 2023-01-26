@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@cailloumajor/influxdb-utils-wasm": "2.0.0",
-    "@influxdata/influxdb-client-browser": "1.33.0",
+    "@influxdata/influxdb-client-browser": "1.33.1",
     "@quasar/extras": "1.15.10",
     "@vueuse/core": "9.11.1",
     "centrifuge": "3.1.0",
