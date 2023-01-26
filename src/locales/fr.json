@@ -6,16 +6,20 @@
   "loadingError": "Erreur de chargement",
   "newTry": "Nouvel essai",
   "retryIn": "@:newTry maintenant | @:newTry dans {n} seconde | @:newTry dans {n} secondes",
-  "goodParts": "Pièces bonnes",
-  "scrapParts": "Pièces mauvaises",
-  "averageCycleTime": "Tps cycle moyen",
-  "targetCycleTime": "Tps cycle standard",
-  "performance": "Performance",
   "fetchError": "requête vers {url}: erreur {status} ({statusText})",
-  "stopped": "Arrêt",
-  "outOfProduction": "Hors production",
-  "runUnderCadence": "Marche en sous-cadence",
-  "runAtCadence": "Marche à cadence",
-  "campaignChange": "Changement de campagne",
-  "version": "Version :"
+  "version": "Version :",
+  "metrics": {
+    "goodParts": "Pièces bonnes",
+    "scrapParts": "Pièces mauvaises",
+    "averageCycleTime": "Tps cycle moyen",
+    "targetCycleTime": "Tps cycle standard",
+    "performance": "Performance"
+  },
+  "statuses": {
+    "stopped": "Arrêt",
+    "outOfProduction": "Hors production",
+    "runUnderCadence": "Marche en sous-cadence",
+    "runAtCadence": "Marche à cadence",
+    "campaignChange": "Changement de campagne"
+  }
 }

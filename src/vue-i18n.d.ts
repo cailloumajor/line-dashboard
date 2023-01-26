@@ -9,17 +9,21 @@ declare module "vue-i18n" {
     goHome: string
     loadingError: string
     retryIn: string
-    goodParts: string
-    scrapParts: string
-    averageCycleTime: string
-    targetCycleTime: string
-    performance: string
     fetchError: string
-    stopped: string
-    outOfProduction: string
-    runUnderCadence: string
-    runAtCadence: string
-    campaignChange: string
     version: string
+    metrics: {
+      goodParts: string
+      scrapParts: string
+      averageCycleTime: string
+      targetCycleTime: string
+      performance: string
+    }
+    statuses: {
+      stopped: string
+      outOfProduction: string
+      runUnderCadence: string
+      runAtCadence: string
+      campaignChange: string
+    }
   }
 }

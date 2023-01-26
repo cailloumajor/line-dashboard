@@ -6,16 +6,20 @@
   "loadingError": "Loading error",
   "newTry": "Will retry",
   "retryIn": "@:newTry now | @:newTry in {n} second | @:newTry in {n} seconds",
-  "goodParts": "Good parts",
-  "scrapParts": "Scrap parts",
-  "averageCycleTime": "Average cycle time",
-  "targetCycleTime": "Standard cycle time",
-  "performance": "Performance",
   "fetchError": "querying {url}: got error {status} ({statusText})",
-  "stopped": "Stopped",
-  "outOfProduction": "Out of production",
-  "runUnderCadence": "Running under cadence",
-  "runAtCadence": "Running at cadence",
-  "campaignChange": "Campaign change",
-  "version": "Version:"
+  "version": "Version:",
+  "metrics": {
+    "goodParts": "Good parts",
+    "scrapParts": "Scrap parts",
+    "averageCycleTime": "Average cycle time",
+    "targetCycleTime": "Standard cycle time",
+    "performance": "Performance"
+  },
+  "statuses": {
+    "stopped": "Stopped",
+    "outOfProduction": "Out of production",
+    "runUnderCadence": "Running under cadence",
+    "runAtCadence": "Running at cadence",
+    "campaignChange": "Campaign change"
+  }
 }

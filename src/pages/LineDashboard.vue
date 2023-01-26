@@ -212,12 +212,12 @@ const metrics = computed(() => {
   return [
     {
       iconName: "done_outline",
-      title: t("goodParts"),
+      title: t("metrics.goodParts"),
       value: machineData.val.goodParts,
     },
     {
       iconName: "timer",
-      title: t("averageCycleTime"),
+      title: t("metrics.averageCycleTime"),
       unit: "s",
       value: fixedFractional.format(cycleTime.value),
       color:
@@ -229,18 +229,18 @@ const metrics = computed(() => {
     },
     {
       iconName: "track_changes",
-      title: t("targetCycleTime"),
+      title: t("metrics.targetCycleTime"),
       value: fixedFractional.format(campaignDataStore.targetCycleTime),
     },
     {
       iconName: "delete_outline",
-      title: t("scrapParts"),
+      title: t("metrics.scrapParts"),
       value: machineData.val.scrapParts,
       color: machineData.val.scrapParts > 0 ? "negative" : "positive",
     },
     {
       iconName: "speed",
-      title: t("performance"),
+      title: t("metrics.performance"),
       unit: "%",
       value: fixedFractional.format(effectiveness.value),
       disableValue: true,
@@ -251,13 +251,13 @@ const metrics = computed(() => {
 const statusCard = computed<Status>(() =>
   machineData.val.cycle
     ? outdatedGoodParts.value
-      ? { text: t("stopped"), color: "negative" }
+      ? { text: t("statuses.stopped"), color: "negative" }
       : cycleTimeStatus.value === CycleTimeStatus.Good
-      ? { text: t("runAtCadence"), color: "positive" }
-      : { text: t("runUnderCadence"), color: "warning" }
+      ? { text: t("statuses.runAtCadence"), color: "positive" }
+      : { text: t("statuses.runUnderCadence"), color: "warning" }
     : machineData.val.campChange
-    ? { text: t("campaignChange"), color: "info" }
-    : { text: t("stopped"), color: "negative" }
+    ? { text: t("statuses.campaignChange"), color: "info" }
+    : { text: t("statuses.stopped"), color: "negative" }
 )
 
 const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
@@ -275,10 +275,10 @@ const fluxQuery = makeFluxQuery(rawQuery, {
 })
 
 const timelineLegend = computed<Status[]>(() => [
-  { text: t("runAtCadence"), color: "positive" },
-  { text: t("runUnderCadence"), color: "warning" },
-  { text: t("campaignChange"), color: "info" },
-  { text: t("stopped"), color: "negative" },
+  { text: t("statuses.runAtCadence"), color: "positive" },
+  { text: t("statuses.runUnderCadence"), color: "warning" },
+  { text: t("statuses.campaignChange"), color: "info" },
+  { text: t("statuses.stopped"), color: "negative" },
 ])
 
 machineDataLinkBoot(machineData, props.id)
