@@ -25,5 +25,6 @@ declare module "vue-i18n" {
       runAtCadence: string
       campaignChange: string
     }
+    statusDuration: string
   }
 }

@@ -312,7 +312,7 @@ describe("LineDashboard", () => {
       cy.dataCy("metric-3").dataCy("color").should("have.text", "positive")
     })
 
-    it("gives contextual colors to status", () => {
+    it("gives contextual colors to status and renders its duration", () => {
       cy.clock()
 
       cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
@@ -329,20 +329,34 @@ describe("LineDashboard", () => {
           val: {
             campChange: true,
           },
-          ts: {},
+          ts: {
+            // Past 2 h 25 min
+            campChange: new Date(Date.now() - 8_700_000).toISOString(),
+          },
         }
       })
       cy.dataCy("status-text").should("have.class", "text-info")
+      cy.dataCy("status-duration")
+        .should("be.visible")
+        .and("contain.text", " 2 ")
+        .and("contain.text", " 25 ")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
           val: {
             campChange: false,
           },
-          ts: {},
+          ts: {
+            // Past 1 h 12 min
+            cycle: new Date(Date.now() - 4_320_000).toISOString(),
+          },
         }
       })
       cy.dataCy("status-text").should("have.class", "text-negative")
+      cy.dataCy("status-duration")
+        .should("be.visible")
+        .and("contain.text", " 1 ")
+        .and("contain.text", " 12 ")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
@@ -356,6 +370,7 @@ describe("LineDashboard", () => {
         }
       })
       cy.dataCy("status-text").should("have.class", "text-warning")
+      cy.dataCy("status-duration").should("not.exist")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
@@ -366,17 +381,22 @@ describe("LineDashboard", () => {
         }
       })
       cy.dataCy("status-text").should("have.class", "text-positive")
+      cy.dataCy("status-duration").should("not.exist")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
           val: {},
           ts: {
+            // Past s min 50 s
             goodParts: new Date(Date.now() - 350_000).toISOString(),
           },
         }
       })
       cy.tick(15)
       cy.dataCy("status-text").should("have.class", "text-negative")
+      cy.dataCy("status-duration")
+        .should("be.visible")
+        .and("contain.text", " 5 ")
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
@@ -388,9 +408,13 @@ describe("LineDashboard", () => {
       })
       cy.tick(295_000)
       cy.dataCy("status-text").should("have.class", "text-positive")
+      cy.dataCy("status-duration").should("not.exist")
 
       cy.tick(5_001)
       cy.dataCy("status-text").should("have.class", "text-negative")
+      cy.dataCy("status-duration")
+        .should("be.visible")
+        .and("contain.text", " 5 ")
     })
   })
 

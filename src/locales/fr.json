@@ -21,5 +21,6 @@
     "runUnderCadence": "Marche en sous-cadence",
     "runAtCadence": "Marche à cadence",
     "campaignChange": "Changement de campagne"
-  }
+  },
+  "statusDuration": "Depuis {duration} ({since})"
 }

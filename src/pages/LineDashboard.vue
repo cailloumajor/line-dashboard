@@ -25,14 +25,22 @@
       class="column q-my-auto text-center"
       data-cy="status-card"
     >
-      <div
-        v-if="machineDataLinkStatusStore.dataValid"
-        class="q-my-auto text-uppercase"
-        data-cy="status-text"
-        :class="`text-${statusCard.color}`"
-      >
-        {{ statusCard.text }}
-      </div>
+      <template v-if="machineDataLinkStatusStore.dataValid">
+        <div
+          :class="[$style.statusText, `text-${statusCard.color}`]"
+          class="text-uppercase"
+          data-cy="status-text"
+        >
+          {{ statusCard.text }}
+        </div>
+        <div
+          v-if="statusCard.ts"
+          :class="$style.statusDuration"
+          data-cy="status-duration"
+        >
+          {{ statusDuration }}
+        </div>
+      </template>
       <QSkeleton v-else type="text" width="80%" class="q-mx-auto q-my-auto" />
     </QCard>
     <TimelineDisplay
@@ -248,17 +256,57 @@ const metrics = computed(() => {
   ]
 })
 
-const statusCard = computed<Status>(() =>
+const statusCard = computed(() =>
   machineData.val.cycle
     ? outdatedGoodParts.value
-      ? { text: t("statuses.stopped"), color: "negative" }
+      ? {
+          text: t("statuses.stopped"),
+          color: "negative",
+          ts: machineData.ts.goodParts,
+        }
       : cycleTimeStatus.value === CycleTimeStatus.Good
       ? { text: t("statuses.runAtCadence"), color: "positive" }
       : { text: t("statuses.runUnderCadence"), color: "warning" }
     : machineData.val.campChange
-    ? { text: t("statuses.campaignChange"), color: "info" }
-    : { text: t("statuses.stopped"), color: "negative" }
+    ? {
+        text: t("statuses.campaignChange"),
+        color: "info",
+        ts: machineData.ts.campChange,
+      }
+    : {
+        text: t("statuses.stopped"),
+        color: "negative",
+        ts: machineData.ts.cycle,
+      }
 )
+
+const reactiveNow = useNow({ interval: 1000 })
+const statusDuration = computed(() => {
+  const ts = statusCard.value.ts
+  if (ts === undefined) {
+    return
+  }
+  const elapsedMinutes = Math.floor(
+    (reactiveNow.value.valueOf() - Date.parse(ts)) / 60_000
+  )
+  const hours = Math.floor(elapsedMinutes / 60)
+  const minutes = elapsedMinutes % 60
+  let duration = ""
+  if (hours > 0) {
+    const formattedHours = new Intl.NumberFormat(languages.value.slice(), {
+      style: "unit",
+      unit: "hour",
+    }).format(hours)
+    duration += formattedHours + " "
+  }
+  const formattedMinutes = new Intl.NumberFormat(languages.value.slice(), {
+    style: "unit",
+    unit: "minute",
+  }).format(minutes)
+  duration += formattedMinutes
+  const since = new Date(ts).toLocaleString()
+  return t("statusDuration", { duration, since })
+})
 
 const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
@@ -316,12 +364,18 @@ $grid-gap: 3vh 7vw;
 }
 
 .statusCard {
+  grid-area: 2 / 2 / 4 / 4;
+  height: 80%;
+  justify-content: space-evenly;
+}
+
+.statusText {
   font-size: min(10vh, 10vw);
   line-height: 1;
-  grid-area: 2 / 2 / 4 / 4;
-  height: 60%;
-  width: 100%;
-  margin: auto;
+}
+
+.statusDuration {
+  font-size: min(4vh, 4vw);
 }
 
 .timeline {
