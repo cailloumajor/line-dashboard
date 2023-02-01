@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.0](https://github.com/cailloumajor/factory-frontend/compare/v1.5.2...v1.6.0) (2023-02-01)
+
+
+### Features
+
+* add duration for some statuses ([6a329e2](https://github.com/cailloumajor/factory-frontend/commit/6a329e20afe4f121de74dbde2613c99c91abe148))
+* timeline adjustments ([03f7f62](https://github.com/cailloumajor/factory-frontend/commit/03f7f62b646dc5dfdf3ee55f9992a5b11181470e))
+
+
+### Bug Fixes
+
+* consider stopped status when no parts are produced ([d554f35](https://github.com/cailloumajor/factory-frontend/commit/d554f350ee789b3b311a2aac572180fda6dc94dc))
+* **deps:** update dependency @influxdata/influxdb-client-browser to v1.33.1 ([15ffae7](https://github.com/cailloumajor/factory-frontend/commit/15ffae77775925fd9653b8254f4389b5330b33d8))
+* **deps:** update dependency @quasar/extras to v1.15.10 ([fcd53a2](https://github.com/cailloumajor/factory-frontend/commit/fcd53a2781a22fd395efceded5aacc2b7d01777c))
+* **deps:** update dependency @vueuse/core to v9.11.1 ([9f275ab](https://github.com/cailloumajor/factory-frontend/commit/9f275ab934fb1b1ba47a91d99cdad31faf3d9817))
+* **deps:** update dependency @vueuse/core to v9.12.0 ([2e6fa72](https://github.com/cailloumajor/factory-frontend/commit/2e6fa72d2ba589a27163719f0a8651f34943ba5d))
+* follow renaming of package ([9110564](https://github.com/cailloumajor/factory-frontend/commit/91105645fefebfe29e191f618aedef192fdd197a))
+
 ## [1.5.2](https://github.com/cailloumajor/factory-frontend/compare/v1.5.1...v1.5.2) (2023-01-18)
 
 
