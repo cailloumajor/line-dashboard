@@ -85,6 +85,8 @@ describe("TimelineDisplay", () => {
         influxdbToken: "ctToken",
         fluxQuery: "ctQuery",
         opacity: 0.9,
+        xIntervalMinutes: 61,
+        xOffsetMinutes: 45,
       }
     )
   })

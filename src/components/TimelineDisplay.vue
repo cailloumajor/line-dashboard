@@ -57,6 +57,8 @@ const props = defineProps<{
   influxdbToken: string
   fluxQuery: string
   opacity: number
+  xIntervalMinutes: number
+  xOffsetMinutes: number
   legend: LegendItem[]
 }>()
 
@@ -96,10 +98,19 @@ onMounted(() => {
   }
   const fontFamily = window.getComputedStyle(canvasElem.value).fontFamily
   const influxdbUrl = new URL(influxdbPath, window.location.origin).toString()
-  const { influxdbOrg, influxdbToken, fluxQuery, opacity } = props
+  const {
+    influxdbOrg,
+    influxdbToken,
+    fluxQuery,
+    opacity,
+    xIntervalMinutes,
+    xOffsetMinutes,
+  } = props
   const timeline = new Timeline(canvasElem.value, {
     fontFamily,
     opacity,
+    xIntervalMinutes,
+    xOffsetMinutes,
     influxdbUrl,
     influxdbOrg,
     influxdbToken,

@@ -470,6 +470,12 @@ describe("LineDashboard", () => {
       .should((opacity) => {
         expect(parseFloat(opacity)).to.be.within(0, 1)
       })
+    cy.dataCy("timeline-x-interval")
+      .invoke("text")
+      .should((interval) => expect(parseInt(interval)).to.be.within(1, 120))
+    cy.dataCy("timeline-x-offset")
+      .invoke("text")
+      .should((offset) => expect(parseInt(offset)).to.be.within(0, 120))
     cy.dataCy("timeline-legend").should(($el) => {
       expect($el.text()).to.not.be.empty
     })

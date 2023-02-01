@@ -30,7 +30,7 @@ colorFromStatuses = (r) =>
     })
 
 from(bucket: params.bucket)
-    |> range(start: -24h)
+    |> range(start: -12h)
     |> filter(fn: (r) => r["_measurement"] == "opcua.data")
     |> filter(fn: (r) => r.id == params.id)
     |> filter(fn: filterFields)

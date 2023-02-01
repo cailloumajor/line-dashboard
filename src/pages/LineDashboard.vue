@@ -51,6 +51,8 @@
       :influxdb-token="config.influxdbToken"
       :flux-query="fluxQuery"
       :opacity="0.7"
+      :x-interval-minutes="60"
+      :x-offset-minutes="30"
       :legend="timelineLegend"
       data-cy="timeline"
     />
