@@ -7,6 +7,8 @@
       influxdb-token="ctToken"
       flux-query="ctQuery"
       :opacity="0.9"
+      :x-interval-minutes="61"
+      :x-offset-minutes="45"
       :legend="legend"
       :style="{ height }"
     />

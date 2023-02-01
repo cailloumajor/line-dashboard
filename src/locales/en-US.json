@@ -21,5 +21,6 @@
     "runUnderCadence": "Running under cadence",
     "runAtCadence": "Running at cadence",
     "campaignChange": "Campaign change"
-  }
+  },
+  "statusDuration": "For {duration} (since {since})"
 }

@@ -14,6 +14,14 @@
       Opacity: <span data-cy="timeline-opacity">{{ opacity }}</span>
     </div>
     <div class="prevent-overflow">
+      X-axis Interval:
+      <span data-cy="timeline-x-interval">{{ xIntervalMinutes }}</span>
+    </div>
+    <div class="prevent-overflow">
+      X-axis offset:
+      <span data-cy="timeline-x-offset">{{ xOffsetMinutes }}</span>
+    </div>
+    <div class="prevent-overflow">
       Legend: <span data-cy="timeline-legend">{{ legend }}</span>
     </div>
   </div>
@@ -25,6 +33,8 @@ defineProps<{
   influxdbToken: string
   fluxQuery: string
   opacity: number
+  xIntervalMinutes: number
+  xOffsetMinutes: number
   legend: []
 }>()
 </script>

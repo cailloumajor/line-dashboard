@@ -150,7 +150,7 @@ describe("Line dashboard", () => {
       .its("response.body")
       .should((body: string) => {
         const lines = body.split(/\r\n/)
-        expect(lines).to.have.length.that.is.above(1440)
+        expect(lines).to.have.length.that.is.within(720, 730)
       })
 
     cy.dataCy<HTMLCanvasElement>("timeline-canvas").should(($canvas) => {
