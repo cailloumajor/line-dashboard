@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.1](https://github.com/cailloumajor/factory-frontend/compare/v1.6.0...v1.6.1) (2023-02-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.1.1 ([ecb9d9d](https://github.com/cailloumajor/factory-frontend/commit/ecb9d9dc7a0b764e74040ccc9a2af76f03cb341d))
+* **deps:** update dependency vue to v3.2.47 ([9f18ed3](https://github.com/cailloumajor/factory-frontend/commit/9f18ed36cdebf2dcc4db56d9d2e077afe9df699f))
+* **deps:** update dependency zod to v3.20.3 ([c4a77fe](https://github.com/cailloumajor/factory-frontend/commit/c4a77fe15ff88dbbe4a6b955ae491478db5c7e3f))
+* **deps:** update node.js to v18.14.0 ([623ca32](https://github.com/cailloumajor/factory-frontend/commit/623ca32bfbd517b927053e83b0308fc039db1202))
+
 ## [1.6.0](https://github.com/cailloumajor/factory-frontend/compare/v1.5.2...v1.6.0) (2023-02-01)
 
 
