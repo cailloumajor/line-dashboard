@@ -22,7 +22,7 @@
 	},
 
 	"features": {
-		"ghcr.io/devcontainers/features/common-utils:1": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
 			"username": "node"
 		},
 		"ghcr.io/devcontainers/features/node:1": {
