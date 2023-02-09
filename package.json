@@ -28,7 +28,7 @@
     "vue": "3.2.47",
     "vue-i18n": "9.2.2",
     "vue-router": "4.1.6",
-    "zod": "3.20.3"
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@intlify/eslint-plugin-vue-i18n": "2.0.0",
