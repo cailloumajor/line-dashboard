@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.2](https://github.com/cailloumajor/factory-frontend/compare/v1.6.1...v1.6.2) (2023-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update caddy docker tag to v2.6.3 ([fa8c19a](https://github.com/cailloumajor/factory-frontend/commit/fa8c19a7f1fd89cdb8bf59599e1cb42c6464b057))
+* **deps:** update dependency zod to v3.20.6 ([cfa0ff5](https://github.com/cailloumajor/factory-frontend/commit/cfa0ff5d54530793d3dedcda66bb4f4e8c09a941))
+
 ## [1.6.1](https://github.com/cailloumajor/factory-frontend/compare/v1.6.0...v1.6.1) (2023-02-08)
 
 
