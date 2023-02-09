@@ -24,7 +24,7 @@ RUN --mount=type=secret,id=GHP_AUTH_TOKEN \
     GHP_AUTH_TOKEN=$(cat /run/secrets/GHP_AUTH_TOKEN) yarn run quasar build --mode spa
 
 
-FROM caddy:2.6.2
+FROM caddy:2.6.3
 
 # hadolint ignore=DL3018
 RUN apk --no-cache add curl
