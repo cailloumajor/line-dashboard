@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.3](https://github.com/cailloumajor/factory-frontend/compare/v1.6.2...v1.6.3) (2023-02-16)
+
+
+### Bug Fixes
+
+* **deps:** update caddy docker tag to v2.6.4 ([55483bc](https://github.com/cailloumajor/factory-frontend/commit/55483bc0315f636c57f0c572338642cba1ebef06))
+* **deps:** update dependency @quasar/extras to v1.15.11 ([6739bef](https://github.com/cailloumajor/factory-frontend/commit/6739befb676f0683efac6ab6a6fe9f3f379849ef))
+* **deps:** update dependency quasar to v2.11.6 ([0b3ad24](https://github.com/cailloumajor/factory-frontend/commit/0b3ad24d9dfef2aaa30eff04d7f9b9a17071c654))
+
 ## [1.6.2](https://github.com/cailloumajor/factory-frontend/compare/v1.6.1...v1.6.2) (2023-02-09)
 
 
