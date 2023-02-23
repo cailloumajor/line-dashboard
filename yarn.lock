@@ -323,10 +323,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@influxdata/influxdb-client-browser@1.33.1":
-  version "1.33.1"
-  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client-browser/-/influxdb-client-browser-1.33.1.tgz#b1647351de67fd93d96a4849d4116e93c1ecc309"
-  integrity sha512-CCX9QuXFwpMHSYI8Im7KDPbLb4vW6xi4sw0h32V8GTcv+1cgYG0RIND3YJyDAJXrgjjggqlCAPLdxVfGuswM1g==
+"@influxdata/influxdb-client-browser@1.33.2":
+  version "1.33.2"
+  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client-browser/-/influxdb-client-browser-1.33.2.tgz#555c00994cab9796a291dbc8541429292e93e3ec"
+  integrity sha512-aZL0sdLwHglZ03TD6xXkmuOvumRH1KOr9Y+ovcgDxt7qAbQT4BIM1oeduBcToMLfABXcOsevT3uCcPAhFcDXsw==
 
 "@intlify/bundle-utils@^3.2.1":
   version "3.4.0"
@@ -822,10 +822,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
   integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
 
-"@types/node@18.14.1":
-  version "18.14.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.1.tgz#90dad8476f1e42797c49d6f8b69aaf9f876fc69f"
-  integrity sha512-QH+37Qds3E0eDlReeboBxfHbX9omAcBCXEzswCu6jySP642jiM3cYSIkU/REqwhCUqXdonHFuBfJDiAJxMNhaQ==
+"@types/node@18.14.0":
+  version "18.14.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.0.tgz#94c47b9217bbac49d4a67a967fdcdeed89ebb7d0"
+  integrity sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A==
 
 "@types/node@^14.14.31":
   version "14.18.36"
