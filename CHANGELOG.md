@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.4](https://github.com/cailloumajor/factory-frontend/compare/v1.6.3...v1.6.4) (2023-02-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v9.13.0 ([2f5a941](https://github.com/cailloumajor/factory-frontend/commit/2f5a941df381b4ada0fd0c10f9627be1fb8b3395))
+* **deps:** update dependency pinia to v2.0.32 ([71b1f73](https://github.com/cailloumajor/factory-frontend/commit/71b1f738d9dc608e63d6c4b5494b5632d9338275))
+* **deps:** update node.js to v18.14.1 ([9712e44](https://github.com/cailloumajor/factory-frontend/commit/9712e4432efaacae6cff1664cbe5a1d906d21aa2))
+* **deps:** update node.js to v18.14.2 ([5140cdf](https://github.com/cailloumajor/factory-frontend/commit/5140cdfa82885e35f1290e9fa23686275a01551e))
+
 ## [1.6.3](https://github.com/cailloumajor/factory-frontend/compare/v1.6.2...v1.6.3) (2023-02-16)
 
 
