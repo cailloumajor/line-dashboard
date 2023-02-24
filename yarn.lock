@@ -197,10 +197,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@cailloumajor/influxdb-utils-wasm@2.1.1":
-  version "2.1.1"
-  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.1.1/61c0ab3df73925c3391453d9cf96fb6033673b38#61c0ab3df73925c3391453d9cf96fb6033673b38"
-  integrity sha512-SnFbdM0x3cJ3J62CTDTdL2quGYr0i1xXoD6rm3Uo/k8wCnZf5IcJ5NiBN0WMB4561aRpYKV5nRCkDoHeaqUkXw==
+"@cailloumajor/influxdb-utils-wasm@2.2.0":
+  version "2.2.0"
+  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.2.0/fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0#fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0"
+  integrity sha512-jwkC0VI6oFVHqIT2SO5Iv/TFJ4enb96c953XZwWESfvVzY49bWmoxHf+8LmamQWD7L4OzFCEnZ4s1o1b84xoLw==
 
 "@colors/colors@1.5.0":
   version "1.5.0"

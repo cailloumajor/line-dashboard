@@ -53,6 +53,7 @@
       :opacity="0.7"
       :x-interval-minutes="60"
       :x-offset-minutes="30"
+      :emphasis-labels="['05:30', '13:30', '21:30']"
       :legend="timelineLegend"
       data-cy="timeline"
     />

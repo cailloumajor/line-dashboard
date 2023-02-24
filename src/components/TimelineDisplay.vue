@@ -59,6 +59,7 @@ const props = defineProps<{
   opacity: number
   xIntervalMinutes: number
   xOffsetMinutes: number
+  emphasisLabels: string[]
   legend: LegendItem[]
 }>()
 
@@ -105,12 +106,14 @@ onMounted(() => {
     opacity,
     xIntervalMinutes,
     xOffsetMinutes,
+    emphasisLabels,
   } = props
   const timeline = new Timeline(canvasElem.value, {
     fontFamily,
     opacity,
     xIntervalMinutes,
     xOffsetMinutes,
+    emphasisLabels,
     influxdbUrl,
     influxdbOrg,
     influxdbToken,

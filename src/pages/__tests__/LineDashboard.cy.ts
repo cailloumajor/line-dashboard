@@ -476,6 +476,15 @@ describe("LineDashboard", () => {
     cy.dataCy("timeline-x-offset")
       .invoke("text")
       .should((offset) => expect(parseInt(offset)).to.be.within(0, 120))
+    cy.dataCy("timeline-labels-emphasis")
+      .invoke("text")
+      .should((text) =>
+        expect(JSON.parse(text))
+          .to.be.an("array")
+          .that.satisfies((elems: string[]) =>
+            elems.every((elem) => elem.match(/\d{2}:\d{2}/))
+          )
+      )
     cy.dataCy("timeline-legend").should(($el) => {
       expect($el.text()).to.not.be.empty
     })

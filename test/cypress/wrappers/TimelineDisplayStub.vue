@@ -22,6 +22,10 @@
       <span data-cy="timeline-x-offset">{{ xOffsetMinutes }}</span>
     </div>
     <div class="prevent-overflow">
+      Emphasized labels:
+      <span data-cy="timeline-labels-emphasis">{{ emphasisLabels }}</span>
+    </div>
+    <div class="prevent-overflow">
       Legend: <span data-cy="timeline-legend">{{ legend }}</span>
     </div>
   </div>
@@ -35,6 +39,7 @@ defineProps<{
   opacity: number
   xIntervalMinutes: number
   xOffsetMinutes: number
+  emphasisLabels: string[]
   legend: []
 }>()
 </script>
