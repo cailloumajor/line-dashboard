@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.5](https://github.com/cailloumajor/factory-frontend/compare/v1.6.4...v1.6.5) (2023-02-24)
+
+
+### Bug Fixes
+
+* configure timeline labels emphasis ([fc47d04](https://github.com/cailloumajor/factory-frontend/commit/fc47d04e8fc88d73f72c0803a25787ed3f7bf64c))
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.0 ([0dba1bc](https://github.com/cailloumajor/factory-frontend/commit/0dba1bc9de9a25936b38b80aca0b26b66e670289))
+* **deps:** update dependency @influxdata/influxdb-client-browser to v1.33.2 ([75f089b](https://github.com/cailloumajor/factory-frontend/commit/75f089b83067c0ec3c740930823f59caa6c4196d))
+
 ## [1.6.4](https://github.com/cailloumajor/factory-frontend/compare/v1.6.3...v1.6.4) (2023-02-23)
 
 
