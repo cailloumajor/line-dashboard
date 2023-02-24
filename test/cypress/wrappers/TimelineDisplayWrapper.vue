@@ -9,6 +9,7 @@
       :opacity="0.9"
       :x-interval-minutes="61"
       :x-offset-minutes="45"
+      :emphasis-labels="['some', 'other']"
       :legend="legend"
       :style="{ height }"
     />

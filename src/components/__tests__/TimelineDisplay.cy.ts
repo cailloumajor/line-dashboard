@@ -87,6 +87,7 @@ describe("TimelineDisplay", () => {
         opacity: 0.9,
         xIntervalMinutes: 61,
         xOffsetMinutes: 45,
+        emphasisLabels: ["some", "other"],
       }
     )
   })
