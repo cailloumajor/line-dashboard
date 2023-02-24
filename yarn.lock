@@ -197,10 +197,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@cailloumajor/influxdb-utils-wasm@2.1.1":
-  version "2.1.1"
-  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.1.1/61c0ab3df73925c3391453d9cf96fb6033673b38#61c0ab3df73925c3391453d9cf96fb6033673b38"
-  integrity sha512-SnFbdM0x3cJ3J62CTDTdL2quGYr0i1xXoD6rm3Uo/k8wCnZf5IcJ5NiBN0WMB4561aRpYKV5nRCkDoHeaqUkXw==
+"@cailloumajor/influxdb-utils-wasm@2.2.0":
+  version "2.2.0"
+  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.2.0/fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0#fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0"
+  integrity sha512-jwkC0VI6oFVHqIT2SO5Iv/TFJ4enb96c953XZwWESfvVzY49bWmoxHf+8LmamQWD7L4OzFCEnZ4s1o1b84xoLw==
 
 "@colors/colors@1.5.0":
   version "1.5.0"
@@ -1022,10 +1022,10 @@
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.5.0.tgz#98b99425edee70b4c992692628fa1ea2c1e57d07"
   integrity sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==
 
-"@vue/eslint-config-prettier@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-7.1.0.tgz#97936379c7fb1d982b9d2c6b122306e3c2e464c8"
-  integrity sha512-Pv/lVr0bAzSIHLd9iz0KnvAr4GKyCEl+h52bc4e5yWuDVtLgFwycF7nrbWTAQAS+FU6q1geVd07lc6EWfJiWKQ==
+"@vue/eslint-config-prettier@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-7.0.0.tgz#44ab55ca22401102b57795c59428e9dade72be34"
+  integrity sha512-/CTc6ML3Wta1tCe1gUeO0EYnVXfo3nJXsIhZ8WJr3sov+cGASr6yuiibJTL6lmIBm7GobopToOuB3B6AWyV0Iw==
   dependencies:
     eslint-config-prettier "^8.3.0"
     eslint-plugin-prettier "^4.0.0"
