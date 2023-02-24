@@ -323,10 +323,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@influxdata/influxdb-client-browser@1.33.1":
-  version "1.33.1"
-  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client-browser/-/influxdb-client-browser-1.33.1.tgz#b1647351de67fd93d96a4849d4116e93c1ecc309"
-  integrity sha512-CCX9QuXFwpMHSYI8Im7KDPbLb4vW6xi4sw0h32V8GTcv+1cgYG0RIND3YJyDAJXrgjjggqlCAPLdxVfGuswM1g==
+"@influxdata/influxdb-client-browser@1.33.2":
+  version "1.33.2"
+  resolved "https://registry.yarnpkg.com/@influxdata/influxdb-client-browser/-/influxdb-client-browser-1.33.2.tgz#555c00994cab9796a291dbc8541429292e93e3ec"
+  integrity sha512-aZL0sdLwHglZ03TD6xXkmuOvumRH1KOr9Y+ovcgDxt7qAbQT4BIM1oeduBcToMLfABXcOsevT3uCcPAhFcDXsw==
 
 "@intlify/bundle-utils@^3.2.1":
   version "3.4.0"
