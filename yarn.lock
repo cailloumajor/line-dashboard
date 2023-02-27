@@ -197,10 +197,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@cailloumajor/influxdb-utils-wasm@2.2.0":
-  version "2.2.0"
-  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.2.0/fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0#fd2ac9fdad1439c88cf0c8893c8f65dcea2dbad0"
-  integrity sha512-jwkC0VI6oFVHqIT2SO5Iv/TFJ4enb96c953XZwWESfvVzY49bWmoxHf+8LmamQWD7L4OzFCEnZ4s1o1b84xoLw==
+"@cailloumajor/influxdb-utils-wasm@2.2.1":
+  version "2.2.1"
+  resolved "https://npm.pkg.github.com/download/@cailloumajor/influxdb-utils-wasm/2.2.1/d3f7ab460acc508d381a017eb516b2e407ad8def#d3f7ab460acc508d381a017eb516b2e407ad8def"
+  integrity sha512-PdPCsgd+ThpCbXp9kCH71/1lL2gDOWW8cKZRWl9Hn+AFgRxpG9cK0LYYBH7UO7Ir3m1LSYKL0yeAJNrMxYhYCw==
 
 "@colors/colors@1.5.0":
   version "1.5.0"
@@ -822,10 +822,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
   integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
 
-"@types/node@18.14.2":
-  version "18.14.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.2.tgz#c076ed1d7b6095078ad3cf21dfeea951842778b1"
-  integrity sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==
+"@types/node@18.14.0":
+  version "18.14.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.0.tgz#94c47b9217bbac49d4a67a967fdcdeed89ebb7d0"
+  integrity sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A==
 
 "@types/node@^14.14.31":
   version "14.18.36"

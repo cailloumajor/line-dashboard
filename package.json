@@ -16,7 +16,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
-    "@cailloumajor/influxdb-utils-wasm": "2.2.0",
+    "@cailloumajor/influxdb-utils-wasm": "2.2.1",
     "@influxdata/influxdb-client-browser": "1.33.2",
     "@quasar/extras": "1.15.11",
     "@vueuse/core": "9.13.0",
@@ -40,7 +40,7 @@
     "@types/connect-history-api-fallback": "1.3.5",
     "@types/express": "4.17.17",
     "@types/http-proxy": "1.17.9",
-    "@types/node": "18.14.2",
+    "@types/node": "18.14.0",
     "@vue/eslint-config-prettier": "7.0.0",
     "@vue/eslint-config-typescript": "11.0.2",
     "autoprefixer": "10.4.13",
