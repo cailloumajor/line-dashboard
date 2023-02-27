@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.6](https://github.com/cailloumajor/factory-frontend/compare/v1.6.5...v1.6.6) (2023-02-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.1 ([c1cce11](https://github.com/cailloumajor/factory-frontend/commit/c1cce113485a46038107eb137ec783bb24238157))
+
 ## [1.6.5](https://github.com/cailloumajor/factory-frontend/compare/v1.6.4...v1.6.5) (2023-02-24)
 
 
