@@ -182,7 +182,7 @@ describe("LineInterfaceLayout", () => {
       cy.get("@api-server").invoke("get", "/testurl", () => new Response(500))
 
       mountWithSetupChild(async () => {
-        await mande("/testurl").get("")
+        await mande("/testurl").get()
       })
 
       cy.get("@error-redirect-stub").should("have.been.calledOnceWith", [
