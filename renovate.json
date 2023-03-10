@@ -11,6 +11,11 @@
     }
   ],
   "npmrc": "@cailloumajor:registry=https://npm.pkg.github.com/",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "automergeType": "branch"
+  },
   "packageRules": [
     {
       "matchPackagePrefixes": ["@vueuse/"],
