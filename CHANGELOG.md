@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.7](https://github.com/cailloumajor/factory-frontend/compare/v1.6.6...v1.6.7) (2023-03-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mande to v2.0.5 ([10fcc02](https://github.com/cailloumajor/factory-frontend/commit/10fcc0297ab417e829d2e9eb985fd5932872bab5))
+* **deps:** update dependency mande to v2.0.6 ([1121c5f](https://github.com/cailloumajor/factory-frontend/commit/1121c5f36ace432f1f7b2bc9c6bdd0cc99ae57fc))
+* **deps:** update dependency pinia to v2.0.33 ([cfc030b](https://github.com/cailloumajor/factory-frontend/commit/cfc030bcc07661318245d5adef3875643f331d0b))
+* **deps:** update dependency quasar to v2.11.7 ([05cd78a](https://github.com/cailloumajor/factory-frontend/commit/05cd78a0e390ce2ca0bb831707b54a4a2739cbae))
+* **deps:** update dependency quasar to v2.11.8 ([7f43e66](https://github.com/cailloumajor/factory-frontend/commit/7f43e66e975a559840c0da6a9484989a4488964d))
+* **deps:** update dependency zod to v3.21.4 ([2518e3b](https://github.com/cailloumajor/factory-frontend/commit/2518e3bb76f368d388e8de64302c023977b9bf9a))
+* **deps:** update node.js to v18.15.0 ([aba14f1](https://github.com/cailloumajor/factory-frontend/commit/aba14f1f6e1a3e0f2de2928cafeaeb60856a57b1))
+* enable module preload polyfill ([ee80d84](https://github.com/cailloumajor/factory-frontend/commit/ee80d84c95c0fbde22ffc2959035dccf85647456))
+
 ## [1.6.6](https://github.com/cailloumajor/factory-frontend/compare/v1.6.5...v1.6.6) (2023-02-27)
 
 
