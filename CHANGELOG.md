@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/cailloumajor/factory-frontend/compare/v1.6.7...v1.7.0) (2023-03-20)
+
+
+### Features
+
+* change config API path ([3b21f6d](https://github.com/cailloumajor/factory-frontend/commit/3b21f6daa12d32fff12d6d5f5a0c86f5c5fcbae9))
+
 ## [1.6.7](https://github.com/cailloumajor/factory-frontend/compare/v1.6.6...v1.6.7) (2023-03-20)
 
 
