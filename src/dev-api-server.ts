@@ -1,6 +1,6 @@
 import { createServer } from "miragejs"
 
-import { staticConfigApi } from "src/global"
+import { configApiPath } from "src/global"
 
 const maybeJSON = (s: string | undefined) =>
   s && !Object.hasOwn(window, "Cypress") ? JSON.parse(s) : {}
@@ -10,7 +10,7 @@ export function makeServer({ environment = "test" } = {}) {
     environment,
 
     routes() {
-      this.get(`${staticConfigApi}/:id/line-dashboard`, () => ({
+      this.get(`${configApiPath}/:id`, () => ({
         title: "Test Title",
         influxdbOrg: "devOrg",
         influxdbToken: "devToken",

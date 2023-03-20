@@ -7,7 +7,7 @@ import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
 import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
 import { makeServer } from "src/dev-api-server"
-import { LinkStatus, shiftDurationMillis, staticConfigApi } from "src/global"
+import { LinkStatus, configApiPath, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
@@ -126,7 +126,7 @@ describe("LineDashboard", () => {
 
     cy.get<Server>("@api-server").invoke(
       "get",
-      `${staticConfigApi}/testid/line-dashboard`,
+      `${configApiPath}/testid`,
       () => {
         handled.count += 1
       }
@@ -142,7 +142,7 @@ describe("LineDashboard", () => {
 
     cy.get("@api-server").invoke(
       "get",
-      `${staticConfigApi}/sentinel-id/line-dashboard`,
+      `${configApiPath}/sentinel-id`,
       () => data
     )
 

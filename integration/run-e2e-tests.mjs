@@ -39,7 +39,7 @@ app.all("/influxdb/*", (req, res) => {
 })
 
 // Mock static configuration API
-app.get("/static-config-api/*", (req, res) => {
+app.get("/config-api/*", (req, res) => {
   res.json({
     title: "End-to-end tests",
     influxdbOrg: "e2e-tests-org",

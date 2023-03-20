@@ -1,4 +1,4 @@
-export const staticConfigApi = "/static-config-api/config/machines"
+export const configApiPath = "/config-api/config/line_dashboard"
 export const influxdbPath = "/influxdb/api/v2/query"
 
 export const centrifugoNamespace = "opcua.data"
