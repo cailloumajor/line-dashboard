@@ -77,7 +77,7 @@ import DashboardMetric from "components/DashboardMetric.vue"
 import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
 import TimelineDisplay from "src/components/TimelineDisplay.vue"
-import { shiftDurationMillis, staticConfigApi } from "src/global"
+import { configApiPath, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
@@ -311,7 +311,7 @@ const statusDuration = computed(() => {
   return t("statusDuration", { duration, since })
 })
 
-const resp = await mande(staticConfigApi).get(`${props.id}/line-dashboard`)
+const resp = await mande(configApiPath).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
