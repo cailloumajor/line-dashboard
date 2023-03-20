@@ -56,7 +56,7 @@
     "express": "4.18.2",
     "http-proxy": "1.18.1",
     "miragejs": "0.1.47",
-    "prettier": "2.8.4",
+    "prettier": "2.8.5",
     "prettier-plugin-jsdoc": "0.4.2",
     "typescript": "5.0.2",
     "vite-plugin-compression": "0.5.1"
