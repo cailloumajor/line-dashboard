@@ -49,7 +49,7 @@
     "cypress": "12.9.0",
     "dotenv": "16.0.3",
     "eslint": "8.37.0",
-    "eslint-plugin-cypress": "2.12.1",
+    "eslint-plugin-cypress": "2.13.2",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-vue": "9.10.0",
     "events": "^3.3.0",
