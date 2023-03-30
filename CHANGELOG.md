@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.1](https://github.com/cailloumajor/factory-frontend/compare/v1.7.0...v1.7.1) (2023-03-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.2 ([6ea0815](https://github.com/cailloumajor/factory-frontend/commit/6ea08153208491e1c63b2f9aa786314722d87559))
+* **deps:** update dependency @quasar/extras to v1.16.1 ([7c8623b](https://github.com/cailloumajor/factory-frontend/commit/7c8623b5de3f06c289376dc1abb903ee63d645a4))
+* **deps:** update dependency quasar to v2.11.9 ([414ae9b](https://github.com/cailloumajor/factory-frontend/commit/414ae9b845341759e9d530edc5010cc62db83481))
+
 ## [1.7.0](https://github.com/cailloumajor/factory-frontend/compare/v1.6.7...v1.7.0) (2023-03-20)
 
 
