@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.2](https://github.com/cailloumajor/factory-frontend/compare/v1.7.1...v1.7.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* allow timeline to recover from error ([a6a6033](https://github.com/cailloumajor/factory-frontend/commit/a6a60338154b9bfeecec1af9fc9558ab6d22379a))
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.3 ([c486db8](https://github.com/cailloumajor/factory-frontend/commit/c486db887fd195ea5db50aab44c447cab47feb2e))
+
 ## [1.7.1](https://github.com/cailloumajor/factory-frontend/compare/v1.7.0...v1.7.1) (2023-03-30)
 
 
