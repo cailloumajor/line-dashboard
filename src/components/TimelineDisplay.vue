@@ -4,7 +4,7 @@
     :class="$style.rootContainer"
     data-cy="timeline-container"
   >
-    <template v-if="error === null">
+    <div v-show="error === null">
       <canvas
         ref="canvasElem"
         data-cy="timeline-canvas"
@@ -22,9 +22,9 @@
           <div>{{ item.text }}</div>
         </template>
       </div>
-    </template>
+    </div>
     <div
-      v-else
+      v-show="error != null"
       :style="errorStyle"
       class="q-my-auto text-center text-negative"
       data-cy="timeline-error"
@@ -120,7 +120,7 @@ onMounted(() => {
     fluxQuery,
   })
 
-  const drawTimeline = async () => {
+  const drawTimeline = () => {
     timeline
       .draw()
       .then(() => {

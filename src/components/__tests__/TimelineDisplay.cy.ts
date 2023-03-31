@@ -3,6 +3,8 @@ import { timelineRefreshMillis } from "src/global"
 
 import useInfluxdbUtils from "../influxdb-utils-wasm"
 
+import type { SinonStub } from "cypress/types/sinon"
+
 class MockedTimeline {
   async draw() {
     return null
@@ -29,14 +31,11 @@ describe("TimelineDisplay", () => {
   })
 
   it("shows error raised by draw method", () => {
-    cy.get<sinon.SinonStub>("@draw-stub").invoke(
-      "rejects",
-      new Error("test error")
-    )
+    cy.get<SinonStub>("@draw-stub").invoke("rejects", new Error("test error"))
 
     mountComponent()
 
-    cy.dataCy("timeline-canvas").should("not.exist")
+    cy.dataCy("timeline-canvas").should("not.be.visible")
     cy.dataCy("timeline-error")
       .should("contain.text", "test error")
       .and(($el) => {
@@ -57,7 +56,7 @@ describe("TimelineDisplay", () => {
     checkCanvasSize(160, 1000)
     cy.get("@draw-stub").should("have.been.calledOnce")
 
-    cy.get<unknown>("@vue-wrapper").invoke("setProps", { height: "300px" })
+    cy.get("@vue-wrapper").invoke("setProps", { height: "300px" })
 
     checkCanvasSize(240, 1000)
     cy.get("@draw-stub").should("have.been.calledTwice")

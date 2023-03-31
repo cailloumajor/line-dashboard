@@ -1,4 +1,4 @@
-export {} // Prevent TypeScript TS1208 error
+import { timelineRefreshMillis } from "../../../src/global"
 
 interface MachineData {
   val?: object
@@ -23,6 +23,13 @@ const centrifugoPublish = (data: MachineData) => {
       },
     },
   })
+}
+
+const visit = () => {
+  cy.visit("/line-dashboard/e2e-tests")
+  cy.get("main.q-page").should("be.visible")
+  cy.get(".q-loading").should("not.exist")
+  cy.dataCy("centrifugo-status").should("contain.text", "swap_horiz")
 }
 
 describe("Line dashboard", () => {
@@ -62,15 +69,9 @@ describe("Line dashboard", () => {
     })
   })
 
-  beforeEach(() => {
-    cy.intercept("/influxdb/api/v2/query*").as("influxQuery")
-    cy.visit("/line-dashboard/e2e-tests")
-    cy.get("main.q-page").should("be.visible")
-    cy.get(".q-loading").should("not.exist")
-    cy.dataCy("centrifugo-status").should("contain.text", "swap_horiz")
-  })
-
   it("has dynamic header title", () => {
+    visit()
+
     centrifugoPublish({
       val: {
         partRef: "E2E-CAMPAIGN",
@@ -82,23 +83,19 @@ describe("Line dashboard", () => {
     )
   })
 
-  context("with clock mocked", () => {
-    before(() => {
-      cy.clock()
-    })
+  it("shows skeletons if links are not all good", () => {
+    cy.clock()
 
-    after(() => {
-      cy.clock().invoke("restore")
-    })
+    visit()
 
-    it("shows skeletons if links are not all good", () => {
-      cy.tick(20000)
-      cy.dataCy("metric-value-text").should("not.exist")
-      cy.get(".q-skeleton").should("have.length", 6)
-    })
+    cy.tick(20000)
+    cy.dataCy("metric-value-text").should("not.exist")
+    cy.get(".q-skeleton").should("have.length", 6)
   })
 
   it("shows all green status", () => {
+    visit()
+
     centrifugoPublish({})
 
     cy.dataCy("centrifugo-status").should("contain.text", "swap_horiz")
@@ -109,6 +106,8 @@ describe("Line dashboard", () => {
   })
 
   it("shows published values", () => {
+    visit()
+
     centrifugoPublish({
       val: {
         goodParts: 5641,
@@ -129,6 +128,8 @@ describe("Line dashboard", () => {
   })
 
   it("shows status", () => {
+    visit()
+
     centrifugoPublish({})
 
     cy.dataCy("status-text").should("contain", "Stopped")
@@ -145,14 +146,25 @@ describe("Line dashboard", () => {
     cy.dataCy("status-text").should("contain", "Running")
   })
 
-  it("displays the timeline", () => {
+  it("displays the timeline, recovering after an error", () => {
+    cy.clock()
+
+    visit()
+
+    cy.intercept("/influxdb/api/v2/query*", { times: 1 }, { statusCode: 500 })
+    cy.tick(timelineRefreshMillis * 1.1)
+    cy.dataCy("timeline-error").should("be.visible")
+    cy.dataCy("timeline-canvas").should("not.be.visible")
+
+    cy.intercept("/influxdb/api/v2/query*").as("influxQuery")
+    cy.tick(timelineRefreshMillis * 1.1)
     cy.wait("@influxQuery")
       .its("response.body")
       .should((body: string) => {
         const lines = body.split(/\r\n/)
         expect(lines).to.have.length.that.is.within(720, 730)
       })
-
+    cy.dataCy("timeline-error").should("not.be.visible")
     cy.dataCy<HTMLCanvasElement>("timeline-canvas").should(($canvas) => {
       expect($canvas).to.have.lengthOf(1)
       const canvasElem = $canvas[0]
@@ -165,6 +177,8 @@ describe("Line dashboard", () => {
   })
 
   it("shows striped background if not running", () => {
+    visit()
+
     centrifugoPublish({})
 
     cy.get(".q-page")
@@ -186,6 +200,8 @@ describe("Line dashboard", () => {
   })
 
   it("does not overflow", () => {
+    visit()
+
     const check = (viewportHeight: number) => {
       cy.get("html").should(($html) => {
         expect($html.height()).to.equal(viewportHeight)
