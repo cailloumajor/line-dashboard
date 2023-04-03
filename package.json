@@ -20,7 +20,7 @@
     "@influxdata/influxdb-client-browser": "1.33.2",
     "@quasar/extras": "1.16.1",
     "@vueuse/core": "9.13.0",
-    "centrifuge": "3.1.0",
+    "centrifuge": "3.1.1",
     "locale-matcher": "2.0.0",
     "mande": "2.0.6",
     "pinia": "2.0.33",
