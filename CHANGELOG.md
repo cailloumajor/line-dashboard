@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.3](https://github.com/cailloumajor/factory-frontend/compare/v1.7.2...v1.7.3) (2023-04-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.16.2 ([d29737f](https://github.com/cailloumajor/factory-frontend/commit/d29737f40133cecafa63b6d807050210f4e353ec))
+* **deps:** update dependency centrifuge to v3.1.1 ([43ade1c](https://github.com/cailloumajor/factory-frontend/commit/43ade1c9454f4c3bc81bf624e9c7dc7c4886e170))
+
 ## [1.7.2](https://github.com/cailloumajor/factory-frontend/compare/v1.7.1...v1.7.2) (2023-03-31)
 
 
