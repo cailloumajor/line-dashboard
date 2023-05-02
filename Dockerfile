@@ -24,13 +24,12 @@ RUN --mount=type=secret,id=GHP_AUTH_TOKEN \
     GHP_AUTH_TOKEN=$(cat /run/secrets/GHP_AUTH_TOKEN) yarn run quasar build --mode spa
 
 
-FROM caddy:2.6.4
+FROM busybox:1.36.0
 
-# hadolint ignore=DL3018
-RUN apk --no-cache add curl
-
-COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=frontend-builder /usr/src/app/dist/spa /site
 
-COPY docker-healthcheck.sh /usr/local/bin/
-HEALTHCHECK CMD [ "/usr/local/bin/docker-healthcheck.sh" ]
+COPY docker-run.sh /usr/local/bin/
+
+VOLUME [ "/srv/www" ]
+
+CMD [ "/usr/local/bin/docker-run.sh" ]

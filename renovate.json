@@ -22,7 +22,7 @@
       "groupName": "VueUse"
     },
     {
-      "matchPackageNames": ["caddy"],
+      "matchPackageNames": ["busybox"],
       "matchManagers": ["dockerfile"],
       "semanticCommitType": "fix"
     },

@@ -12,5 +12,4 @@
 !postcss.config.js
 !quasar.config.js
 !tsconfig.json
-!Caddyfile
-!docker-healthcheck.sh
+!docker-run.sh
