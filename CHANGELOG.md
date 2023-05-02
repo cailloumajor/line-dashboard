@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.8.0](https://github.com/cailloumajor/factory-frontend/compare/v1.7.3...v1.8.0) (2023-05-02)
+
+
+### Features
+
+* only provide data with Docker image ([06196da](https://github.com/cailloumajor/factory-frontend/commit/06196da25c8e427b0e300f487972d1cbb9c93f98))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.16.3 ([5b480e4](https://github.com/cailloumajor/factory-frontend/commit/5b480e41e51a7466d3ae92c3b37dee82b263b2ee))
+* **deps:** update dependency @vueuse/core to v10 ([90e3fe1](https://github.com/cailloumajor/factory-frontend/commit/90e3fe1a3a4e0f0a05d47fdf2ccb096e98ba51d5))
+* **deps:** update dependency @vueuse/core to v10.1.0 ([9b16184](https://github.com/cailloumajor/factory-frontend/commit/9b1618419bbbcaeced7a6eae029af2e2aa0c9fc9))
+* **deps:** update dependency @vueuse/core to v10.1.2 ([4183cf8](https://github.com/cailloumajor/factory-frontend/commit/4183cf8b9e0b6865dff220f83e355d5915696785))
+* **deps:** update dependency pinia to v2.0.34 ([6cc3b67](https://github.com/cailloumajor/factory-frontend/commit/6cc3b67f6932f42d322be39da5bfd8dbe60cd593))
+* **deps:** update dependency pinia to v2.0.35 ([4036ca3](https://github.com/cailloumajor/factory-frontend/commit/4036ca3b71f7ca0f112b82005b261459f7e10753))
+* **deps:** update dependency quasar to v2.11.10 ([9686687](https://github.com/cailloumajor/factory-frontend/commit/96866877bdc737c148d9a9dceb9558e2ae19af51))
+* **deps:** update node.js to v18.16.0 ([463c290](https://github.com/cailloumajor/factory-frontend/commit/463c29027543c515e006137f138301614f0adaef))
+
 ## [1.7.3](https://github.com/cailloumajor/factory-frontend/compare/v1.7.2...v1.7.3) (2023-04-03)
 
 
