@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/cailloumajor/factory-frontend/compare/v1.8.0...v1.8.1) (2023-05-03)
+
+
+### Bug Fixes
+
+* precompress assets in gzip format ([f98f42e](https://github.com/cailloumajor/factory-frontend/commit/f98f42eb89bfb7ba8f98ee46079190f570ff6c88))
+
 ## [1.8.0](https://github.com/cailloumajor/factory-frontend/compare/v1.7.3...v1.8.0) (2023-05-02)
 
 
