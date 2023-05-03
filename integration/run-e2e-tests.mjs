@@ -1,7 +1,8 @@
-import http from "http"
+import http from "node:http"
 
 import history from "connect-history-api-fallback"
 import express from "express"
+import expressStaticGzip from "express-static-gzip"
 import httpProxy from "http-proxy"
 
 const centrifugoHostKey = "CENTRIFUGO_HOST"
@@ -50,7 +51,11 @@ app.get("/config-api/*", (req, res) => {
 
 // Serve built static files
 // Thanks to https://stackoverflow.com/a/44226999
-const staticFiles = express.static("dist/spa")
+const staticFiles = expressStaticGzip("dist/spa", {
+  serveStatic: {
+    cacheControl: false,
+  },
+})
 app.use(staticFiles)
 app.use(history())
 app.use(staticFiles)
