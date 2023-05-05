@@ -536,11 +536,6 @@
   dependencies:
     vue-demi "*"
 
-"@positron/stack-trace@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
-  integrity sha512-nWlGg+aMfQDhGYa5FtBhZwldeo2MtdjHdxmEQvhBXEnxgD5IhIYl0PHvex8SdwyN7qcSoMykMWdjyAX7ZxkpMw==
-
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -594,12 +589,13 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@quasar/app-vite@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.2.2.tgz#34301c57a0618d202fa72fcfccae7cef69a11795"
-  integrity sha512-fT5hMLxDLyeJje0pdsbpcKh2rhY1tOuU/pHYJubz8xId1yRFLE9ThYsmjlGjqN6DQ09BK22nioKnkuR6tnUnMQ==
+"@quasar/app-vite@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.3.0.tgz#546a81290b6e5fc451e04082fd2679348289ed1c"
+  integrity sha512-2ZkFuWzMCJmy8ve8zguYzNX3uALKbKeGQ3jQ6GDnCCNEt6yO8dBeWIqJ/epFv0/1TXYRYFCeGONmdSHDMiy2NA==
   dependencies:
     "@quasar/fastclick" "1.1.5"
+    "@quasar/render-ssr-error" "^1.0.0"
     "@quasar/vite-plugin" "^1.3.1"
     "@rollup/pluginutils" "^4.1.2"
     "@types/chrome" "^0.0.208"
@@ -625,7 +621,6 @@
     lodash "^4.17.21"
     minimist "^1.2.6"
     open "^8.4.0"
-    ouch "^2.0.0"
     register-service-worker "^1.7.2"
     rollup-plugin-visualizer "^5.5.4"
     sass "1.32.12"
@@ -656,6 +651,13 @@
     nyc "^15.1.0"
     start-server-and-test "^1.15.2"
     vite-plugin-istanbul "^3.0.4"
+
+"@quasar/render-ssr-error@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@quasar/render-ssr-error/-/render-ssr-error-1.0.0.tgz#640d9c5df67cf0817e853e2880e7b37cf7e4477d"
+  integrity sha512-UoZqXCOS4ixpxFG6xZmd+sLAVCYgRD0VPElHfovvhfvNBn2RsTrKo8DFlLpAxsB/Ebb5QzZG7vsiuWEpKGzPhA==
+  dependencies:
+    stack-trace "^1.0.0-pre2"
 
 "@quasar/vite-plugin@^1.3.1":
   version "1.3.1"
@@ -1567,7 +1569,7 @@ centrifuge@3.1.1:
     events "^3.3.0"
     protobufjs "^6.11.3"
 
-chalk@4.1.2, chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
+chalk@4.1.2, chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -2085,13 +2087,6 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
-ejs@^3.1.7:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.9.tgz#03c9e8777fe12686a9effcef22303ca3d8eeb361"
-  integrity sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==
-  dependencies:
-    jake "^10.8.5"
-
 electron-to-chromium@^1.4.284:
   version "1.4.340"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.340.tgz#3a6d7414c1fc2dbf84b6f7af3ec24270606c85b8"
@@ -2461,7 +2456,7 @@ escalade@^3.1.1:
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@^1.0.1, escape-html@~1.0.3:
+escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==
@@ -2915,13 +2910,6 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
-
-filelist@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/filelist/-/filelist-1.0.4.tgz#f78978a1e944775ff9e62e744424f215e58352b5"
-  integrity sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==
-  dependencies:
-    minimatch "^5.0.1"
 
 fill-range@^7.0.1:
   version "7.0.1"
@@ -3791,16 +3779,6 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-jake@^10.8.5:
-  version "10.8.5"
-  resolved "https://registry.yarnpkg.com/jake/-/jake-10.8.5.tgz#f2183d2c59382cb274226034543b9c03b8164c46"
-  integrity sha512-sVpxYeuAhWt0OTWITwT98oyV0GsXyMlXCF+3L1SuafBVUIr/uILGRB+NqwkzhgXKvoJpDIpQvqkUALgdmQsQxw==
-  dependencies:
-    async "^3.2.3"
-    chalk "^4.0.2"
-    filelist "^1.0.1"
-    minimatch "^3.0.4"
-
 joi@^17.7.0:
   version "17.9.1"
   resolved "https://registry.yarnpkg.com/joi/-/joi-17.9.1.tgz#74899b9fa3646904afa984a11df648eca66c9018"
@@ -4144,7 +4122,7 @@ lodash.values@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.values/-/lodash.values-4.3.0.tgz#a3a6c2b0ebecc5c2cba1c17e6e620fe81b53d347"
   integrity sha512-r0RwvdCv8id9TUblb/O7rYPwVy6lerCbcawrfdo9iC/1t1wsNMJknO79WNBgwkH0hIeJ08jmvvESbFpNb4jH0Q==
 
-lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.20, lodash@^4.17.21:
+lodash@^4.17.11, lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -4762,16 +4740,6 @@ ospath@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/ospath/-/ospath-1.2.2.tgz#1276639774a3f8ef2572f7fe4280e0ea4550c07b"
   integrity sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==
-
-ouch@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ouch/-/ouch-2.0.1.tgz#9107089819b99146e3d10da57e8f75b39f610993"
-  integrity sha512-SdkEqpEhsmkEpjTPSvB1DMA//w9ChMUr16m4TayNRVfaULzJ3AnNr3CI4cz1QSZ9a+E/g06c6SQzxjkIc3/GMw==
-  dependencies:
-    "@positron/stack-trace" "1.0.0"
-    ejs "^3.1.7"
-    escape-html "^1.0.1"
-    lodash "^4.17.10"
 
 p-limit@^2.2.0:
   version "2.3.0"
@@ -5503,6 +5471,11 @@ sshpk@^1.14.1:
     jsbn "~0.1.0"
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
+
+stack-trace@^1.0.0-pre2:
+  version "1.0.0-pre2"
+  resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-1.0.0-pre2.tgz#46a83a79f1b287807e9aaafc6a5dd8bcde626f9c"
+  integrity sha512-2ztBJRek8IVofG9DBJqdy2N5kulaacX30Nz7xmkYF6ale9WBVmIy6mFBchvGX7Vx/MyjBhx+Rcxqrj+dbOnQ6A==
 
 start-server-and-test@^1.15.2:
   version "1.15.5"
