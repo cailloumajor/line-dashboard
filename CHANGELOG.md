@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.3](https://github.com/cailloumajor/factory-frontend/compare/v1.8.2...v1.8.3) (2023-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pinia to v2.1.1 ([3b3ea82](https://github.com/cailloumajor/factory-frontend/commit/3b3ea8282cc41514b3237119bc4efae752b8a1fb))
+
 ## [1.8.2](https://github.com/cailloumajor/factory-frontend/compare/v1.8.1...v1.8.2) (2023-05-17)
 
 
