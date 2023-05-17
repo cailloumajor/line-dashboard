@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.2](https://github.com/cailloumajor/factory-frontend/compare/v1.8.1...v1.8.2) (2023-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.4 ([6e65277](https://github.com/cailloumajor/factory-frontend/commit/6e652774444c0aa8b2f741c5ce21cacc78bf4c88))
+* **deps:** update dependency centrifuge to v3.1.2 ([2f01c45](https://github.com/cailloumajor/factory-frontend/commit/2f01c45a6e8849267f5e0c296d403049f6bb7a27))
+* **deps:** update dependency pinia to v2.0.36 ([d72bf9e](https://github.com/cailloumajor/factory-frontend/commit/d72bf9eba98312645e103014442353a3885de98f))
+* **deps:** update dependency pinia to v2.1.0 ([c9a6ad9](https://github.com/cailloumajor/factory-frontend/commit/c9a6ad9b3dedcf56dc46af3c2350166a0b65cbbc))
+* **deps:** update dependency quasar to v2.12.0 ([1553d84](https://github.com/cailloumajor/factory-frontend/commit/1553d84a3e65a9db60c025ff3a8b5c1d11ccfaa0))
+* **deps:** update dependency vue to v3.3.2 ([b48318d](https://github.com/cailloumajor/factory-frontend/commit/b48318df85b20cdcb8c0fe16b0eaede01b55f3f0))
+* **deps:** update dependency vue-router to v4.2.0 ([838351a](https://github.com/cailloumajor/factory-frontend/commit/838351a75796b3e12df550b6e7a2e2c5d618ac02))
+
 ## [1.8.1](https://github.com/cailloumajor/factory-frontend/compare/v1.8.0...v1.8.1) (2023-05-03)
 
 
