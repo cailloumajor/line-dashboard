@@ -526,12 +526,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pinia/testing@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@pinia/testing/-/testing-0.1.1.tgz#6fe84b68d8ecb0a3a7cb033e64fa81842f96bc84"
-  integrity sha512-/DutnGV6o4ELhG5n8CowxUmk/mO64yK1FDI/7MPxE/9k4ryEOyH5lOCPUNfNa+u94Y3U24Kkd0XKqwGYFv6oVQ==
+"@pinia/testing@0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@pinia/testing/-/testing-0.1.2.tgz#21aef66d42b06f921bd7bc70511f9f7e9752c763"
+  integrity sha512-8EyBaVFtv682tBiF810u81vAJ1ykwnaldkVDU52oqtVbh5FUj5dSCSM9+MtRM/tZkq0AulwMK4BnBktqwsnEnw==
   dependencies:
-    vue-demi ">=0.14.1"
+    vue-demi ">=0.14.5"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -5890,11 +5890,6 @@ vue-demi@>=0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.0.tgz#dcfd9a9cf9bb62ada1582ec9042372cf67ca6190"
   integrity sha512-gt58r2ogsNQeVoQ3EhoUAvUsH9xviydl0dWJj7dabBC/2L4uBId7ujtCwDRD0JhkGsV1i0CtfLAeyYKBht9oWg==
-
-vue-demi@>=0.14.1:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.3.tgz#5c7375527ad32580a7d8d28ee322bc059dbc1b99"
-  integrity sha512-aknytzARm7U20nMhvOdfa5IRiS+oyATtd55s3fICsT7wEtN/qoOiOINsNsNJjeZCOsPNOGS4p1yDOwH9cTxgjg==
 
 vue-demi@>=0.14.5:
   version "0.14.5"
