@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.5](https://github.com/cailloumajor/factory-frontend/compare/v1.8.4...v1.8.5) (2023-05-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-router to v4.2.1 ([da2c451](https://github.com/cailloumajor/factory-frontend/commit/da2c451b1c5520ffd50f93a23dcf62a67a55a970))
+
 ## [1.8.4](https://github.com/cailloumajor/factory-frontend/compare/v1.8.3...v1.8.4) (2023-05-18)
 
 
