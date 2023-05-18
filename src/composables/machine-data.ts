@@ -90,8 +90,10 @@ function useMachineDataLinkBoot() {
       `${centrifugoNamespace}:${partnerID}`
     )
     opcDataChangeSubscription.on("subscribed", patchMachineData)
-    opcDataChangeSubscription.on("unsubscribed", ({ reason }) => {
-      errorRedirect([reason])
+    opcDataChangeSubscription.on("unsubscribed", ({ channel, reason }) => {
+      errorRedirect([
+        `\`${channel}\` Centrifugo channel unsubscribed: ${reason}`,
+      ])
     })
     opcDataChangeSubscription.on("publication", patchMachineData)
     opcDataChangeSubscription.subscribe()

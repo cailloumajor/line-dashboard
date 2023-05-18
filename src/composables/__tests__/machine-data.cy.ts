@@ -101,11 +101,12 @@ describe("machine data link boot composable", () => {
       cy.mount(MachineDataLinkBootWrapper)
 
       cy.get("@data-change-subscription").invoke("emit", "unsubscribed", {
+        channel: "somechannel",
         reason: "Testing unsubscribed event",
       })
 
       cy.get("@error-redirect-stub").should("have.been.calledWithExactly", [
-        "Testing unsubscribed event",
+        "`somechannel` Centrifugo channel unsubscribed: Testing unsubscribed event",
       ])
     })
   })
