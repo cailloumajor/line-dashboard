@@ -20,14 +20,31 @@ if (!influxDbHost) {
 const app = express()
 const server = http.createServer(app)
 
+let changeOrigin = ""
+
 // Proxy Centrifugo WebSocket
 const centrifugoProxy = httpProxy.createProxyServer({
   target: `ws://${centrifugoHost}:8000`,
   ws: true,
 })
 server.on("upgrade", (req, socket, head) => {
+  if (req.url.startsWith("/centrifugo")) {
+    req.url = req.url.replace(/^\/centrifugo/, "")
+    if (changeOrigin) {
+      req.headers.origin = changeOrigin
+      changeOrigin = ""
+    }
+    centrifugoProxy.ws(req, socket, head)
+  }
+})
+
+// Proxy Centrifugo SSE
+const centrifugoSSEProxy = httpProxy.createProxyServer({
+  target: `http://${centrifugoHost}:8000`,
+})
+app.all(/\/centrifugo\/(emulation|connection\/sse)/, (req, res) => {
   req.url = req.url.replace(/^\/centrifugo/, "")
-  centrifugoProxy.ws(req, socket, head)
+  centrifugoSSEProxy.web(req, res)
 })
 
 // Proxy InfluxDB
@@ -47,6 +64,11 @@ app.get("/config-api/*", (req, res) => {
     influxdbToken: "e2e-tests-token",
     influxdbBucket: "e2e-tests-bucket",
   })
+})
+
+app.put("/change-origin", express.text(), (req, res) => {
+  changeOrigin = req.body
+  res.end()
 })
 
 // Serve built static files

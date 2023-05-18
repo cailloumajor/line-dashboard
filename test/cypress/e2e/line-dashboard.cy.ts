@@ -93,6 +93,24 @@ describe("Line dashboard", () => {
     cy.get(".q-skeleton").should("have.length", 6)
   })
 
+  it("connects to Centrifugo via WebSocket when origin is allowed", () => {
+    visit()
+
+    cy.dataCy("centrifugo-transport").should("contain.text", "WS")
+  })
+
+  it("connects to Centrifugo via SSE when origin is not allowed", () => {
+    cy.request("PUT", "/change-origin", "http://example.com")
+      .its("status")
+      .should("equal", 200)
+
+    visit()
+
+    cy.dataCy("centrifugo-transport")
+      .should("contain.text", "SSE")
+      .and("have.class", "text-warning")
+  })
+
   it("shows all green status", () => {
     visit()
 
