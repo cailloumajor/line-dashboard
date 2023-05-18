@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.8.4](https://github.com/cailloumajor/factory-frontend/compare/v1.8.3...v1.8.4) (2023-05-18)
+
+
+### Bug Fixes
+
+* add context to channel disconnect error ([7ae5088](https://github.com/cailloumajor/factory-frontend/commit/7ae5088953d5971a1fca908740727ca30f74c0b9))
+* center timeline legend ([1684121](https://github.com/cailloumajor/factory-frontend/commit/1684121d8bdd97d632c26d608fb62b6f3f0d4282))
+* **deps:** update dependency @quasar/extras to v1.16.4 ([7dd4fbb](https://github.com/cailloumajor/factory-frontend/commit/7dd4fbb218583204ede8ad4ec8f7968ad7815115))
+* **deps:** update dependency pinia to v2.1.3 ([20f9519](https://github.com/cailloumajor/factory-frontend/commit/20f9519800870710b884ba78284ec3ddfbb47b5c))
+* **deps:** update dependency vue to v3.3.4 ([151016d](https://github.com/cailloumajor/factory-frontend/commit/151016d8a98cf8e49c9a884aac371a41c85f4429))
+
 ## [1.8.3](https://github.com/cailloumajor/factory-frontend/compare/v1.8.2...v1.8.3) (2023-05-17)
 
 
