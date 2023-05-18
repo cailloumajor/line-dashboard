@@ -1,9 +1,5 @@
 <template>
-  <QCard
-    ref="cardElem"
-    :class="$style.rootContainer"
-    data-cy="timeline-container"
-  >
+  <QCard ref="cardElem" class="column" data-cy="timeline-container">
     <div v-show="error === null">
       <canvas
         ref="canvasElem"
@@ -12,15 +8,19 @@
         :width="canvasSize.width"
       >
       </canvas>
-      <div class="q-my-auto" data-cy="legend" :style="legendStyle">
-        <template v-for="(item, index) in legend" :key="`legend-${index}`">
+      <div class="row justify-center" data-cy="legend" :style="legendStyle">
+        <div
+          v-for="(item, index) in legend"
+          :key="`legend-${index}`"
+          class="row items-center"
+        >
           <div
             :class="`bg-${item.color}`"
             :style="legendBoxStyle"
             data-cy="legend-box"
           ></div>
           <div>{{ item.text }}</div>
-        </template>
+        </div>
       </div>
     </div>
     <div
@@ -76,8 +76,6 @@ const cardHeight = ref(0)
 const error = ref<string | null>(null)
 
 const legendStyle = computed(() => ({
-  display: "flex",
-  alignItems: "center",
   fontSize: `${cardHeight.value * 0.1}px`,
 }))
 
@@ -154,11 +152,3 @@ onMounted(() => {
 
 await init(wasmUrl)
 </script>
-
-<style module lang="scss">
-.rootContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>
