@@ -24,7 +24,7 @@ RUN --mount=type=secret,id=GHP_AUTH_TOKEN \
     GHP_AUTH_TOKEN=$(cat /run/secrets/GHP_AUTH_TOKEN) yarn run quasar build --mode spa
 
 
-FROM busybox:1.36.0
+FROM busybox:1.36.1
 
 COPY --from=frontend-builder /usr/src/app/dist/spa /site
 
