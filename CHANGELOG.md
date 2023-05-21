@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.6](https://github.com/cailloumajor/factory-frontend/compare/v1.8.5...v1.8.6) (2023-05-21)
+
+
+### Bug Fixes
+
+* **deps:** update busybox docker tag to v1.36.1 ([e4443dd](https://github.com/cailloumajor/factory-frontend/commit/e4443ddad62a21466324fc242cd01c2a08b19d35))
+
 ## [1.8.5](https://github.com/cailloumajor/factory-frontend/compare/v1.8.4...v1.8.5) (2023-05-18)
 
 
