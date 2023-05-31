@@ -1,7 +1,7 @@
 import "influxdata/influxdb/schema"
 
 params = {
-    cycleTimeOverColor: "",
+    subcadenceColor: "",
     cycleColor: "",
     campChangeColor: "",
     stoppedColor: "",
@@ -10,19 +10,19 @@ params = {
 }
 
 filterFields = (r) =>
-    r._field == "averageCycleTime" or r._field == "campChange" or r._field == "cycle" or r._field == "goodPartsAge"
+    r._field == "averageCycleTime" or r._field == "campChange" or r._field == "cycle" or r._field == "cycleTimeOver"
 
 dropColumns = (column) => filterFields(r: {_field: column})
 
 colorFromStatuses = (r) =>
     ({r with color:
             if r.cycle then
-                if r.goodPartsAge > 63.72 then
+                if r.cycleTimeOver then
                     params.stoppedColor
                 else if float(v: r.averageCycleTime) / 10.0 < 22.3 then
                     params.cycleColor
                 else
-                    params.cycleTimeOverColor
+                    params.subcadenceColor
             else if r.campChange then
                 params.campChangeColor
             else
