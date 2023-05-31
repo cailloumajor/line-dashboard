@@ -181,6 +181,7 @@ describe("LineDashboard", () => {
           averageCycleTime: 0,
           campChange: false,
           cycle: false,
+          cycleTimeOver: false,
           fault: false,
         },
         ts: {
@@ -189,6 +190,7 @@ describe("LineDashboard", () => {
           averageCycleTime: "",
           campChange: "",
           cycle: "",
+          cycleTimeOver: "",
           fault: "",
         },
       },
@@ -313,8 +315,6 @@ describe("LineDashboard", () => {
     })
 
     it("gives contextual colors to status and renders its duration", () => {
-      cy.clock()
-
       cy.wrap(useMachineDataLinkStatusStore()).invoke("$patch", {
         centrifugoLinkStatus: LinkStatus.Up,
         plcLinkStatus: LinkStatus.Up,
@@ -385,14 +385,15 @@ describe("LineDashboard", () => {
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          val: {},
+          val: {
+            cycleTimeOver: true,
+          },
           ts: {
-            // Past s min 50 s
+            // Past 5 min 50 s
             goodParts: new Date(Date.now() - 350_000).toISOString(),
           },
         }
       })
-      cy.tick(15)
       cy.dataCy("status-text").should("have.class", "text-negative")
       cy.dataCy("status-duration")
         .should("be.visible")
@@ -400,21 +401,14 @@ describe("LineDashboard", () => {
 
       cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
         proxy.value = {
-          val: {},
-          ts: {
-            goodParts: new Date().toISOString(),
+          val: {
+            cycleTimeOver: false,
           },
+          ts: {},
         }
       })
-      cy.tick(295_000)
       cy.dataCy("status-text").should("have.class", "text-positive")
       cy.dataCy("status-duration").should("not.exist")
-
-      cy.tick(5_001)
-      cy.dataCy("status-text").should("have.class", "text-negative")
-      cy.dataCy("status-duration")
-        .should("be.visible")
-        .and("contain.text", " 5 ")
     })
   })
 
@@ -453,7 +447,7 @@ describe("LineDashboard", () => {
         .match("params = {")
         .and(Cypress.sinon.match("from(bucket: params.bucket)")),
       {
-        cycleTimeOverColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
+        subcadenceColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
         cycleColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
         campChangeColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
         stoppedColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),

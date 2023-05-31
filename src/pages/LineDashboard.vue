@@ -62,7 +62,6 @@
 
 <script setup lang="ts">
 import {
-  refAutoReset,
   useDebounceFn,
   useEventListener,
   useNow,
@@ -70,7 +69,7 @@ import {
 } from "@vueuse/core"
 import { mande } from "mande"
 import { QPage, colors } from "quasar"
-import { computed, onMounted, reactive, ref, watch } from "vue"
+import { computed, onMounted, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
@@ -120,6 +119,7 @@ const machineData = reactive<MachineData>({
     averageCycleTime: 0,
     campChange: false,
     cycle: false,
+    cycleTimeOver: false,
     fault: false,
   },
   ts: {
@@ -128,6 +128,7 @@ const machineData = reactive<MachineData>({
     averageCycleTime: "",
     campChange: "",
     cycle: "",
+    cycleTimeOver: "",
     fault: "",
   },
 })
@@ -136,26 +137,10 @@ const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 
 const productionObjective = ref(3500)
 
-const goodPartsTimeout = ref(0)
-const outdatedGoodParts = refAutoReset(true, goodPartsTimeout)
-watch(
-  [() => machineData.ts.goodParts, () => campaignDataStore.targetCycleTime],
-  ([goodParts, targetCycleTime]) => {
-    const goodPartsTimestamp = Date.parse(goodParts)
-    if (isNaN(goodPartsTimestamp) || targetCycleTime <= 0) {
-      return
-    }
-    const deadlineMillis = goodPartsTimestamp + 3 * targetCycleTime * 1000
-    const timeout = Math.max(deadlineMillis - Date.now(), 0)
-    goodPartsTimeout.value = timeout
-    outdatedGoodParts.value = !(timeout > 0)
-  }
-)
-
 const stopped = computed(
   () =>
     machineDataLinkStatusStore.dataValid &&
-    (!machineData.val.cycle || outdatedGoodParts.value)
+    (!machineData.val.cycle || machineData.val.cycleTimeOver)
 )
 
 const effectiveness = computed(() => {
@@ -261,7 +246,7 @@ const metrics = computed(() => {
 
 const statusCard = computed(() =>
   machineData.val.cycle
-    ? outdatedGoodParts.value
+    ? machineData.val.cycleTimeOver
       ? {
           text: t("statuses.stopped"),
           color: "negative",
@@ -317,7 +302,7 @@ commonStore.title = config.title
 
 const { default: rawQuery } = await import("assets/timeline-query.flux?raw")
 const fluxQuery = makeFluxQuery(rawQuery, {
-  cycleTimeOverColor: getPaletteColor("warning"),
+  subcadenceColor: getPaletteColor("warning"),
   cycleColor: getPaletteColor("positive"),
   campChangeColor: getPaletteColor("info"),
   stoppedColor: getPaletteColor("negative"),
