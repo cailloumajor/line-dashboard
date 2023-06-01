@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.7](https://github.com/cailloumajor/factory-frontend/compare/v1.8.6...v1.8.7) (2023-05-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/influxdb-utils-wasm to v2.2.5 ([4e03b2f](https://github.com/cailloumajor/factory-frontend/commit/4e03b2ff41c9e9daf31a9e840322b373b3b51b92))
+* **deps:** update dependency vue-router to v4.2.2 ([6e3b684](https://github.com/cailloumajor/factory-frontend/commit/6e3b684e88ccafe56a7fdbe04ecc306e295cdfa0))
+* use `cycleTimeOver` signal ([6f43cd8](https://github.com/cailloumajor/factory-frontend/commit/6f43cd83db383b4c1493107fde7aff29159358f0))
+
 ## [1.8.6](https://github.com/cailloumajor/factory-frontend/compare/v1.8.5...v1.8.6) (2023-05-21)
 
 
