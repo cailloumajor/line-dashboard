@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.8](https://github.com/cailloumajor/factory-frontend/compare/v1.8.7...v1.8.8) (2023-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v10.2.1 ([e9e53e4](https://github.com/cailloumajor/factory-frontend/commit/e9e53e4f9e5267ac0c585f18415949b312fbfba8))
+* **deps:** update dependency centrifuge to v4 ([2dedcd5](https://github.com/cailloumajor/factory-frontend/commit/2dedcd5fcb184aae8d4d857737675ede008b3eea))
+* **deps:** update dependency pinia to v2.1.4 ([47fe13b](https://github.com/cailloumajor/factory-frontend/commit/47fe13b8b6bba9c312eb8e2c4b60194dc2b17bc4))
+* **deps:** update dependency quasar to v2.12.2 ([d0de544](https://github.com/cailloumajor/factory-frontend/commit/d0de54442e7275fe8fa31eeb70a34046c15dc829))
+* **deps:** update dependency vue-router to v4.2.3 ([5049fb0](https://github.com/cailloumajor/factory-frontend/commit/5049fb088d3cebc6242c8f8b04592a11443e7895))
+* **deps:** update node.js to v18.16.1 ([43592b4](https://github.com/cailloumajor/factory-frontend/commit/43592b4115c565b56d764d6bdb6cedfaf2ab186f))
+
 ## [1.8.7](https://github.com/cailloumajor/factory-frontend/compare/v1.8.6...v1.8.7) (2023-05-31)
 
 
