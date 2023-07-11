@@ -6,14 +6,12 @@ import QPage from "app/test/cypress/wrappers/QPageStub.vue"
 import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
 import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
-import { makeServer } from "src/dev-api-server"
 import { LinkStatus, configApiPath, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
-import type { Server } from "miragejs"
 import type { MachineData } from "src/global"
 import type { Ref } from "vue"
 
@@ -52,8 +50,7 @@ const mountComponent = ({ id = "_" } = {}) => {
 
 describe("LineDashboard", () => {
   beforeEach(() => {
-    const server = makeServer()
-    cy.wrap(server).as("api-server")
+    cy.intercept(`${configApiPath}/*`, {})
     cy.stub(lineDashboardConfigSchema, "parseAsync")
       .as("schema-parse-stub")
       .resolves({
@@ -75,10 +72,6 @@ describe("LineDashboard", () => {
     cy.stub(fluxQueryComposable, "useFluxQuery").returns({
       makeFluxQuery: makeFluxQueryStub,
     })
-  })
-
-  afterEach(() => {
-    cy.get("@api-server").invoke("shutdown")
   })
 
   it("sets font size on metrics and height on timeline", () => {
@@ -124,13 +117,10 @@ describe("LineDashboard", () => {
     const handled = { count: 0 }
     cy.wrap(handled).as("handled")
 
-    cy.get<Server>("@api-server").invoke(
-      "get",
-      `${configApiPath}/testid`,
-      () => {
-        handled.count += 1
-      }
-    )
+    cy.intercept(`${configApiPath}/testid`, (req) => {
+      handled.count += 1
+      req.reply({})
+    })
 
     mountComponent({ id: "testid" })
 
@@ -140,11 +130,7 @@ describe("LineDashboard", () => {
   it("validates config data against schema", () => {
     const data = { sentinel: "value" }
 
-    cy.get("@api-server").invoke(
-      "get",
-      `${configApiPath}/sentinel-id`,
-      () => data
-    )
+    cy.intercept(`${configApiPath}/sentinel-id`, data)
 
     mountComponent({ id: "sentinel-id" })
 
