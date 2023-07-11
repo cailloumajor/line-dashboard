@@ -87,13 +87,6 @@ module.exports = configure(function (/* ctx */) {
 
       vitePlugins: [
         [
-          "@rollup/plugin-replace",
-          {
-            preventAssignment: true,
-            values: { "globalThis.process.": "process." },
-          },
-        ],
-        [
           "@intlify/vite-plugin-vue-i18n",
           { include: path.resolve(__dirname, "./src/locales/**") },
         ],
