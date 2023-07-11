@@ -1,9 +1,7 @@
 import { mande } from "mande"
-import { Response } from "miragejs"
 import { z } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
-import { makeServer } from "src/dev-api-server"
 import { LinkStatus } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
@@ -165,8 +163,6 @@ describe("LineInterfaceLayout", () => {
 
   describe("redirects to error page", () => {
     beforeEach(() => {
-      const server = makeServer()
-      cy.wrap(server).as("api-server")
       const errorRedirectStub = cy.stub()
       cy.wrap(errorRedirectStub).as("error-redirect-stub")
       cy.stub(errorRedirectComposable, "useErrorRedirect").returns({
@@ -174,12 +170,8 @@ describe("LineInterfaceLayout", () => {
       })
     })
 
-    afterEach(() => {
-      cy.get("@api-server").invoke("shutdown")
-    })
-
     it("on fetch error", () => {
-      cy.get("@api-server").invoke("get", "/testurl", () => new Response(500))
+      cy.intercept("/testurl", { statusCode: 500 })
 
       mountWithSetupChild(async () => {
         await mande("/testurl").get()
