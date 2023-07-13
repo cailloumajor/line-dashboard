@@ -4,7 +4,6 @@ import DashboardMetric from "app/test/cypress/wrappers/DashboardMetricStub.vue"
 import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper.vue"
 import QPage from "app/test/cypress/wrappers/QPageStub.vue"
 import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
-import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
 import { LinkStatus, configApiPath, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
@@ -12,6 +11,7 @@ import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
+import type { SinonStub } from "cypress/types/sinon"
 import type { MachineData } from "src/global"
 import type { Ref } from "vue"
 
@@ -55,22 +55,11 @@ describe("LineDashboard", () => {
       .as("schema-parse-stub")
       .resolves({
         title: "",
-        influxdbOrg: "",
-        influxdbToken: "",
-        influxdbBucket: "",
       })
 
     const machineDataLinkBoot = cy.stub().as("machine-data-link-boot-stub")
     cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
       machineDataLinkBoot,
-    })
-
-    const makeFluxQueryStub = cy
-      .stub()
-      .as("make-flux-query-stub")
-      .returns("Some stubbed Flux query")
-    cy.stub(fluxQueryComposable, "useFluxQuery").returns({
-      makeFluxQuery: makeFluxQueryStub,
     })
   })
 
@@ -141,11 +130,8 @@ describe("LineDashboard", () => {
   })
 
   it("sets the title in the common line interface store", () => {
-    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
+    cy.get<SinonStub>("@schema-parse-stub").invoke("resolves", {
       title: "Stubbed Title",
-      influxdbOrg: "",
-      influxdbToken: "",
-      influxdbBucket: "",
     })
 
     mountComponent()
@@ -419,32 +405,21 @@ describe("LineDashboard", () => {
   })
 
   it("passes props to timeline", () => {
-    cy.get<sinon.SinonStub>("@schema-parse-stub").invoke("resolves", {
-      influxdbOrg: "someOrg",
-      influxdbToken: "someToken",
-      influxdbBucket: "someBucket",
-    })
-
     mountComponent({ id: "something" })
 
-    cy.get("@make-flux-query-stub").should(
-      "have.been.calledOnceWith",
-      Cypress.sinon
-        .match("params = {")
-        .and(Cypress.sinon.match("from(bucket: params.bucket)")),
-      {
-        subcadenceColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
-        cycleColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
-        campChangeColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
-        stoppedColor: Cypress.sinon.match(/^#[0-9a-z]{6}$/i),
-        bucket: "someBucket",
-        id: "something",
-      }
+    cy.dataCy("timeline-compute-url").should(
+      "have.text",
+      "/compute-api/timeline/something"
     )
-
-    cy.dataCy("influxdb-org").should("have.text", "someOrg")
-    cy.dataCy("influxdb-token").should("have.text", "someToken")
-    cy.dataCy("flux-query").should("have.text", "Some stubbed Flux query")
+    cy.dataCy("timeline-color-palette")
+      .invoke("text")
+      .should((text) =>
+        expect(JSON.parse(text))
+          .to.be.an("array")
+          .that.satisfies((elems: string[]) =>
+            elems.every((elem) => elem.match(/^#[0-9a-z]{6}$/i))
+          )
+      )
     cy.dataCy("timeline-opacity")
       .invoke("text")
       .should((opacity) => {

@@ -1,6 +1,4 @@
 {
-	"$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
-
 	"name": "Node.js",
 
 	"build": {
@@ -40,14 +38,10 @@
 			"extensions": [
 				"editorconfig.editorconfig",
 				"esbenp.prettier-vscode",
-				"influxdata.flux",
 				"vue.volar",
 				"wayou.vscode-todo-highlight"
 			],
 			"settings": {
-				"[flux]": {
-					"editor.defaultFormatter": "influxdata.flux"
-				},
 				"editor.formatOnSave": true,
 				"editor.defaultFormatter": "esbenp.prettier-vscode",
 				"editor.codeActionsOnSave": ["source.fixAll.eslint"],

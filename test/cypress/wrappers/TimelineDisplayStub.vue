@@ -2,13 +2,12 @@
   <!-- eslint-disable @intlify/vue-i18n/no-raw-text -->
   <div>
     <div class="prevent-overflow">
-      InfluxDB org: <span data-cy="influxdb-org">{{ influxdbOrg }}</span>
+      Compute API URL:
+      <span data-cy="timeline-compute-url">{{ computeApiUrl }}</span>
     </div>
     <div class="prevent-overflow">
-      InfluxDB token: <span data-cy="influxdb-token">{{ influxdbToken }}</span>
-    </div>
-    <div class="prevent-overflow">
-      Flux Query: <span data-cy="flux-query">{{ fluxQuery }}</span>
+      Color palette:
+      <span data-cy="timeline-color-palette">{{ palette }}</span>
     </div>
     <div class="prevent-overflow">
       Opacity: <span data-cy="timeline-opacity">{{ opacity }}</span>
@@ -33,8 +32,8 @@
 
 <script setup lang="ts">
 defineProps<{
-  influxdbOrg: string
-  influxdbToken: string
+  computeApiUrl: string
+  palette: string[]
   fluxQuery: string
   opacity: number
   xIntervalMinutes: number

@@ -3,9 +3,8 @@
   <div v-if="ready" data-cy="async-ready">READY</div>
   <Suspense @resolve="ready = true">
     <TimelineDisplay
-      influxdb-org="ctOrg"
-      influxdb-token="ctToken"
-      flux-query="ctQuery"
+      compute-api-url="/timeline-compute-api"
+      :palette="['color1', 'color2', 'color3']"
       :opacity="0.9"
       :x-interval-minutes="61"
       :x-offset-minutes="45"

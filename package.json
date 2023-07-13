@@ -16,8 +16,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
-    "@cailloumajor/influxdb-utils-wasm": "2.2.5",
-    "@influxdata/influxdb-client-browser": "1.33.2",
+    "@cailloumajor/frontend-utils-wasm": "3.0.0",
     "@quasar/extras": "1.16.5",
     "@vueuse/core": "10.2.1",
     "centrifuge": "4.0.1",

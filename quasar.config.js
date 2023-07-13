@@ -119,10 +119,6 @@ module.exports = configure(function (/* ctx */) {
           rewrite: (path) => path.replace(/^\/centrifugo/, ""),
           target: process.env.CENTRIFUGO_HTTP,
         },
-        "/influxdb": {
-          rewrite: (path) => path.replace(/^\/influxdb/, ""),
-          target: process.env.INFLUXDB_HOST,
-        },
       },
     },
 
