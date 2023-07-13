@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/cailloumajor/factory-frontend/compare/v1.8.9...v1.9.0) (2023-07-13)
+
+
+### Features
+
+* use InfluxDB compute API ([554c0e0](https://github.com/cailloumajor/factory-frontend/commit/554c0e01510df2b6a212cb21e5bf0f3fa0a7b2db))
+
 ## [1.8.9](https://github.com/cailloumajor/factory-frontend/compare/v1.8.8...v1.8.9) (2023-07-13)
 
 
