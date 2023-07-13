@@ -47,9 +47,8 @@
       v-show="rowsHeightValid"
       :class="$style.timeline"
       :style="timelineStyle"
-      :influxdb-org="config.influxdbOrg"
-      :influxdb-token="config.influxdbToken"
-      :flux-query="fluxQuery"
+      :compute-api-url="timelineApiUrl"
+      :palette="timelinePalette"
       :opacity="0.7"
       :x-interval-minutes="60"
       :x-offset-minutes="30"
@@ -73,10 +72,9 @@ import { computed, onMounted, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 import DashboardMetric from "components/DashboardMetric.vue"
-import fluxQueryComposable from "composables/flux-query"
 import machineDataComposable from "composables/machine-data"
 import TimelineDisplay from "src/components/TimelineDisplay.vue"
-import { configApiPath, shiftDurationMillis } from "src/global"
+import { computeApiPath, configApiPath, shiftDurationMillis } from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
@@ -106,7 +104,6 @@ const { t } = useI18n({
 const campaignDataStore = useCampaignDataStore()
 const commonStore = useCommonLineInterfaceConfigStore()
 const { getPaletteColor } = colors
-const { makeFluxQuery } = fluxQueryComposable.useFluxQuery()
 const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
 const now = useNow({ interval: 1000 })
@@ -300,16 +297,10 @@ const resp = await mande(configApiPath).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
-const { default: rawQuery } = await import("assets/timeline-query.flux?raw")
-const fluxQuery = makeFluxQuery(rawQuery, {
-  subcadenceColor: getPaletteColor("warning"),
-  cycleColor: getPaletteColor("positive"),
-  campChangeColor: getPaletteColor("info"),
-  stoppedColor: getPaletteColor("negative"),
-  bucket: config.influxdbBucket,
-  id: props.id,
-})
-
+const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
+const timelinePalette = ["warning", "positive", "negative", "info"].map(
+  (name) => getPaletteColor(name)
+)
 const timelineLegend = computed<Status[]>(() => [
   { text: t("statuses.runAtCadence"), color: "positive" },
   { text: t("statuses.runUnderCadence"), color: "warning" },

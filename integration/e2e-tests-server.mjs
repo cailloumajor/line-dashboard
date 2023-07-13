@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer"
 import http from "node:http"
 
 import history from "connect-history-api-fallback"
@@ -5,19 +6,20 @@ import express from "express"
 import expressStaticGzip from "express-static-gzip"
 import httpProxy from "http-proxy"
 
+export const timelineData = [
+  0x95, 0x92, 0xce, 0x1c, 0x18, 0xf8, 0x00, 0x00, 0x92, 0xce, 0x1c, 0x19, 0x4c,
+  0x60, 0x01, 0x92, 0xce, 0x1c, 0x19, 0x92, 0xb0, 0xc0, 0x92, 0xce, 0x1c, 0x19,
+  0xa0, 0xc0, 0x02, 0x92, 0xce, 0x1c, 0x19, 0xf5, 0x20, 0x03,
+]
+
 const centrifugoHostKey = "CENTRIFUGO_HOST"
 const centrifugoHost = process.env[centrifugoHostKey]
 if (!centrifugoHost) {
   throw new Error(`Missing ${centrifugoHostKey} environment variable`)
 }
 
-const influxDbHostKey = "INFLUXDB_HOST"
-const influxDbHost = process.env[influxDbHostKey]
-if (!influxDbHost) {
-  throw new Error(`Missing ${influxDbHostKey} environment variable`)
-}
-
 const app = express()
+app.disable("etag")
 const server = http.createServer(app)
 
 let changeOrigin = ""
@@ -47,23 +49,17 @@ app.all(/\/centrifugo\/(emulation|connection\/sse)/, (req, res) => {
   centrifugoSSEProxy.web(req, res)
 })
 
-// Proxy InfluxDB
-const influxDbProxy = httpProxy.createProxyServer({
-  target: `http://${influxDbHost}:8086`,
-})
-app.all("/influxdb/*", (req, res) => {
-  req.url = req.url.replace(/^\/influxdb/, "")
-  influxDbProxy.web(req, res)
-})
-
 // Mock static configuration API
 app.get("/config-api/*", (req, res) => {
   res.json({
     title: "End-to-end tests",
-    influxdbOrg: "e2e-tests-org",
-    influxdbToken: "e2e-tests-token",
-    influxdbBucket: "e2e-tests-bucket",
   })
+})
+
+// Mock influxDB compute API
+app.get("/compute-api/timeline/*", (req, res) => {
+  res.type("application/msgpack")
+  res.send(Buffer.from(timelineData, "base64"))
 })
 
 app.put("/change-origin", express.text(), (req, res) => {

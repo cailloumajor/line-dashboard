@@ -36,12 +36,13 @@
 
 <script setup lang="ts">
 import { useDebounceFn, useIntervalFn, useResizeObserver } from "@vueuse/core"
+import { mande } from "mande"
 import { QCard } from "quasar"
 import { computed, nextTick, onMounted, reactive, ref } from "vue"
 
-import { influxdbPath, timelineRefreshMillis } from "src/global"
+import { timelineRefreshMillis } from "src/global"
 
-import influxdbUtils from "./influxdb-utils-wasm"
+import wasmUtils from "./frontend-utils-wasm"
 
 import type { ResizeObserverSize } from "@vueuse/core"
 
@@ -50,12 +51,11 @@ interface LegendItem {
   text: string
 }
 
-const { init, wasmUrl, Timeline } = influxdbUtils
+const { init, wasmUrl, Timeline } = wasmUtils
 
 const props = defineProps<{
-  influxdbOrg: string
-  influxdbToken: string
-  fluxQuery: string
+  computeApiUrl: string
+  palette: string[]
   opacity: number
   xIntervalMinutes: number
   xOffsetMinutes: number
@@ -96,31 +96,27 @@ onMounted(() => {
     throw new Error("canvas element ref is null")
   }
   const fontFamily = window.getComputedStyle(canvasElem.value).fontFamily
-  const influxdbUrl = new URL(influxdbPath, window.location.origin).toString()
-  const {
-    influxdbOrg,
-    influxdbToken,
-    fluxQuery,
-    opacity,
-    xIntervalMinutes,
-    xOffsetMinutes,
-    emphasisLabels,
-  } = props
+  const { palette, opacity, xIntervalMinutes, xOffsetMinutes, emphasisLabels } =
+    props
   const timeline = new Timeline(canvasElem.value, {
+    palette,
     fontFamily,
     opacity,
     xIntervalMinutes,
     xOffsetMinutes,
     emphasisLabels,
-    influxdbUrl,
-    influxdbOrg,
-    influxdbToken,
-    fluxQuery,
   })
 
   const drawTimeline = () => {
-    timeline
-      .draw()
+    mande(props.computeApiUrl)
+      .get({ responseAs: "response" })
+      .then((response) => {
+        return response.arrayBuffer()
+      })
+      .then((buffer) => {
+        const data = new Uint8Array(buffer)
+        return timeline.draw(data)
+      })
       .then(() => {
         error.value = null
       })

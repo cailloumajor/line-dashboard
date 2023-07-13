@@ -1,5 +1,5 @@
 export const configApiPath = "/config-api/config/line_dashboard"
-export const influxdbPath = "/influxdb/api/v2/query"
+export const computeApiPath = "/compute-api"
 
 export const centrifugoNamespace = "opcua.data"
 

@@ -11,7 +11,6 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       config.env.CENTRIFUGO_HOST = process.env.CENTRIFUGO_HOST
-      config.env.INFLUXDB_HOST = process.env.INFLUXDB_HOST
       return config
     },
     baseUrl: "http://localhost:9090/",

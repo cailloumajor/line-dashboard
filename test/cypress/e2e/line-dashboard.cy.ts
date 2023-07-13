@@ -6,7 +6,6 @@ interface MachineData {
 }
 
 const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
-const influxdbHost = Cypress.env("INFLUXDB_HOST")
 
 const centrifugoPublish = (data: MachineData) => {
   cy.request({
@@ -33,42 +32,6 @@ const visit = () => {
 }
 
 describe("Line dashboard", () => {
-  before(() => {
-    const commonOptions = {
-      qs: {
-        org: "e2e-tests-org",
-        bucket: "e2e-tests-bucket",
-        precision: "ms",
-      },
-      headers: {
-        Authorization: "Token e2e-tests-token",
-      },
-    }
-    const startDate = new Date(Date.now() - 24 * 3600 * 1000)
-    const endDate = new Date()
-    cy.request({
-      ...commonOptions,
-      method: "POST",
-      url: `http://${influxdbHost}:8086/api/v2/delete`,
-      body: {
-        start: startDate.toISOString(),
-        stop: endDate.toISOString(),
-      },
-    })
-    const body = [3, 2, 1, 0]
-      .map((minutes) => {
-        const ts = Date.now() - minutes * 60 * 1000
-        return `opcua.data,id=e2e-tests campChange=false,cycle=false ${ts}`
-      })
-      .join("\n")
-    cy.request({
-      ...commonOptions,
-      method: "POST",
-      url: `http://${influxdbHost}:8086/api/v2/write`,
-      body,
-    })
-  })
-
   it("has dynamic header title", () => {
     visit()
 
@@ -169,19 +132,16 @@ describe("Line dashboard", () => {
 
     visit()
 
-    cy.intercept("/influxdb/api/v2/query*", { times: 1 }, { statusCode: 500 })
+    cy.intercept("/compute-api/timeline/*", { times: 1 }, { statusCode: 500 })
     cy.tick(timelineRefreshMillis * 1.1)
     cy.dataCy("timeline-error").should("be.visible")
     cy.dataCy("timeline-canvas").should("not.be.visible")
 
-    cy.intercept("/influxdb/api/v2/query*").as("influxQuery")
+    cy.intercept("/compute-api/timeline/*").as("timeline-compute-query")
     cy.tick(timelineRefreshMillis * 1.1)
-    cy.wait("@influxQuery")
-      .its("response.body")
-      .should((body: string) => {
-        const lines = body.split(/\r\n/)
-        expect(lines).to.have.length.that.is.within(720, 730)
-      })
+    cy.wait("@timeline-compute-query")
+      .its("response.body.byteLength")
+      .should("equal", 36)
     cy.dataCy("timeline-error").should("not.be.visible")
     cy.dataCy<HTMLCanvasElement>("timeline-canvas").should(($canvas) => {
       expect($canvas).to.have.lengthOf(1)

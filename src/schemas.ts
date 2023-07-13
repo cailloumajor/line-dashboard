@@ -5,9 +5,5 @@ export const commonLineInterfaceConfigSchema = z.object({
 })
 
 export const lineDashboardConfigSchema = commonLineInterfaceConfigSchema.extend(
-  {
-    influxdbOrg: z.string(),
-    influxdbToken: z.string(),
-    influxdbBucket: z.string(),
-  }
+  {}
 )
