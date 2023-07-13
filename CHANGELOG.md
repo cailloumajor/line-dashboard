@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.9](https://github.com/cailloumajor/factory-frontend/compare/v1.8.8...v1.8.9) (2023-07-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.16.5 ([45726f5](https://github.com/cailloumajor/factory-frontend/commit/45726f5060c347bb047f493a1ce45bf4cd6d4368))
+* **deps:** update dependency centrifuge to v4.0.1 ([b813d2f](https://github.com/cailloumajor/factory-frontend/commit/b813d2fe19f16b27f0e9db5826d29878b729fc2f))
+* **deps:** update dependency vue-router to v4.2.4 ([8ff60c2](https://github.com/cailloumajor/factory-frontend/commit/8ff60c21b19c36018f60cb89b222c2670b460b11))
+
 ## [1.8.8](https://github.com/cailloumajor/factory-frontend/compare/v1.8.7...v1.8.8) (2023-07-06)
 
 
