@@ -298,8 +298,8 @@ const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 
 const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
-const timelinePalette = ["warning", "positive", "negative", "info"].map(
-  (name) => getPaletteColor(name)
+const timelinePalette = ["negative", "warning", "positive", "info"].map(
+  getPaletteColor
 )
 const timelineLegend = computed<Status[]>(() => [
   { text: t("statuses.runAtCadence"), color: "positive" },
