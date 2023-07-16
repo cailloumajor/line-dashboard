@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/cailloumajor/factory-frontend/compare/v1.9.0...v1.9.1) (2023-07-16)
+
+
+### Bug Fixes
+
+* timeline palette ordering ([b9f47d5](https://github.com/cailloumajor/factory-frontend/commit/b9f47d510b0dc7533540def42a29f6503faae90e))
+
 ## [1.9.0](https://github.com/cailloumajor/factory-frontend/compare/v1.8.9...v1.9.0) (2023-07-13)
 
 
