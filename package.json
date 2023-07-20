@@ -44,7 +44,7 @@
     "@vue/eslint-config-prettier": "7.1.0",
     "@vue/eslint-config-typescript": "11.0.3",
     "autoprefixer": "10.4.14",
-    "colortranslator": "3.0.0",
+    "colortranslator": "3.0.1",
     "connect-history-api-fallback": "2.0.0",
     "cypress": "12.17.1",
     "dotenv": "16.3.1",
