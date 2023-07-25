@@ -15,7 +15,7 @@ const mountComponent = () => {
   cy.mount(TimelineDisplayWrapper, { props: { height: "200px" } }).then(
     ({ wrapper }) => {
       cy.wrap(wrapper).as("vue-wrapper")
-    }
+    },
   )
   cy.dataCy("async-ready").should("be.visible")
 }
@@ -68,7 +68,7 @@ describe("TimelineDisplay", () => {
 
     cy.get("@wasm-init-stub").should(
       "have.been.calledOnceWith",
-      useWasmUtils.wasmUrl
+      useWasmUtils.wasmUrl,
     )
   })
 
@@ -85,7 +85,7 @@ describe("TimelineDisplay", () => {
         xIntervalMinutes: 61,
         xOffsetMinutes: 45,
         emphasisLabels: ["some", "other"],
-      }
+      },
     )
   })
 

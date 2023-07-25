@@ -42,7 +42,7 @@ describe("Line dashboard", () => {
     })
     cy.dataCy("layout-title").should(
       "have.text",
-      "End-to-end tests\xa0—\xa0E2E-CAMPAIGN"
+      "End-to-end tests\xa0—\xa0E2E-CAMPAIGN",
     )
   })
 

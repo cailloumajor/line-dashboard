@@ -9,5 +9,5 @@ export const useCommonLineInterfaceConfigStore = defineStore(
     state: (): TypeOf<typeof commonLineInterfaceConfigSchema> => ({
       title: "⏳",
     }),
-  }
+  },
 )

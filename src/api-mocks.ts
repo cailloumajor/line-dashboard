@@ -16,15 +16,15 @@ const handlers = [
         influxdbOrg: "devOrg",
         influxdbToken: "devToken",
         influxdbBucket: "devBucket",
-      })
-    )
+      }),
+    ),
   ),
   rest.get(`${computeApiPath}/timeline/:id`, (req, res, ctx) =>
     res(
       ctx.set("Content-Length", timelineData.byteLength.toString()),
       ctx.set("Content-Type", "application/msgpack"),
-      ctx.body(timelineData)
-    )
+      ctx.body(timelineData),
+    ),
   ),
 ]
 

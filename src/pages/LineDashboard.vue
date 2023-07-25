@@ -137,7 +137,7 @@ const productionObjective = ref(3500)
 const stopped = computed(
   () =>
     machineDataLinkStatusStore.dataValid &&
-    (!machineData.val.cycle || machineData.val.cycleTimeOver)
+    (!machineData.val.cycle || machineData.val.cycleTimeOver),
 )
 
 const effectiveness = computed(() => {
@@ -171,7 +171,7 @@ useEventListener(
     rowsHeightValid.value = false
     debouncedUpdateRowHeight()
   },
-  { passive: true }
+  { passive: true },
 )
 
 const metricStyle = computed(() => ({
@@ -262,7 +262,7 @@ const statusCard = computed(() =>
         text: t("statuses.stopped"),
         color: "negative",
         ts: machineData.ts.cycle,
-      }
+      },
 )
 
 const reactiveNow = useNow({ interval: 1000 })
@@ -272,7 +272,7 @@ const statusDuration = computed(() => {
     return
   }
   const elapsedMinutes = Math.floor(
-    (reactiveNow.value.valueOf() - Date.parse(ts)) / 60_000
+    (reactiveNow.value.valueOf() - Date.parse(ts)) / 60_000,
   )
   const hours = Math.floor(elapsedMinutes / 60)
   const minutes = elapsedMinutes % 60
@@ -299,7 +299,7 @@ commonStore.title = config.title
 
 const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
 const timelinePalette = ["negative", "warning", "positive", "info"].map(
-  getPaletteColor
+  getPaletteColor,
 )
 const timelineLegend = computed<Status[]>(() => [
   { text: t("statuses.runAtCadence"), color: "positive" },

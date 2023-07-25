@@ -33,7 +33,7 @@ describe("DashboardMetric", () => {
 
     cy.dataCy("metric-title-section").should(
       "have.html",
-      "<code>Title slot</code>"
+      "<code>Title slot</code>",
     )
   })
 

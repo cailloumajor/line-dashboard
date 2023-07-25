@@ -36,7 +36,7 @@ describe("error redirect composable", () => {
         query: {
           autoback: Cypress.sinon.match.number,
         },
-      })
+      }),
     )
   })
 })

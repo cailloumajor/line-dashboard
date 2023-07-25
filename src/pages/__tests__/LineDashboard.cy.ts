@@ -24,7 +24,7 @@ const checkCssSize = (
   selector: string,
   property: string,
   expSize: number,
-  delta: number
+  delta: number,
 ) => {
   cy.dataCy(selector).should(($el) => {
     expect($el).to.have.css(property)
@@ -84,7 +84,7 @@ describe("LineDashboard", () => {
     cy.dataCy("metric-title-text").should(
       "have.css",
       "text-transform",
-      "uppercase"
+      "uppercase",
     )
     cy.dataCy("metric-unit").should("have.length", 2)
   })
@@ -125,7 +125,7 @@ describe("LineDashboard", () => {
 
     cy.wrap(lineDashboardConfigSchema.parseAsync).should(
       "have.been.calledWith",
-      data
+      data,
     )
   })
 
@@ -166,7 +166,7 @@ describe("LineDashboard", () => {
           fault: "",
         },
       },
-      "anid"
+      "anid",
     )
   })
 
@@ -175,7 +175,7 @@ describe("LineDashboard", () => {
       "callsFake",
       (machineData: MachineData) => {
         machineData.val.averageCycleTime = 1055
-      }
+      },
     )
 
     mountComponent()
@@ -203,7 +203,7 @@ describe("LineDashboard", () => {
             Object.assign(machineData.val, data.val)
             Object.assign(machineData.ts, data.ts)
           })
-        }
+        },
       )
 
       mountComponent()
@@ -409,7 +409,7 @@ describe("LineDashboard", () => {
 
     cy.dataCy("timeline-compute-url").should(
       "have.text",
-      "/compute-api/timeline/something"
+      "/compute-api/timeline/something",
     )
     cy.dataCy("timeline-color-palette")
       .invoke("text")
@@ -417,8 +417,8 @@ describe("LineDashboard", () => {
         expect(JSON.parse(text))
           .to.be.an("array")
           .that.satisfies((elems: string[]) =>
-            elems.every((elem) => elem.match(/^#[0-9a-z]{6}$/i))
-          )
+            elems.every((elem) => elem.match(/^#[0-9a-z]{6}$/i)),
+          ),
       )
     cy.dataCy("timeline-opacity")
       .invoke("text")
@@ -437,8 +437,8 @@ describe("LineDashboard", () => {
         expect(JSON.parse(text))
           .to.be.an("array")
           .that.satisfies((elems: string[]) =>
-            elems.every((elem) => elem.match(/\d{2}:\d{2}/))
-          )
+            elems.every((elem) => elem.match(/\d{2}:\d{2}/)),
+          ),
       )
     cy.dataCy("timeline-legend").should(($el) => {
       expect($el.text()).to.not.be.empty

@@ -58,7 +58,7 @@ const { t } = useI18n({
 const router = useRouter()
 
 const errors = ($q.sessionStorage.getItem(
-  loadingErrorStorageKey
+  loadingErrorStorageKey,
 ) as string[]) ?? [""]
 
 const countdown = ref(props.autoback ?? 0)
@@ -76,7 +76,7 @@ if (props.autoback && props.autoback > 0) {
     () => {
       pause()
       router.back()
-    }
+    },
   )
 }
 </script>

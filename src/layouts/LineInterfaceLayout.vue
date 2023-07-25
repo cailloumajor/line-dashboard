@@ -156,7 +156,7 @@ onErrorCaptured((err) => {
           }
         }
         return `${path}: ${issue.message}`
-      })
+      }),
     )
   } else {
     errors.push(String(err))
