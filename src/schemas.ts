@@ -5,5 +5,5 @@ export const commonLineInterfaceConfigSchema = z.object({
 })
 
 export const lineDashboardConfigSchema = commonLineInterfaceConfigSchema.extend(
-  {}
+  {},
 )

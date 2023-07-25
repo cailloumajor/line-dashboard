@@ -35,7 +35,7 @@ function useMachineDataLinkBoot() {
    */
   function machineDataLinkBoot<T extends MachineData>(
     machineData: T,
-    partnerID: string
+    partnerID: string,
   ) {
     const upToDate = refAutoReset(false, heartbeatTimeoutMillis)
     watch(upToDate, (newValue) => {
@@ -87,7 +87,7 @@ function useMachineDataLinkBoot() {
 
     // Data change subscription
     const opcDataChangeSubscription = centrifuge.newSubscription(
-      `${centrifugoNamespace}:${partnerID}`
+      `${centrifugoNamespace}:${partnerID}`,
     )
     opcDataChangeSubscription.on("subscribed", patchMachineData)
     opcDataChangeSubscription.on("unsubscribed", ({ channel, reason }) => {

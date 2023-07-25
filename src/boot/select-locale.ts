@@ -13,7 +13,7 @@ export default boot(async () => {
 
     const quasarLocale = pickLocale(
       languages,
-      langPacksIndex.map((lang) => lang.isoName)
+      langPacksIndex.map((lang) => lang.isoName),
     )
     if (quasarLocale !== undefined) {
       try {

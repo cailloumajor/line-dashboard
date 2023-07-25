@@ -20,7 +20,7 @@ describe("Landing page", () => {
       for (const interception of interceptions) {
         expect(interception.response?.headers).to.have.property(
           "content-encoding",
-          "gzip"
+          "gzip",
         )
       }
     })

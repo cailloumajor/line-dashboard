@@ -54,7 +54,7 @@ const router = createRouter({
 })
 const stubbedMethods: Array<keyof Router> = ["back", "push"]
 const stubs = stubbedMethods.map((methodName) =>
-  Cypress.sinon.stub(router, methodName)
+  Cypress.sinon.stub(router, methodName),
 )
 beforeEach(() => {
   cy.wrap(router).as("router-mock")
@@ -76,7 +76,7 @@ beforeEach(() => {
 })
 afterEach(() => {
   config.global.plugins = config.global.plugins.filter(
-    (plugin) => plugin !== testingPinia
+    (plugin) => plugin !== testingPinia,
   )
 })
 

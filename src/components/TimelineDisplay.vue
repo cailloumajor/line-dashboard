@@ -131,7 +131,7 @@ onMounted(() => {
       canvasSize.width = inlineSize
       nextTick().then(drawTimeline)
     },
-    200
+    200,
   )
 
   useResizeObserver(cardElem, (entries) => {
