@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.2](https://github.com/cailloumajor/factory-frontend/compare/v1.9.1...v1.9.2) (2023-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency quasar to v2.12.3 ([7daed19](https://github.com/cailloumajor/factory-frontend/commit/7daed19aa1c2ab51c20734c685d4add55b9fd3da))
+* **deps:** update node.js to v18.17.0 ([38a6d40](https://github.com/cailloumajor/factory-frontend/commit/38a6d40ec834619ac50f1046a2e347f58d4f76db))
+
 ## [1.9.1](https://github.com/cailloumajor/factory-frontend/compare/v1.9.0...v1.9.1) (2023-07-16)
 
 
