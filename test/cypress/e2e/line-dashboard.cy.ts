@@ -10,16 +10,13 @@ const centrifugoHost = Cypress.env("CENTRIFUGO_HOST")
 const centrifugoPublish = (data: MachineData) => {
   cy.request({
     method: "POST",
-    url: `http://${centrifugoHost}:8000/api`,
+    url: `http://${centrifugoHost}:8000/api/publish`,
     headers: {
-      Authorization: "apikey dc1e276a-9eb5-4950-a8bc-c13fe848154a",
+      "X-API-Key": "dc1e276a-9eb5-4950-a8bc-c13fe848154a",
     },
     body: {
-      method: "publish",
-      params: {
-        channel: "opcua.data:e2e-tests",
-        data,
-      },
+      channel: "opcua.data:e2e-tests",
+      data,
     },
   })
 }
