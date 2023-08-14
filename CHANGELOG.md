@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.4](https://github.com/cailloumajor/factory-frontend/compare/v1.9.3...v1.9.4) (2023-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency centrifuge to v4.1.0 ([02114a7](https://github.com/cailloumajor/factory-frontend/commit/02114a78816128f0eb5ba0cf78347966315f89da))
+* **deps:** update dependency quasar to v2.12.4 ([f414a14](https://github.com/cailloumajor/factory-frontend/commit/f414a1498c353df72f32506952b337b80348f8ea))
+* **deps:** update node.js to v18.17.1 ([3b4fe26](https://github.com/cailloumajor/factory-frontend/commit/3b4fe26cb3751134cf14a3c64faa1812434a1668))
+
 ## [1.9.3](https://github.com/cailloumajor/factory-frontend/compare/v1.9.2...v1.9.3) (2023-07-31)
 
 
