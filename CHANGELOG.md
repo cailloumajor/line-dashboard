@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/cailloumajor/factory-frontend/compare/v1.9.4...v1.10.0) (2023-08-16)
+
+
+### Features
+
+* set automatic refresh for line dashboard ([74f120f](https://github.com/cailloumajor/factory-frontend/commit/74f120f8d6575771b2e08fd4e5391154ac2f9dae))
+
+
+### Bug Fixes
+
+* **deps:** update dependency zod to v3.22.0 ([23a7a4f](https://github.com/cailloumajor/factory-frontend/commit/23a7a4fadbec18cab6829836a0b95ba7a945d45c))
+
 ## [1.9.4](https://github.com/cailloumajor/factory-frontend/compare/v1.9.3...v1.9.4) (2023-08-14)
 
 
