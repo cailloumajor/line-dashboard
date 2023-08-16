@@ -67,7 +67,7 @@ import {
   usePreferredLanguages,
 } from "@vueuse/core"
 import { mande } from "mande"
-import { QPage, colors } from "quasar"
+import { QPage, colors, useMeta } from "quasar"
 import { computed, onMounted, reactive, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
@@ -108,6 +108,10 @@ const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
 const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
+
+onMounted(() => {
+  useMeta({ meta: { equiv: { "http-equiv": "refresh", content: "1800" } } })
+})
 
 const machineData = reactive<MachineData>({
   val: {

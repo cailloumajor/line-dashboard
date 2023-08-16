@@ -45,6 +45,8 @@ const mountComponent = ({ id = "_" } = {}) => {
       },
     },
   })
+    .its("wrapper")
+    .as("component-wrapper")
   cy.dataCy("async-ready").should("be.visible")
 }
 
@@ -61,6 +63,22 @@ describe("LineDashboard", () => {
     cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
       machineDataLinkBoot,
     })
+  })
+
+  it("sets and resets refresh meta tag", () => {
+    cy.get("head meta[http-equiv='refresh']").should("not.exist")
+
+    mountComponent()
+
+    cy.get("head meta[http-equiv='refresh']")
+      .should("have.length", 1)
+      .its(0)
+      .its("content")
+      .should("equal", "1800")
+
+    cy.get("@component-wrapper").invoke("unmount")
+
+    cy.get("head meta[http-equiv='refresh']").should("not.exist")
   })
 
   it("sets font size on metrics and height on timeline", () => {
