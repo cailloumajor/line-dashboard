@@ -17,9 +17,10 @@ export default boot(async () => {
     )
     if (quasarLocale !== undefined) {
       try {
-        const langPkg = await langPacks[
-          `../../node_modules/quasar/lang/${quasarLocale}.mjs`
-        ]()
+        const langPkg =
+          await langPacks[
+            `../../node_modules/quasar/lang/${quasarLocale}.mjs`
+          ]()
         Quasar.lang.set(langPkg.default)
       } catch (err) {
         // Requested Quasar Language Pack does not exist,
