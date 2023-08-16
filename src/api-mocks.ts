@@ -13,9 +13,6 @@ const handlers = [
     res(
       ctx.json({
         title: "Test Title",
-        influxdbOrg: "devOrg",
-        influxdbToken: "devToken",
-        influxdbBucket: "devBucket",
       }),
     ),
   ),
