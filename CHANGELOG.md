@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.1](https://github.com/cailloumajor/factory-frontend/compare/v1.10.0...v1.10.1) (2023-08-17)
+
+
+### Bug Fixes
+
+* ensure Samsung smart signage compatibility ([085883f](https://github.com/cailloumajor/factory-frontend/commit/085883fbea754974a49faedcdfa6e5517be41d38))
+* **deps:** update dependency zod to v3.22.1 ([b3f20e0](https://github.com/cailloumajor/factory-frontend/commit/b3f20e021b25b6117f89e72da6140e124ccb98dd))
+
 ## [1.10.0](https://github.com/cailloumajor/factory-frontend/compare/v1.9.4...v1.10.0) (2023-08-16)
 
 
