@@ -201,10 +201,10 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
-"@cailloumajor/frontend-utils-wasm@3.0.0":
-  version "3.0.0"
-  resolved "https://npm.pkg.github.com/download/@cailloumajor/frontend-utils-wasm/3.0.0/50c364a0270f20fd37e4a0fec93be6696a3a22c4#50c364a0270f20fd37e4a0fec93be6696a3a22c4"
-  integrity sha512-XcTzO/JCipybTwIkOqU1IfIlak2qMAY/vL92AVdzvBk70JoVFNLTWJwkqZNWpyV4LCFzrlG65oW6wyXZu3lUFA==
+"@cailloumajor/frontend-utils-wasm@3.0.1":
+  version "3.0.1"
+  resolved "https://npm.pkg.github.com/download/@cailloumajor/frontend-utils-wasm/3.0.1/33babf9e14c6e4d8f38f92ee81966921e683ee84#33babf9e14c6e4d8f38f92ee81966921e683ee84"
+  integrity sha512-vJUAT5dV/GkGWLGpQkVCZ09Lp/nkClsGwIRZVsXvLTxJpjtQudS/F73gTLvvZAvOxaMPuWTV5iYyF/gha+x4xQ==
 
 "@colors/colors@1.5.0":
   version "1.5.0"
