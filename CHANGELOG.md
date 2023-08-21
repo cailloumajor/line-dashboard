@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.2](https://github.com/cailloumajor/factory-frontend/compare/v1.10.1...v1.10.2) (2023-08-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency quasar to v2.12.5 ([0c58792](https://github.com/cailloumajor/factory-frontend/commit/0c58792b054ee152ebed5c8b71f94950e1ba34a4))
+* **deps:** update dependency zod to v3.22.2 ([ccc90ed](https://github.com/cailloumajor/factory-frontend/commit/ccc90edb084fe0a498d9af1b4173c8061b722856))
+
 ## [1.10.1](https://github.com/cailloumajor/factory-frontend/compare/v1.10.0...v1.10.1) (2023-08-17)
 
 
