@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.3](https://github.com/cailloumajor/factory-frontend/compare/v1.10.2...v1.10.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cailloumajor/frontend-utils-wasm to v3.0.1 ([21b337b](https://github.com/cailloumajor/factory-frontend/commit/21b337b58a6cad310a10df39c96a3a81da94d1b2))
+
 ## [1.10.2](https://github.com/cailloumajor/factory-frontend/compare/v1.10.1...v1.10.2) (2023-08-21)
 
 
