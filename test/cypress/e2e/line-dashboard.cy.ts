@@ -99,6 +99,15 @@ describe("Line dashboard", () => {
       .dataCy("metric-value-text")
       .should("have.text", "98.7")
     cy.dataCy("metric-3").dataCy("metric-value-text").should("have.text", 849)
+  })
+
+  it("shows performance ratio", () => {
+    cy.intercept("/compute-api/performance/*", { body: 84.625 })
+
+    visit()
+
+    centrifugoPublish({})
+
     cy.dataCy("metric-4")
       .dataCy("metric-value-text")
       .invoke("text")

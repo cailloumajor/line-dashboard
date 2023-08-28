@@ -23,6 +23,9 @@ const handlers = [
       ctx.body(timelineData),
     ),
   ),
+  rest.get(`${computeApiPath}/performance/:id`, (req, res, ctx) =>
+    res(ctx.set("Content-Type", "application/json"), ctx.body("42.42")),
+  ),
 ]
 
 export const worker = setupWorker(...handlers)
