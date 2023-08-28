@@ -1,3 +1,5 @@
+import type { MandeError } from "mande"
+
 export const configApiPath = "/config-api/config/line_dashboard"
 export const computeApiPath = "/compute-api"
 
@@ -30,4 +32,8 @@ export interface MachineData {
   ts: {
     [K in keyof MachineDataValues]: string
   }
+}
+
+export const isMandeError = (err: Error): err is MandeError => {
+  return "body" in err && "response" in err
 }

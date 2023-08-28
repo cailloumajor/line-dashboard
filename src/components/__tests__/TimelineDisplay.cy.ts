@@ -31,6 +31,20 @@ describe("TimelineDisplay", () => {
       .returns(mockedTimeline)
   })
 
+  it("shows fetch error", () => {
+    cy.intercept("/timeline-compute-api", { statusCode: 500 })
+
+    mountComponent()
+
+    cy.dataCy("timeline-canvas").should("not.be.visible")
+    cy.dataCy("timeline-error")
+      .should("contain.text", "fetch error:")
+      .and(($el) => {
+        expect($el).to.have.css("font-size")
+        expect(parseFloat($el.css("font-size"))).to.be.closeTo(24, 0.1)
+      })
+  })
+
   it("shows error raised by draw method", () => {
     cy.get<SinonStub>("@draw-stub").invoke("rejects", new Error("test error"))
 

@@ -40,7 +40,7 @@ import { mande } from "mande"
 import { QCard } from "quasar"
 import { computed, nextTick, onMounted, reactive, ref } from "vue"
 
-import { timelineRefreshMillis } from "src/global"
+import { isMandeError, timelineRefreshMillis } from "src/global"
 
 import wasmUtils from "./frontend-utils-wasm"
 
@@ -121,7 +121,11 @@ onMounted(() => {
         error.value = null
       })
       .catch((err) => {
-        error.value = String(err)
+        if (isMandeError(err)) {
+          error.value = `fetch error: ${err.message}`
+        } else {
+          error.value = String(err)
+        }
       })
   }
 

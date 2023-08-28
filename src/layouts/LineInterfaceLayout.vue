@@ -74,12 +74,10 @@ import { useI18n } from "vue-i18n"
 import { ZodError } from "zod"
 
 import errorRedirectComposable from "composables/error-redirect"
-import { LinkStatus } from "src/global"
+import { LinkStatus, isMandeError } from "src/global"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
-
-import type { MandeError } from "mande"
 
 const appVersion = process.env.APP_VERSION ?? "unknown"
 
@@ -134,10 +132,6 @@ const centrifugoTransport = computed(() => {
 })
 
 onErrorCaptured((err) => {
-  const isMandeError = (err: Error): err is MandeError => {
-    return "body" in err && "response" in err
-  }
-
   const errors: string[] = []
 
   if (isMandeError(err)) {
