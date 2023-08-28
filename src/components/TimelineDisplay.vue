@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDebounceFn, useIntervalFn, useResizeObserver } from "@vueuse/core"
+import { useDebounceFn, useResizeObserver } from "@vueuse/core"
 import { mande } from "mande"
 import { QCard } from "quasar"
 import { computed, nextTick, onMounted, reactive, ref } from "vue"
@@ -147,7 +147,7 @@ onMounted(() => {
     }
   })
 
-  useIntervalFn(drawTimeline, timelineRefreshMillis)
+  setInterval(drawTimeline, timelineRefreshMillis)
 })
 
 await init(wasmUrl)
