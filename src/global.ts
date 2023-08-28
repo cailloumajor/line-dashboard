@@ -7,9 +7,9 @@ export const centrifugoNamespace = "opcua.data"
 
 export const loadingErrorStorageKey = "loading-error"
 
-export const shiftDurationMillis = 8 * 60 * 60 * 1000
-
 export const timelineRefreshMillis = 60_000
+
+export const performanceRefreshMillis = 60_000
 
 export enum LinkStatus {
   Unknown,

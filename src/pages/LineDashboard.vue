@@ -7,7 +7,6 @@
       :value="metric.value"
       :color="metric.color"
       :data-valid="machineDataLinkStatusStore.dataValid"
-      :disable-value="metric.disableValue"
       :data-cy="`metric-${index}`"
       :style="metricStyle"
     >
@@ -66,6 +65,7 @@ import {
   useNow,
   usePreferredLanguages,
 } from "@vueuse/core"
+import dayjs from "dayjs"
 import { mande } from "mande"
 import { QPage, colors, useMeta } from "quasar"
 import { computed, onMounted, reactive, ref } from "vue"
@@ -74,7 +74,11 @@ import { useI18n } from "vue-i18n"
 import DashboardMetric from "components/DashboardMetric.vue"
 import machineDataComposable from "composables/machine-data"
 import TimelineDisplay from "src/components/TimelineDisplay.vue"
-import { computeApiPath, configApiPath, shiftDurationMillis } from "src/global"
+import {
+  computeApiPath,
+  configApiPath,
+  performanceRefreshMillis,
+} from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
@@ -106,7 +110,6 @@ const commonStore = useCommonLineInterfaceConfigStore()
 const { getPaletteColor } = colors
 const { machineDataLinkBoot } = machineDataComposable.useMachineDataLinkBoot()
 const machineDataLinkStatusStore = useMachineDataLinkStatusStore()
-const now = useNow({ interval: 1000 })
 const languages = usePreferredLanguages()
 
 onMounted(() => {
@@ -136,24 +139,14 @@ const machineData = reactive<MachineData>({
 
 const pageElem = ref<InstanceType<typeof QPage> | null>(null)
 
-const productionObjective = ref(3500)
-
 const stopped = computed(
   () =>
     machineDataLinkStatusStore.dataValid &&
     (!machineData.val.cycle || machineData.val.cycleTimeOver),
 )
 
-const effectiveness = computed(() => {
-  const firstShiftEnd = +new Date(now.value).setHours(5, 30, 0, 0)
-  const endMillis = [0, 1, 2, 3]
-    .map((i) => firstShiftEnd + shiftDurationMillis * i)
-    .find((shiftEnd) => +now.value < shiftEnd) as number
-  const shiftElapsedMillis = +now.value - (endMillis - shiftDurationMillis)
-  const shiftElapsedRatio = shiftElapsedMillis / shiftDurationMillis
-  const expectedProductionNow = productionObjective.value * shiftElapsedRatio
-  return (machineData.val.goodParts / expectedProductionNow) * 100
-})
+const performanceRatio = ref(NaN)
+const performanceError = ref(false)
 
 const rowsHeightValid = ref(false)
 const rowsHeight = ref([0, 0, 0, 0])
@@ -239,8 +232,15 @@ const metrics = computed(() => {
       iconName: "speed",
       title: t("metrics.performance"),
       unit: "%",
-      value: fixedFractional.format(effectiveness.value),
-      disableValue: true,
+      value: performanceError.value
+        ? "ERR"
+        : fixedFractional.format(performanceRatio.value),
+      color:
+        performanceRatio.value > 70
+          ? "positive"
+          : performanceRatio.value > 50
+          ? "warning"
+          : "negative",
     },
   ]
 })
@@ -311,6 +311,21 @@ const timelineLegend = computed<Status[]>(() => [
   { text: t("statuses.campaignChange"), color: "info" },
   { text: t("statuses.stopped"), color: "negative" },
 ])
+
+const updatePerformance = () => {
+  mande(`${computeApiPath}/performance`)
+    .get<number>(props.id, { headers: { "client-time": dayjs().format() } })
+    .then((value) => {
+      performanceError.value = false
+      performanceRatio.value = value
+    })
+    .catch(() => {
+      performanceRatio.value = NaN
+      performanceError.value = true
+    })
+}
+updatePerformance()
+setInterval(updatePerformance, performanceRefreshMillis)
 
 machineDataLinkBoot(machineData, props.id)
 </script>

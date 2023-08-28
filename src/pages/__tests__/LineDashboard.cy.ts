@@ -5,12 +5,18 @@ import LineDashboardWrapper from "app/test/cypress/wrappers/LineDashboardWrapper
 import QPage from "app/test/cypress/wrappers/QPageStub.vue"
 import TimelineDisplay from "app/test/cypress/wrappers/TimelineDisplayStub.vue"
 import machineDataComposable from "composables/machine-data"
-import { LinkStatus, configApiPath, shiftDurationMillis } from "src/global"
+import {
+  LinkStatus,
+  computeApiPath,
+  configApiPath,
+  performanceRefreshMillis,
+} from "src/global"
 import { lineDashboardConfigSchema } from "src/schemas"
 import { useCampaignDataStore } from "stores/campaign-data"
 import { useCommonLineInterfaceConfigStore } from "stores/common-line-interface-config"
 import { useMachineDataLinkStatusStore } from "stores/machine-data-link"
 
+import type { CyHttpMessages } from "cypress/types/net-stubbing"
 import type { SinonStub } from "cypress/types/sinon"
 import type { MachineData } from "src/global"
 import type { Ref } from "vue"
@@ -58,6 +64,7 @@ describe("LineDashboard", () => {
       .resolves({
         title: "",
       })
+    cy.intercept(`${computeApiPath}/performance/*`, { body: 0.0 })
 
     const machineDataLinkBoot = cy.stub().as("machine-data-link-boot-stub")
     cy.stub(machineDataComposable, "useMachineDataLinkBoot").returns({
@@ -227,43 +234,6 @@ describe("LineDashboard", () => {
       mountComponent()
     })
 
-    it("calculates the effectiveness", () => {
-      cy.clock(new Date(1970, 0, 1, 5, 30).getTime())
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "0.0")
-
-      cy.tick(shiftDurationMillis / 2)
-      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
-        proxy.value = {
-          val: {
-            goodParts: 1400,
-          },
-          ts: {},
-        }
-      })
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "80.0")
-
-      cy.tick(shiftDurationMillis / 2 - 1) // The millisecond just before next shift
-      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
-        proxy.value = {
-          val: {
-            goodParts: 3325,
-          },
-          ts: {},
-        }
-      })
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "95.0")
-
-      cy.get<Ref<PartialMachineData>>("@proxy").then((proxy) => {
-        proxy.value = {
-          val: {
-            goodParts: 3693,
-          },
-          ts: {},
-        }
-      })
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "105.5")
-    })
-
     it("gives contextual colors to metrics", () => {
       cy.wrap(useCampaignDataStore()).invoke("$patch", {
         targetCycleTime: 100,
@@ -399,6 +369,86 @@ describe("LineDashboard", () => {
       })
       cy.dataCy("status-text").should("have.class", "text-positive")
       cy.dataCy("status-duration").should("not.exist")
+    })
+  })
+
+  context("performance ratio", () => {
+    beforeEach(() => {
+      function stubbedReply(ret: number) {
+        return function (req: CyHttpMessages.IncomingHttpRequest) {
+          return req.reply({ body: ret })
+        }
+      }
+      cy.intercept(
+        `${computeApiPath}/performance/*`,
+        cy
+          .stub()
+          .as("performance-request-stub")
+          .onFirstCall()
+          .callsFake(stubbedReply(12.32323232))
+          .onSecondCall()
+          .callsFake(stubbedReply(51.22323232))
+          .onThirdCall()
+          .callsFake(stubbedReply(78.92323232)),
+      ).as("performance-request")
+      cy.clock(new Date(1984, 11, 9, 4, 30).getTime())
+    })
+
+    it("shows fetch error", () => {
+      cy.get<SinonStub>("@performance-request-stub").invoke("reset")
+      cy.get<SinonStub>("@performance-request-stub").invoke(
+        "callsFake",
+        (req: CyHttpMessages.IncomingHttpRequest) => {
+          req.reply({ statusCode: 500 })
+        },
+      )
+
+      mountComponent()
+
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "ERR")
+      cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
+    })
+
+    it("passes current time to compute API", () => {
+      mountComponent()
+
+      cy.wait("@performance-request")
+        .its("request.headers")
+        .should("include", { "client-time": "1984-12-09T04:30:00+03:00" })
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.wait("@performance-request")
+        .its("request.headers")
+        .should("include", { "client-time": "1984-12-09T04:31:00+03:00" })
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.wait("@performance-request")
+        .its("request.headers")
+        .should("include", { "client-time": "1984-12-09T04:32:00+03:00" })
+    })
+
+    it("sets the metric text", () => {
+      mountComponent()
+
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "12.3")
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "51.2")
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "78.9")
+    })
+
+    it("sets the metric color", () => {
+      mountComponent()
+
+      cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("color").should("have.text", "warning")
+
+      cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("color").should("have.text", "positive")
     })
   })
 
