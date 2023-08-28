@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.11.0](https://github.com/cailloumajor/factory-frontend/compare/v1.10.3...v1.11.0) (2023-08-28)
+
+
+### Features
+
+* display performance ratio ([82822e2](https://github.com/cailloumajor/factory-frontend/commit/82822e298b2c31fc2f02c83c9c397c652642c402))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v10.4.0 ([65bc1b5](https://github.com/cailloumajor/factory-frontend/commit/65bc1b56580414a2352c2e953dd83828660543dd))
+* **deps:** update dependency @vueuse/core to v10.4.1 ([b9fe613](https://github.com/cailloumajor/factory-frontend/commit/b9fe6135ddaa6f0feb7a22d848a09f9e079af91c))
+* handle fetch error in timeline display ([4b7afcf](https://github.com/cailloumajor/factory-frontend/commit/4b7afcf4708ad8536e256bf06abf7491b64204c0))
+* remove unneeded overhead of useIntervalFn ([7629022](https://github.com/cailloumajor/factory-frontend/commit/7629022ee150829bdfe297474c01a2748f9c9eb9))
+
 ## [1.10.3](https://github.com/cailloumajor/factory-frontend/compare/v1.10.2...v1.10.3) (2023-08-21)
 
 
