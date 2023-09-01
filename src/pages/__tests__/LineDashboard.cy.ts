@@ -63,6 +63,7 @@ describe("LineDashboard", () => {
       .as("schema-parse-stub")
       .resolves({
         title: "",
+        targetCycleTime: 0,
       })
     cy.intercept(`${computeApiPath}/performance/*`, { body: 0.0 })
 
@@ -128,17 +129,19 @@ describe("LineDashboard", () => {
   })
 
   it("requests the config API according to id prop", () => {
-    const handled = { count: 0 }
-    cy.wrap(handled).as("handled")
-
-    cy.intercept(`${configApiPath}/testid`, (req) => {
-      handled.count += 1
-      req.reply({})
-    })
+    cy.intercept(
+      `${configApiPath}/testid`,
+      cy
+        .stub()
+        .as("response-stub")
+        .callsFake((req: CyHttpMessages.IncomingHttpRequest) => {
+          req.reply({})
+        }),
+    )
 
     mountComponent({ id: "testid" })
 
-    cy.get("@handled").its("count").should("equal", 1)
+    cy.get<SinonStub>("@response-stub").should("have.been.calledOnce")
   })
 
   it("validates config data against schema", () => {
@@ -157,6 +160,7 @@ describe("LineDashboard", () => {
   it("sets the title in the common line interface store", () => {
     cy.get<SinonStub>("@schema-parse-stub").invoke("resolves", {
       title: "Stubbed Title",
+      targetCycleTime: 0,
     })
 
     mountComponent()
@@ -164,6 +168,19 @@ describe("LineDashboard", () => {
     cy.wrap(useCommonLineInterfaceConfigStore())
       .its("title")
       .should("equal", "Stubbed Title")
+  })
+
+  it("sets the target cycle time in the campaign store", () => {
+    cy.get<SinonStub>("@schema-parse-stub").invoke("resolves", {
+      title: "",
+      targetCycleTime: 42.42,
+    })
+
+    mountComponent()
+
+    cy.wrap(useCampaignDataStore())
+      .its("targetCycleTime")
+      .should("equal", 42.42)
   })
 
   it("calls machine data link bootstrap function", () => {

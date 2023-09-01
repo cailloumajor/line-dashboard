@@ -300,6 +300,7 @@ const statusDuration = computed(() => {
 const resp = await mande(configApiPath).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
+campaignDataStore.targetCycleTime = config.targetCycleTime
 
 const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
 const timelinePalette = ["negative", "warning", "positive", "info"].map(
