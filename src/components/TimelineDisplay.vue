@@ -146,16 +146,17 @@ onMounted(() => {
     200,
   )
 
-  useResizeObserver(cardElem, (entries) => {
-    for (const entry of entries) {
-      if (entry.contentBoxSize?.length) {
-        cardHeight.value = entry.contentBoxSize[0].blockSize
-        onResize(entry.contentBoxSize[0])
+  setTimeout(() => {
+    useResizeObserver(cardElem, (entries) => {
+      for (const entry of entries) {
+        if (entry.contentBoxSize?.length) {
+          cardHeight.value = entry.contentBoxSize[0].blockSize
+          onResize(entry.contentBoxSize[0])
+        }
       }
-    }
-  })
-
-  setInterval(drawTimeline, timelineRefreshMillis)
+    })
+    setInterval(drawTimeline, timelineRefreshMillis)
+  }, 200)
 })
 
 await init(wasmUrl)

@@ -62,6 +62,9 @@ app.get("/compute-api/timeline/*", (req, res) => {
   res.type("application/msgpack")
   res.send(Buffer.from(timelineData, "base64"))
 })
+app.get("/compute-api/performance/*", (req, res) => {
+  res.json(0)
+})
 
 app.put("/change-origin", express.text(), (req, res) => {
   changeOrigin = req.body

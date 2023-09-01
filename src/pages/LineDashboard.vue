@@ -315,7 +315,12 @@ const timelineLegend = computed<Status[]>(() => [
 
 const updatePerformance = () => {
   mande(`${computeApiPath}/performance`)
-    .get<number>(props.id, { headers: { "client-time": dayjs().format() } })
+    .get<number>(props.id, {
+      query: {
+        clientTime: dayjs().format(),
+        targetCycleTime: campaignDataStore.targetCycleTime,
+      },
+    })
     .then((value) => {
       performanceError.value = false
       performanceRatio.value = value
@@ -325,8 +330,11 @@ const updatePerformance = () => {
       performanceError.value = true
     })
 }
-updatePerformance()
-setInterval(updatePerformance, performanceRefreshMillis)
+
+setTimeout(() => {
+  updatePerformance()
+  setInterval(updatePerformance, performanceRefreshMillis)
+}, 1000)
 
 machineDataLinkBoot(machineData, props.id)
 </script>

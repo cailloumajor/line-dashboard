@@ -422,6 +422,8 @@ describe("LineDashboard", () => {
 
       mountComponent()
 
+      cy.tick(1100)
+
       cy.dataCy("metric-4").dataCy("value").should("have.text", "ERR")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
     })
@@ -429,24 +431,40 @@ describe("LineDashboard", () => {
     it("passes current time to compute API", () => {
       mountComponent()
 
+      cy.tick(1100)
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:30:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:30:01+03:00" })
 
       cy.tick(performanceRefreshMillis * 1.1)
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:31:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:31:01+03:00" })
 
       cy.tick(performanceRefreshMillis * 1.1)
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:32:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:32:01+03:00" })
+    })
+
+    it("passes target cycle time to compute API", () => {
+      mountComponent()
+
+      cy.wrap(useCampaignDataStore()).invoke("$patch", {
+        targetCycleTime: 64.46,
+      })
+
+      cy.tick(1100)
+
+      cy.wait("@performance-request")
+        .its("request.query")
+        .should("include", { targetCycleTime: "64.46" })
     })
 
     it("sets the metric text", () => {
       mountComponent()
 
+      cy.tick(1100)
       cy.dataCy("metric-4").dataCy("value").should("have.text", "12.3")
 
       cy.tick(performanceRefreshMillis * 1.1)
@@ -459,6 +477,7 @@ describe("LineDashboard", () => {
     it("sets the metric color", () => {
       mountComponent()
 
+      cy.tick(1100)
       cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
 
       cy.tick(performanceRefreshMillis * 1.1)
