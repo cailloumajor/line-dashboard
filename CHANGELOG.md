@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.0.0](https://github.com/cailloumajor/factory-frontend/compare/v1.11.0...v2.0.0) (2023-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* pass client time as a query parameter
+* get target cycle time from config API
+
+### Features
+
+* get target cycle time from config API ([30abb83](https://github.com/cailloumajor/factory-frontend/commit/30abb83860490dcff5132ffff81c410ebca932b3))
+* pass client time as a query parameter ([63c3b31](https://github.com/cailloumajor/factory-frontend/commit/63c3b315789d043599c8fb155d730f3c2a990936))
+* pass target cycle time to performance API ([3d56e55](https://github.com/cailloumajor/factory-frontend/commit/3d56e55926d76582d8cb5e0515f8f18f5a1f4894))
+* pass target cycle time to timeline compute API ([5a07b71](https://github.com/cailloumajor/factory-frontend/commit/5a07b71e0980cd1808945781456aba72cfc4dc5f))
+
+
+### Bug Fixes
+
+* add initial delay to timeline ([cd716a8](https://github.com/cailloumajor/factory-frontend/commit/cd716a895a7009ca283bd5ad7795c8df758596ea))
+* **deps:** update dependency @quasar/extras to v1.16.6 ([0f48474](https://github.com/cailloumajor/factory-frontend/commit/0f48474df06b79a694e7445b7557c17ae712eb3b))
+
 ## [1.11.0](https://github.com/cailloumajor/factory-frontend/compare/v1.10.3...v1.11.0) (2023-08-28)
 
 
