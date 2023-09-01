@@ -117,9 +117,6 @@ describe("TimelineDisplay", () => {
       targetCycleTime: 84.653,
     })
 
-    // The first request is issued before the store has refreshed, so assert on
-    // the second request.
-    cy.wait("@timeline-request")
     cy.wait("@timeline-request")
       .its("request.query")
       .should("include", { targetCycleTime: "84.653" })
