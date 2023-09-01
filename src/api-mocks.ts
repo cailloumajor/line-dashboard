@@ -13,6 +13,7 @@ const handlers = [
     res(
       ctx.json({
         title: "Test Title",
+        targetCycleTime: 12.34,
       }),
     ),
   ),

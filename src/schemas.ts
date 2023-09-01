@@ -5,5 +5,7 @@ export const commonLineInterfaceConfigSchema = z.object({
 })
 
 export const lineDashboardConfigSchema = commonLineInterfaceConfigSchema.extend(
-  {},
+  {
+    targetCycleTime: z.number().positive(),
+  },
 )

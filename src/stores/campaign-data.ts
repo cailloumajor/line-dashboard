@@ -4,7 +4,7 @@ export const useCampaignDataStore = defineStore("campaign-data", {
   state: () => ({
     currentCampaign: "?",
     dataValidForCampaign: "!INVALID!",
-    targetCycleTime: 21.24, // TODO: restore to 0 after implementing
+    targetCycleTime: 0,
   }),
 
   actions: {

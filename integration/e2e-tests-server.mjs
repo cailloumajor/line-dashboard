@@ -53,6 +53,7 @@ app.all(/\/centrifugo\/(emulation|connection\/sse)/, (req, res) => {
 app.get("/config-api/*", (req, res) => {
   res.json({
     title: "End-to-end tests",
+    targetCycleTime: 54.78,
   })
 })
 
