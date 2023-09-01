@@ -1,5 +1,6 @@
 import TimelineDisplayWrapper from "app/test/cypress/wrappers/TimelineDisplayWrapper.vue"
 import { timelineRefreshMillis } from "src/global"
+import { useCampaignDataStore } from "src/stores/campaign-data"
 
 import useWasmUtils from "../frontend-utils-wasm"
 
@@ -22,7 +23,7 @@ const mountComponent = () => {
 
 describe("TimelineDisplay", () => {
   beforeEach(() => {
-    cy.intercept("/timeline-compute-api", new Uint8Array())
+    cy.intercept({ pathname: "/timeline-compute-api" }, new Uint8Array())
     cy.stub(useWasmUtils, "init").as("wasm-init-stub").resolves()
     const mockedTimeline = new MockedTimeline()
     cy.stub(mockedTimeline, "draw").as("draw-stub").resolves()
@@ -32,7 +33,7 @@ describe("TimelineDisplay", () => {
   })
 
   it("shows fetch error", () => {
-    cy.intercept("/timeline-compute-api", { statusCode: 500 })
+    cy.intercept({ pathname: "/timeline-compute-api" }, { statusCode: 500 })
 
     mountComponent()
 
@@ -105,10 +106,23 @@ describe("TimelineDisplay", () => {
 
   it("requests compute API and passes data to draw method", () => {
     const body = new Uint8Array([0x01, 0x02, 0x03, 0x04])
-    cy.intercept("/timeline-compute-api", { body: body.buffer })
+    cy.intercept(
+      { pathname: "/timeline-compute-api" },
+      { body: body.buffer },
+    ).as("timeline-request")
 
     mountComponent()
 
+    cy.wrap(useCampaignDataStore()).invoke("$patch", {
+      targetCycleTime: 84.653,
+    })
+
+    // The first request is issued before the store has refreshed, so assert on
+    // the second request.
+    cy.wait("@timeline-request")
+    cy.wait("@timeline-request")
+      .its("request.query")
+      .should("include", { targetCycleTime: "84.653" })
     cy.get<SinonStub>("@draw-stub").should("have.been.calledWith", body)
   })
 

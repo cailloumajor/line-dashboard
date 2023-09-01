@@ -41,6 +41,7 @@ import { QCard } from "quasar"
 import { computed, nextTick, onMounted, reactive, ref } from "vue"
 
 import { isMandeError, timelineRefreshMillis } from "src/global"
+import { useCampaignDataStore } from "src/stores/campaign-data"
 
 import wasmUtils from "./frontend-utils-wasm"
 
@@ -62,6 +63,8 @@ const props = defineProps<{
   emphasisLabels: string[]
   legend: LegendItem[]
 }>()
+
+const campaignDataStore = useCampaignDataStore()
 
 const cardElem = ref<InstanceType<typeof QCard> | null>(null)
 const canvasElem = ref<HTMLCanvasElement | null>(null)
@@ -109,7 +112,12 @@ onMounted(() => {
 
   const drawTimeline = () => {
     mande(props.computeApiUrl)
-      .get({ responseAs: "response" })
+      .get({
+        query: {
+          targetCycleTime: campaignDataStore.targetCycleTime,
+        },
+        responseAs: "response",
+      })
       .then((response) => {
         return response.arrayBuffer()
       })
