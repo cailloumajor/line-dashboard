@@ -430,18 +430,18 @@ describe("LineDashboard", () => {
       mountComponent()
 
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:30:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:30:00+03:00" })
 
       cy.tick(performanceRefreshMillis * 1.1)
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:31:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:31:00+03:00" })
 
       cy.tick(performanceRefreshMillis * 1.1)
       cy.wait("@performance-request")
-        .its("request.headers")
-        .should("include", { "client-time": "1984-12-09T04:32:00+03:00" })
+        .its("request.query")
+        .should("include", { clientTime: "1984-12-09T04:32:00+03:00" })
     })
 
     it("sets the metric text", () => {

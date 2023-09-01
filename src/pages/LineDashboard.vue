@@ -315,7 +315,7 @@ const timelineLegend = computed<Status[]>(() => [
 
 const updatePerformance = () => {
   mande(`${computeApiPath}/performance`)
-    .get<number>(props.id, { headers: { "client-time": dayjs().format() } })
+    .get<number>(props.id, { query: { clientTime: dayjs().format() } })
     .then((value) => {
       performanceError.value = false
       performanceRatio.value = value
