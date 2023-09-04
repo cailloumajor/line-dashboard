@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/cailloumajor/factory-frontend/compare/v2.0.0...v2.0.1) (2023-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency quasar to v2.12.6 ([f11aca9](https://github.com/cailloumajor/factory-frontend/commit/f11aca9faef989c181ee591107badbf795f65020))
+* revert positive and warning in timeline palette ([a597564](https://github.com/cailloumajor/factory-frontend/commit/a597564e7ac6170d48e395e98bd1f9ffe890b36d))
+
 ## [2.0.0](https://github.com/cailloumajor/factory-frontend/compare/v1.11.0...v2.0.0) (2023-09-01)
 
 
