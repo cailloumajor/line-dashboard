@@ -303,7 +303,7 @@ commonStore.title = config.title
 campaignDataStore.targetCycleTime = config.targetCycleTime
 
 const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
-const timelinePalette = ["negative", "warning", "positive", "info"].map(
+const timelinePalette = ["negative", "positive", "warning", "info"].map(
   getPaletteColor,
 )
 const timelineLegend = computed<Status[]>(() => [
