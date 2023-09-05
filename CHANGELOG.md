@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2](https://github.com/cailloumajor/factory-frontend/compare/v2.0.1...v2.0.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-i18n to v9.3.0 ([0117497](https://github.com/cailloumajor/factory-frontend/commit/011749765eab3cc0e2fa65cb8da772646fe5f7d7))
+* remove tuning in progress indication ([ed17e02](https://github.com/cailloumajor/factory-frontend/commit/ed17e029859be7449577270aa848d970fe247649))
+
 ## [2.0.1](https://github.com/cailloumajor/factory-frontend/compare/v2.0.0...v2.0.1) (2023-09-04)
 
 
