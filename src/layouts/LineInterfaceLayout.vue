@@ -9,14 +9,6 @@
             campaignDataStore.currentCampaign
           }}
         </QToolbarTitle>
-        <span
-          style="right: 0"
-          class="absolute q-mr-md text-orange text-h5 text-uppercase"
-        >
-          <QIcon name="construction" />
-          {{ t("tuningInProgress") }}
-          <QIcon name="construction" />
-        </span>
       </QToolbar>
     </QHeader>
 

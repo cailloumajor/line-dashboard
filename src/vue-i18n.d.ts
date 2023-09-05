@@ -3,7 +3,6 @@ import "vue-i18n"
 
 declare module "vue-i18n" {
   export interface DefineLocaleMessage {
-    tuningInProgress: string
     pageNotFound: string
     nothingHere: string
     goHome: string
