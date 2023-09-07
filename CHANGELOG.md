@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/cailloumajor/factory-frontend/compare/v2.0.2...v2.1.0) (2023-09-07)
+
+
+### Features
+
+* remove target cycle time API query param ([87328ed](https://github.com/cailloumajor/factory-frontend/commit/87328eda1782d7fea067ce8029ea02cbdc307e25))
+
 ## [2.0.2](https://github.com/cailloumajor/factory-frontend/compare/v2.0.1...v2.0.2) (2023-09-05)
 
 
