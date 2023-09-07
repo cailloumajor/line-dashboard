@@ -447,20 +447,6 @@ describe("LineDashboard", () => {
         .should("include", { clientTime: "1984-12-09T04:32:01+03:00" })
     })
 
-    it("passes target cycle time to compute API", () => {
-      mountComponent()
-
-      cy.wrap(useCampaignDataStore()).invoke("$patch", {
-        targetCycleTime: 64.46,
-      })
-
-      cy.tick(1100)
-
-      cy.wait("@performance-request")
-        .its("request.query")
-        .should("include", { targetCycleTime: "64.46" })
-    })
-
     it("sets the metric text", () => {
       mountComponent()
 

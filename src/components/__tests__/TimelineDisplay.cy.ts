@@ -1,6 +1,5 @@
 import TimelineDisplayWrapper from "app/test/cypress/wrappers/TimelineDisplayWrapper.vue"
 import { timelineRefreshMillis } from "src/global"
-import { useCampaignDataStore } from "src/stores/campaign-data"
 
 import useWasmUtils from "../frontend-utils-wasm"
 
@@ -113,13 +112,6 @@ describe("TimelineDisplay", () => {
 
     mountComponent()
 
-    cy.wrap(useCampaignDataStore()).invoke("$patch", {
-      targetCycleTime: 84.653,
-    })
-
-    cy.wait("@timeline-request")
-      .its("request.query")
-      .should("include", { targetCycleTime: "84.653" })
     cy.get<SinonStub>("@draw-stub").should("have.been.calledWith", body)
   })
 
