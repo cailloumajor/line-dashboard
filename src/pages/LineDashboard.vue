@@ -318,7 +318,6 @@ const updatePerformance = () => {
     .get<number>(props.id, {
       query: {
         clientTime: dayjs().format(),
-        targetCycleTime: campaignDataStore.targetCycleTime,
       },
     })
     .then((value) => {
