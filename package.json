@@ -19,7 +19,7 @@
     "@cailloumajor/frontend-utils-wasm": "3.0.1",
     "@quasar/extras": "1.16.6",
     "@vueuse/core": "10.4.1",
-    "centrifuge": "4.1.0",
+    "centrifuge": "5.0.0",
     "dayjs": "1.11.9",
     "locale-matcher": "2.0.0",
     "mande": "2.0.7",
