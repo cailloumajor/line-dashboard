@@ -1689,13 +1689,13 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==
 
-centrifuge@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/centrifuge/-/centrifuge-4.1.0.tgz#4981ad36f051f44a12a77c8834b0798bc8dab791"
-  integrity sha512-h1DM0ZtchKk/p1LrjWmjtD3K154VMSwNkcESTIxDEyyMR4oZQDdG78VHpJbwMmvIeUvmRGAemGxGZs2jSSkpbA==
+centrifuge@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/centrifuge/-/centrifuge-5.0.0.tgz#86aedb265838b61dd813cf9928ebb2bd20339c55"
+  integrity sha512-SYBaMnkOFJfrxVfv1Kiqqzq3TJZsFn4L8EDbN8C9F+xEXTTHkllmjrUqVYcL8mOyfQhOS/y3FxITrhrHTyBJ6w==
   dependencies:
     events "^3.3.0"
-    protobufjs "^7.2.4"
+    protobufjs "^7.2.5"
 
 chalk@4.1.2, chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   version "4.1.2"
@@ -5161,7 +5161,7 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
 
-protobufjs@^7.2.4:
+protobufjs@^7.2.5:
   version "7.2.5"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.5.tgz#45d5c57387a6d29a17aab6846dcc283f9b8e7f2d"
   integrity sha512-gGXRSXvxQ7UiPgfw8gevrfRWcTlSbOFg+p/N+JVJEK5VhueL2miT6qTymqAmjr1Q5WbOCyJbyrk6JfWKwlFn6A==
