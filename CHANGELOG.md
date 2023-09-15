@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.2.0](https://github.com/cailloumajor/factory-frontend/compare/v2.1.0...v2.2.0) (2023-09-15)
+
+
+### Features
+
+* pass client timezone header in performance query ([667bce0](https://github.com/cailloumajor/factory-frontend/commit/667bce00e112ebc3447f9bfe91e203a543c7469f))
+
+
+### Bug Fixes
+
+* **deps:** update dependency centrifuge to v5 ([51df769](https://github.com/cailloumajor/factory-frontend/commit/51df769d018a84bc4ea2d6683ffb0f79c075d990))
+* **deps:** update dependency quasar to v2.12.7 ([0dc92b3](https://github.com/cailloumajor/factory-frontend/commit/0dc92b3dd3eb6b5f39c3f07c30e9e31396e76b0a))
+* **deps:** update dependency vue-i18n to v9.4.0 ([eef3553](https://github.com/cailloumajor/factory-frontend/commit/eef355374575b29d306ff0441a57932d96ec6ef7))
+* **deps:** update dependency vue-i18n to v9.4.1 ([f3291c8](https://github.com/cailloumajor/factory-frontend/commit/f3291c8a06b70a7b914f8c26e46d64dc4e4c611d))
+
 ## [2.1.0](https://github.com/cailloumajor/factory-frontend/compare/v2.0.2...v2.1.0) (2023-09-07)
 
 
