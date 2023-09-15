@@ -408,7 +408,7 @@ describe("LineDashboard", () => {
           .onThirdCall()
           .callsFake(stubbedReply(78.92323232)),
       ).as("performance-request")
-      cy.clock(new Date(1984, 11, 9, 4, 30).getTime())
+      cy.clock()
     })
 
     it("shows fetch error", () => {
@@ -422,54 +422,30 @@ describe("LineDashboard", () => {
 
       mountComponent()
 
-      cy.tick(1100)
-
       cy.dataCy("metric-4").dataCy("value").should("have.text", "ERR")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
     })
 
-    it("passes current time to compute API", () => {
+    it("passes client timezone to compute API", () => {
       mountComponent()
 
-      cy.tick(1100)
       cy.wait("@performance-request")
-        .its("request.query")
-        .should("include", { clientTime: "1984-12-09T04:30:01+03:00" })
-
-      cy.tick(performanceRefreshMillis * 1.1)
-      cy.wait("@performance-request")
-        .its("request.query")
-        .should("include", { clientTime: "1984-12-09T04:31:01+03:00" })
-
-      cy.tick(performanceRefreshMillis * 1.1)
-      cy.wait("@performance-request")
-        .its("request.query")
-        .should("include", { clientTime: "1984-12-09T04:32:01+03:00" })
+        .its("request.headers")
+        .should("include", { "client-timezone": "Etc/GMT+3" })
     })
 
-    it("sets the metric text", () => {
+    it("sets the metric text and color", () => {
       mountComponent()
 
-      cy.tick(1100)
       cy.dataCy("metric-4").dataCy("value").should("have.text", "12.3")
-
-      cy.tick(performanceRefreshMillis * 1.1)
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "51.2")
-
-      cy.tick(performanceRefreshMillis * 1.1)
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "78.9")
-    })
-
-    it("sets the metric color", () => {
-      mountComponent()
-
-      cy.tick(1100)
       cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
 
       cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "51.2")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "warning")
 
       cy.tick(performanceRefreshMillis * 1.1)
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "78.9")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "positive")
     })
   })
