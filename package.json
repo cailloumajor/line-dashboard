@@ -12,15 +12,14 @@
     "serve:e2e": "quasar build --debug && node integration/e2e-tests-server.mjs",
     "test:e2e": "start-test serve:e2e http-get://localhost:9090 \"cypress open --e2e\"",
     "test:e2e:ci": "start-test serve:e2e http-get://localhost:9090 \"cypress run --e2e\"",
-    "test:component": "cross-env NODE_ENV=test TZ=GMT+3 cypress open --component",
-    "test:component:ci": "cross-env NODE_ENV=test TZ=GMT+3 cypress run --component"
+    "test:component": "cross-env NODE_ENV=test TZ=Etc/GMT+3 cypress open --component",
+    "test:component:ci": "cross-env NODE_ENV=test TZ=Etc/GMT+3 cypress run --component"
   },
   "dependencies": {
     "@cailloumajor/frontend-utils-wasm": "3.0.1",
     "@quasar/extras": "1.16.6",
     "@vueuse/core": "10.4.1",
     "centrifuge": "5.0.0",
-    "dayjs": "1.11.9",
     "locale-matcher": "2.0.0",
     "mande": "2.0.7",
     "pinia": "2.1.6",

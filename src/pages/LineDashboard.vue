@@ -65,7 +65,6 @@ import {
   useNow,
   usePreferredLanguages,
 } from "@vueuse/core"
-import dayjs from "dayjs"
 import { mande } from "mande"
 import { QPage, colors, useMeta } from "quasar"
 import { computed, onMounted, reactive, ref } from "vue"
@@ -316,8 +315,8 @@ const timelineLegend = computed<Status[]>(() => [
 const updatePerformance = () => {
   mande(`${computeApiPath}/performance`)
     .get<number>(props.id, {
-      query: {
-        clientTime: dayjs().format(),
+      headers: {
+        "Client-Timezone": Intl.DateTimeFormat().resolvedOptions().timeZone,
       },
     })
     .then((value) => {
@@ -328,12 +327,9 @@ const updatePerformance = () => {
       performanceRatio.value = NaN
       performanceError.value = true
     })
+    .finally(() => setTimeout(updatePerformance, performanceRefreshMillis))
 }
-
-setTimeout(() => {
-  updatePerformance()
-  setInterval(updatePerformance, performanceRefreshMillis)
-}, 1000)
+updatePerformance()
 
 machineDataLinkBoot(machineData, props.id)
 </script>
