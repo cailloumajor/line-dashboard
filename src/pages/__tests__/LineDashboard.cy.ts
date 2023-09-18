@@ -431,7 +431,7 @@ describe("LineDashboard", () => {
 
       cy.wait("@performance-request")
         .its("request.headers")
-        .should("include", { "client-timezone": "Etc/GMT+3" })
+        .should("include", { "client-timezone": "UTC" })
     })
 
     it("sets the metric text and color", () => {
