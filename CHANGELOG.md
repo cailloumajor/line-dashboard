@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/cailloumajor/factory-frontend/compare/v2.2.0...v2.2.1) (2023-09-18)
+
+
+### Bug Fixes
+
+* render negative value in metrics as unavailable ([49774d1](https://github.com/cailloumajor/factory-frontend/commit/49774d1b3fb21d6f0fd647eca30244c27cbbb96f))
+
 ## [2.2.0](https://github.com/cailloumajor/factory-frontend/compare/v2.1.0...v2.2.0) (2023-09-15)
 
 
