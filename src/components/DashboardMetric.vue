@@ -10,12 +10,8 @@
       class="metric-value no-padding"
       data-cy="metric-value-section"
     >
-      <div
-        v-if="dataValid"
-        :class="color !== undefined ? `text-${color}` : undefined"
-        data-cy="metric-value-text"
-      >
-        {{ value }}
+      <div v-if="dataValid" :class="rendered.color" data-cy="metric-value-text">
+        {{ rendered.text }}
       </div>
       <QSkeleton v-else type="text" class="q-mx-auto" width="1em"></QSkeleton>
     </QCardSection>
@@ -23,11 +19,25 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { computed } from "vue"
+
+const props = defineProps<{
   value: number | string
   color?: string
   dataValid: boolean
 }>()
+
+const rendered = computed(() =>
+  (props.value as number) < 0
+    ? {
+        text: "---",
+        color: "text-grey-7",
+      }
+    : {
+        text: props.value,
+        color: props.color !== undefined ? `text-${props.color}` : undefined,
+      },
+)
 </script>
 
 <style module lang="scss">

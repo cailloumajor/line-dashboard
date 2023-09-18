@@ -37,6 +37,19 @@ describe("DashboardMetric", () => {
     )
   })
 
+  it("renders negative value", () => {
+    cy.mount(DashboardMetric, {
+      props: {
+        value: -1,
+        dataValid: true,
+      },
+    })
+
+    cy.dataCy("metric-value-text")
+      .should("have.text", "---")
+      .and("have.class", "text-grey-7")
+  })
+
   it("displays numeric value according to props", () => {
     cy.mount(DashboardMetric, {
       props: {
