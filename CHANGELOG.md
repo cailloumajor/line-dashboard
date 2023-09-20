@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/cailloumajor/factory-frontend/compare/v2.2.1...v2.2.2) (2023-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update node.js to v18.18.0 ([69cc688](https://github.com/cailloumajor/factory-frontend/commit/69cc688b88a02ea5bfd7df251c287c0efc8636bb))
+
 ## [2.2.1](https://github.com/cailloumajor/factory-frontend/compare/v2.2.0...v2.2.1) (2023-09-18)
 
 
