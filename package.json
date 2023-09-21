@@ -43,7 +43,7 @@
     "@types/node": "18.17.18",
     "@vue/eslint-config-prettier": "8.0.0",
     "@vue/eslint-config-typescript": "12.0.0",
-    "autoprefixer": "10.4.15",
+    "autoprefixer": "10.4.16",
     "colortranslator": "3.0.2",
     "connect-history-api-fallback": "2.0.0",
     "cypress": "13.1.0",
