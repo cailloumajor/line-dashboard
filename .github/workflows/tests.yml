@@ -29,7 +29,7 @@ jobs:
     env:
       GHP_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Get Node version from Dockerfile
         id: get-node-version
         run: echo "node_version=$(grep -oP 'FROM .* node:\K[\d.]+' Dockerfile)" >> $GITHUB_OUTPUT
@@ -66,7 +66,7 @@ jobs:
     env:
       GHP_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Start services
         run: docker compose --project-directory integration up -d
       - name: Get Node version from Dockerfile
@@ -99,7 +99,7 @@ jobs:
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
       - name: Set up Docker Buildx
