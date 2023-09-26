@@ -49,7 +49,15 @@ describe("ErrorDashboardLogging", () => {
       props: {
         autoback: 1,
       },
-      router,
+      global: {
+        plugins: [
+          {
+            install(app) {
+              app.use(router)
+            },
+          },
+        ],
+      },
     })
 
     cy.dataCy("countdown").should("contain.text", " 1 ")

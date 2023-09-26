@@ -5,9 +5,24 @@ import ErrorRedirectWrapper from "app/test/cypress/wrappers/ErrorRedirectWrapper
 import { loadingErrorStorageKey } from "src/global"
 
 describe("error redirect composable", () => {
-  it("writes errors to session storage", () => {
-    cy.mount(ErrorRedirectWrapper)
+  beforeEach(() => {
+    const router = createRouter({ routes: [], history: createMemoryHistory() })
+    cy.stub(router, "push").as("router-push-stub")
 
+    cy.mount(ErrorRedirectWrapper, {
+      global: {
+        plugins: [
+          {
+            install(app) {
+              app.use(router)
+            },
+          },
+        ],
+      },
+    })
+  })
+
+  it("writes errors to session storage", () => {
     cy.wrap(SessionStorage)
       .as("storage")
       .invoke("remove", loadingErrorStorageKey)
@@ -26,11 +41,6 @@ describe("error redirect composable", () => {
   })
 
   it("redirects to the error page", () => {
-    const router = createRouter({ routes: [], history: createMemoryHistory() })
-    cy.stub(router, "push").as("router-push-stub")
-
-    cy.mount(ErrorRedirectWrapper, { router })
-
     cy.get("@router-push-stub").should("not.have.been.called")
 
     cy.dataCy("action-button").click()

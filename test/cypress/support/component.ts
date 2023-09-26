@@ -31,12 +31,9 @@ import "@quasar/extras/material-icons-outlined/material-icons-outlined.css"
 import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
 import { VueTestUtils } from "cypress/vue"
-import { mount } from "cypress/vue"
 import { Dialog, Loading, Meta, SessionStorage } from "quasar"
-import { createMemoryHistory, createRouter } from "vue-router"
 
 import { i18n } from "src/boot/i18n"
-import routes from "src/router/routes"
 
 import type { TestingPinia } from "@pinia/testing"
 
@@ -47,31 +44,6 @@ const { config } = VueTestUtils
 // You can modify the global config here for all tests or pass in the configuration per test
 // For example use the actual i18n instance or mock it
 config.global.plugins.push(i18n)
-
-// Vue router
-// https://docs.cypress.io/guides/component-testing/vue/examples#Vue-Router
-Cypress.Commands.add("mount", (component, options = {}) => {
-  // Setup options object
-  options.global = options.global || {}
-  options.global.plugins = options.global.plugins || []
-
-  // create router if one is not provided
-  const router =
-    options.router ??
-    createRouter({
-      routes,
-      history: createMemoryHistory(),
-    })
-
-  // Add router plugin
-  options.global.plugins.push({
-    install(app) {
-      app.use(router)
-    },
-  })
-
-  return mount(component, options)
-})
 
 // Pinia
 let testingPinia: TestingPinia
