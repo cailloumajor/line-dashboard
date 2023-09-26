@@ -1,4 +1,5 @@
 import { SessionStorage } from "quasar"
+import { createMemoryHistory, createRouter } from "vue-router"
 
 import { loadingErrorStorageKey } from "src/global"
 
@@ -41,17 +42,21 @@ describe("ErrorDashboardLogging", () => {
   it("routes to previous page when countdown elapses", () => {
     cy.clock()
 
+    const router = createRouter({ routes: [], history: createMemoryHistory() })
+    cy.stub(router, "back").as("router-back-stub")
+
     cy.mount(ErrorDashboardLogging, {
       props: {
         autoback: 1,
       },
+      router,
     })
 
     cy.dataCy("countdown").should("contain.text", " 1 ")
-    cy.get("@router-mock").its("back").should("not.have.been.called")
+    cy.get("@router-back-stub").should("not.have.been.called")
 
     cy.tick(1100)
     cy.dataCy("countdown").should("not.contain.text", " 1 ")
-    cy.get("@router-mock").its("back").should("have.been.calledOnce")
+    cy.get("@router-back-stub").should("have.been.calledOnce")
   })
 })

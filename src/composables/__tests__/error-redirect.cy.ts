@@ -1,12 +1,13 @@
 import { SessionStorage } from "quasar"
+import { createMemoryHistory, createRouter } from "vue-router"
 
 import ErrorRedirectWrapper from "app/test/cypress/wrappers/ErrorRedirectWrapper.vue"
 import { loadingErrorStorageKey } from "src/global"
 
 describe("error redirect composable", () => {
-  beforeEach(() => cy.mount(ErrorRedirectWrapper))
-
   it("writes errors to session storage", () => {
+    cy.mount(ErrorRedirectWrapper)
+
     cy.wrap(SessionStorage)
       .as("storage")
       .invoke("remove", loadingErrorStorageKey)
@@ -25,11 +26,16 @@ describe("error redirect composable", () => {
   })
 
   it("redirects to the error page", () => {
-    cy.get("@router-mock").its("push").as("push").should("not.have.been.called")
+    const router = createRouter({ routes: [], history: createMemoryHistory() })
+    cy.stub(router, "push").as("router-push-stub")
+
+    cy.mount(ErrorRedirectWrapper, { router })
+
+    cy.get("@router-push-stub").should("not.have.been.called")
 
     cy.dataCy("action-button").click()
 
-    cy.get("@push").should(
+    cy.get("@router-push-stub").should(
       "have.been.calledOnceWith",
       Cypress.sinon.match({
         name: "loadingError",
