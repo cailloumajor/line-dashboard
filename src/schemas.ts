@@ -26,7 +26,7 @@ export const engagementCommonConfigSchema = z
     shiftStartTimes: z.array(z.string().regex(/\d{2}:\d{2}:\d{2}/)).nonempty(),
     weekStart: z.object({
       day: z.enum(weekDays),
-      shiftIndex: z.number().positive(),
+      shiftIndex: z.number().nonnegative(),
     }),
   })
   .refine(
