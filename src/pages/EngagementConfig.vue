@@ -99,8 +99,6 @@ const $q = useQuasar()
 const { t, rt, getLocaleMessage } = useI18n()
 const layoutStore = useUserFacingLayoutStore()
 
-console.log(getLocaleMessage("en-US"))
-
 const firstDay = ref("Monday")
 const shifts = ref(["0"])
 const firstShiftIndex = ref(0)
