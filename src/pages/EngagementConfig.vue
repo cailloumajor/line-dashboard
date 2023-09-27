@@ -7,7 +7,7 @@
     >
       {{ errorText }}
     </QBanner>
-    <div>
+    <div v-else>
       <div class="container">
         <div><!-- Do not remove, used to shift headers by one position --></div>
         <div
