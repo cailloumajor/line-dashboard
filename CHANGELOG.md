@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.0](https://github.com/cailloumajor/factory-frontend/compare/v2.2.2...v2.3.0) (2023-09-27)
+
+
+### Features
+
+* add lines engagement configuration interface ([fddeda9](https://github.com/cailloumajor/factory-frontend/commit/fddeda945556e2653f6792e01139e6fe4b222466))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @quasar/extras to v1.16.7 ([dedec39](https://github.com/cailloumajor/factory-frontend/commit/dedec39a1e0330d907aafb7e9ffa8437025a2138))
+* **deps:** update dependency vue-router to v4.2.5 ([31b77dc](https://github.com/cailloumajor/factory-frontend/commit/31b77dc410fb78deb9417c48bb5b2383e83b506c))
+
 ## [2.2.2](https://github.com/cailloumajor/factory-frontend/compare/v2.2.1...v2.2.2) (2023-09-20)
 
 
