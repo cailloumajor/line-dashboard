@@ -21,5 +21,11 @@
     "runAtCadence": "Marche à cadence",
     "campaignChange": "Changement de campagne"
   },
-  "statusDuration": "Depuis {duration} ({since})"
+  "statusDuration": "Depuis {duration} ({since})",
+  "digitalFactory": "Usine Numérique",
+  "linesEngagement": "Engagement des lignes",
+  "weekDays": ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+  "checkAll": "Tout cocher",
+  "uncheckAll": "Tout décocher",
+  "save": "Enregistrer"
 }

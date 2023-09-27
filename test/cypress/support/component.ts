@@ -31,7 +31,7 @@ import "@quasar/extras/material-icons-outlined/material-icons-outlined.css"
 import { createTestingPinia } from "@pinia/testing"
 import { installQuasarPlugin } from "@quasar/quasar-app-extension-testing-e2e-cypress"
 import { VueTestUtils } from "cypress/vue"
-import { Dialog, Loading, Meta, SessionStorage } from "quasar"
+import { Dialog, Loading, Meta, Notify, SessionStorage } from "quasar"
 
 import { i18n } from "src/boot/i18n"
 
@@ -67,4 +67,6 @@ config.global.mocks = {
 // We do want transitions to show when doing visual testing :)
 config.global.stubs = {}
 
-installQuasarPlugin({ plugins: { Dialog, Loading, Meta, SessionStorage } })
+installQuasarPlugin({
+  plugins: { Dialog, Loading, Notify, Meta, SessionStorage },
+})
