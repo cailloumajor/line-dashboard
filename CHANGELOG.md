@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/cailloumajor/factory-frontend/compare/v2.3.1...v2.3.2) (2023-09-27)
+
+
+### Bug Fixes
+
+* remove development logging ([862bdb3](https://github.com/cailloumajor/factory-frontend/commit/862bdb37894e094bb0da87b9830f728b881cdde4))
+
 ## [2.3.1](https://github.com/cailloumajor/factory-frontend/compare/v2.3.0...v2.3.1) (2023-09-27)
 
 
