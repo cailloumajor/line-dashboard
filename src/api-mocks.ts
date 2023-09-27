@@ -9,14 +9,30 @@ export const timelineData = new Uint8Array([
 ])
 
 const handlers = [
+  rest.get(`${configApiPath}/common`, (req, res, ctx) =>
+    res(
+      ctx.json({
+        partnerGroups: {
+          testzone: ["partner1", "partner2", "partner3"],
+        },
+        shiftStartTimes: ["05:00:00", "12:00:00", "20:00:00"],
+        weekStart: {
+          day: "Tuesday",
+          shiftIndex: 2,
+        },
+      }),
+    ),
+  ),
   rest.get(`${configApiPath}/:id`, (req, res, ctx) =>
     res(
       ctx.json({
         title: "Test Title",
         targetCycleTime: 12.34,
+        shiftEngaged: [...Array(21)].map(() => Math.random() < 0.5),
       }),
     ),
   ),
+  rest.patch(`${configApiPath}/:id`, (req, res, ctx) => res(ctx.status(200))),
   rest.get(`${computeApiPath}/timeline/:id`, (req, res, ctx) =>
     res(
       ctx.set("Content-Length", timelineData.byteLength.toString()),

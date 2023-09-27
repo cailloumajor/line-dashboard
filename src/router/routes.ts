@@ -3,6 +3,18 @@ import type { RouteRecordRaw } from "vue-router"
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
+    component: () => import("../layouts/UserFacingLayout.vue"),
+    children: [
+      {
+        path: "config/engagement/:zone",
+        component: () => import("../pages/EngagementConfig.vue"),
+        props: true,
+      },
+    ],
+  },
+
+  {
+    path: "/",
     component: () => import("../layouts/LineInterfaceLayout.vue"),
     children: [
       {

@@ -25,5 +25,11 @@ declare module "vue-i18n" {
       campaignChange: string
     }
     statusDuration: string
+    digitalFactory: string
+    linesEngagement: string
+    weekDays: string[]
+    checkAll: string
+    uncheckAll: string
+    save: string
   }
 }

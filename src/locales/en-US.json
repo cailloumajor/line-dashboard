@@ -21,5 +21,11 @@
     "runAtCadence": "Running at cadence",
     "campaignChange": "Campaign change"
   },
-  "statusDuration": "For {duration} (since {since})"
+  "statusDuration": "For {duration} (since {since})",
+  "digitalFactory": "Digital Factory",
+  "linesEngagement": "Lines Engagement",
+  "weekDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  "checkAll": "Check all",
+  "uncheckAll": "Uncheck all",
+  "save": "Save"
 }
