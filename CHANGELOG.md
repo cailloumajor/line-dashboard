@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.1](https://github.com/cailloumajor/factory-frontend/compare/v2.3.0...v2.3.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* allow shift index to equal 0 ([0df374c](https://github.com/cailloumajor/factory-frontend/commit/0df374c252d410693c7256a8858a3a18f55b8c0f))
+* show normal content if there is no error ([f000057](https://github.com/cailloumajor/factory-frontend/commit/f00005749137c3c6f18d01f03310dff928c4b60c))
+
 ## [2.3.0](https://github.com/cailloumajor/factory-frontend/compare/v2.2.2...v2.3.0) (2023-09-27)
 
 
