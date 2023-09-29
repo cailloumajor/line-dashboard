@@ -22,6 +22,7 @@ const app = express()
 app.disable("etag")
 const server = http.createServer(app)
 
+const partnerConfigPatches = []
 let changeOrigin = ""
 
 // Proxy Centrifugo WebSocket
@@ -50,12 +51,41 @@ app.all(/\/centrifugo\/(emulation|connection\/sse)/, (req, res) => {
 })
 
 // Mock static configuration API
-app.get("/config-api/*", (req, res) => {
+app.get("/config-api/config/line_dashboard/common", (req, res) => {
   res.json({
-    title: "End-to-end tests",
-    targetCycleTime: 54.78,
+    partnerGroups: {
+      "e2e-tests": ["one", "two"],
+    },
+    shiftStartTimes: ["05:30:00", "13:30:00", "21:30:00"],
+    weekStart: {
+      day: "Monday",
+      shiftIndex: 0,
+    },
   })
 })
+app
+  .route("/config-api/config/line_dashboard/:id")
+  .get((req, res) => {
+    res.json({
+      title: req.params.id,
+      shiftEngaged: new Array(21).fill(true),
+      targetCycleTime: 54.78,
+      targetEfficiency: 0.844,
+    })
+  })
+  .patch(express.json(), (req, res) => {
+    partnerConfigPatches.push([req.params.id, req.body])
+    res.end()
+  })
+app
+  .route("/partner-config-patches")
+  .get((req, res) => {
+    res.json(partnerConfigPatches)
+  })
+  .delete((req, res) => {
+    partnerConfigPatches.length = 0
+    res.end()
+  })
 
 // Mock influxDB compute API
 app.get("/compute-api/timeline/*", (req, res) => {

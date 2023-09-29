@@ -38,4 +38,6 @@ export const engagementCommonConfigSchema = z
 export const engagementPartnerConfigSchema = z.object({
   title: z.string(),
   shiftEngaged: z.array(z.boolean()),
+  targetCycleTime: z.number(),
+  targetEfficiency: z.number(),
 })
