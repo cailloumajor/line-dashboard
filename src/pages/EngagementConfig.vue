@@ -8,23 +8,23 @@
       {{ errorText }}
     </QBanner>
     <div v-else>
-      <div class="container">
-        <div><!-- Do not remove, used to shift headers by one position --></div>
+      <div class="shifts-table">
         <div
           v-for="(header, headerIndex) in headers"
           :key="`header-${headerIndex}`"
+          :class="{ 'first-shift-header': headerIndex === 0 }"
           class="header-cell text-center text-weight-medium q-mt-auto"
           data-cy="header-cell"
         >
           {{ header }}
         </div>
         <template
-          v-for="(row, rowIndex) in linesEngagement"
-          :key="`row-${rowIndex}`"
+          v-for="(row, rowIndex) in linesConfiguration"
+          :key="`engagement-row-${rowIndex}`"
         >
           <div
-            class="row-title q-mr-md q-my-auto text-right text-weight-medium"
-            data-cy="row-title"
+            class="engagement-row-title q-mr-md q-my-auto text-right text-weight-medium"
+            data-cy="engagement-row-title"
           >
             {{ row.title }}
           </div>
@@ -35,7 +35,7 @@
               'bg-blue-1': Math.floor(shiftIndex / 3) % 2 === 0,
               'bg-blue-grey-1': Math.floor(shiftIndex / 3) % 2 === 1,
             }"
-            class="shift-cell text-center q-py-sm"
+            class="text-center q-py-sm vertical-border"
           >
             <QCheckbox v-model="shift.engaged" data-cy="checkbox" dense />
           </div>
@@ -60,10 +60,64 @@
           color="primary"
           data-cy="save-button"
           icon="save"
-          :disable="disableSubmit"
+          :disable="disableSubmit || !allInputsValid"
           :label="t('save')"
           @click="submit"
         />
+      </div>
+      <div class="row flex-center">
+        <QMarkupTable class="q-mt-lg" dense>
+          <thead>
+            <th></th>
+            <th>{{ t("cycleTime") }}</th>
+            <th>{{ t("efficiency") }}</th>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(row, rowIndex) in linesConfiguration"
+              :key="`efficiency-row-${rowIndex}`"
+            >
+              <td
+                class="text-right text-weight-medium"
+                data-cy="capacity-table-row-header"
+              >
+                {{ row.title }}
+              </td>
+              <td>
+                <div class="row flex-center">
+                  <QInput
+                    ref="cycleTimeInputRefs"
+                    v-model.number="row.targetCycleTime"
+                    :error-message="t('invalid')"
+                    :rules="[isPositive]"
+                    dense
+                    outlined
+                    size="3"
+                    data-cy="cycle-time-input"
+                  />
+                </div>
+              </td>
+              <td>
+                <div class="row flex-center">
+                  <QInput
+                    ref="efficiencyInputRefs"
+                    :error-message="t('invalid')"
+                    :model-value="efficiencyPercent(row.targetEfficiency)"
+                    :rules="[isPositive, isMaxHundred]"
+                    dense
+                    outlined
+                    size="3"
+                    data-cy="efficiency-input"
+                    @update:model-value="
+                      (value) => setEfficicency(value, rowIndex)
+                    "
+                  />
+                  <!-- (row.targetEfficiency = parseFloat(String(value)) / 100) -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </QMarkupTable>
       </div>
     </div>
   </div>
@@ -72,6 +126,7 @@
 <script setup lang="ts">
 import { mande } from "mande"
 import { useQuasar } from "quasar"
+import { QInput } from "quasar"
 import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { ZodError } from "zod"
@@ -83,12 +138,14 @@ import {
 } from "src/schemas"
 import { useUserFacingLayoutStore } from "src/stores/user-facing-layout"
 
-interface LineEngagement {
+interface LineConfiguration {
   id: string
   title: string
   shifts: {
     engaged: boolean
   }[]
+  targetCycleTime: number
+  targetEfficiency: number
 }
 
 const props = defineProps<{
@@ -102,6 +159,15 @@ const layoutStore = useUserFacingLayoutStore()
 const firstDay = ref("Monday")
 const shifts = ref(["0"])
 const firstShiftIndex = ref(0)
+
+const cycleTimeInputRefs = ref<QInput[]>([])
+const efficiencyInputRefs = ref<QInput[]>([])
+
+const allInputsValid = computed(() =>
+  [cycleTimeInputRefs.value, efficiencyInputRefs.value]
+    .flat()
+    .every((input) => !input.hasError),
+)
 
 const headers = computed(() => {
   const enWeekDays = getLocaleMessage("en-US").weekDays
@@ -121,12 +187,28 @@ const headers = computed(() => {
   })
 })
 
-const linesEngagement = ref<LineEngagement[]>([])
+const linesConfiguration = ref<LineConfiguration[]>([])
 const errorText = ref("")
 const disableSubmit = ref(false)
 
+const isPositive = (value: number) => value > 0
+
+const isMaxHundred = (value: number) => value <= 100
+
+function efficiencyPercent(rawValue: number) {
+  return Math.floor(rawValue * 1000) / 10
+}
+
+function setEfficicency(value: string | number | null, rowIndex: number) {
+  if (!value) {
+    return
+  }
+  linesConfiguration.value[rowIndex].targetEfficiency =
+    Math.floor(parseFloat(String(value)) * 10) / 1000
+}
+
 function switchAll(state: boolean) {
-  for (const row of linesEngagement.value) {
+  for (const row of linesConfiguration.value) {
     for (const shift of row.shifts) {
       shift.engaged = state
     }
@@ -136,10 +218,13 @@ function switchAll(state: boolean) {
 function submit() {
   disableSubmit.value = true
   Promise.all(
-    linesEngagement.value.map(({ id, shifts }) =>
-      configApi.patch(id, {
-        shiftEngaged: shifts.map(({ engaged }) => engaged),
-      }),
+    linesConfiguration.value.map(
+      ({ id, shifts, targetCycleTime, targetEfficiency }) =>
+        configApi.patch(id, {
+          shiftEngaged: shifts.map(({ engaged }) => engaged),
+          targetCycleTime,
+          targetEfficiency,
+        }),
     ),
   )
     .then(() => {
@@ -181,11 +266,16 @@ configApi
     )
   })
   .then((partnerConfigs) => {
-    linesEngagement.value = partnerConfigs.map(
-      ({ id, config: { title, shiftEngaged } }) => ({
+    linesConfiguration.value = partnerConfigs.map(
+      ({
+        id,
+        config: { title, shiftEngaged, targetCycleTime, targetEfficiency },
+      }) => ({
         id,
         title,
         shifts: shiftEngaged.map((engaged) => ({ engaged })),
+        targetCycleTime,
+        targetEfficiency,
       }),
     )
   })
@@ -199,9 +289,13 @@ configApi
 </script>
 
 <style lang="scss" scoped>
-.container {
+.shifts-table {
   display: grid;
   grid-template-columns: min-content repeat(21, 1fr);
+}
+
+.first-shift-header {
+  grid-column-start: 2;
 }
 
 .header-cell {
@@ -210,11 +304,11 @@ configApi
   white-space: pre-line;
 }
 
-.shift-cell {
+.vertical-border {
   border-left: 2px solid gray;
 }
 
-.row-title {
+.engagement-row-title {
   grid-column-start: 1;
   white-space: nowrap;
 }

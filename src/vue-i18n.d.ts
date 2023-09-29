@@ -27,6 +27,9 @@ declare module "vue-i18n" {
     statusDuration: string
     digitalFactory: string
     linesEngagement: string
+    cycleTime: string
+    efficiency: string
+    invalid: string
     weekDays: string[]
     checkAll: string
     uncheckAll: string

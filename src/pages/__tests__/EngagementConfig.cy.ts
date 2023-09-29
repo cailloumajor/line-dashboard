@@ -38,6 +38,8 @@ describe("EngagementConfig", () => {
       .resolves({
         title: "",
         shiftEngaged: [true, false],
+        targetCycleTime: 60,
+        targetEfficiency: 1,
       })
   })
 
@@ -157,68 +159,51 @@ describe("EngagementConfig", () => {
       .and("have.been.calledWith", secondSentinel)
   })
 
-  it("builds the table contents from partners configuration data", () => {
+  it("builds the tables contents from partners configuration data", () => {
     cy.get<SinonStub>("@partner-config-parse-stub").then((stub) => {
       stub
         .onFirstCall()
         .resolves({
           title: "stubbedFirst",
-          shiftEngaged: [
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-          ],
+          shiftEngaged: (() => {
+            const data = new Array(21).fill(false)
+            data[3] = true
+            data[11] = true
+            data[20] = true
+            return data
+          })(),
+          targetCycleTime: 12.3,
+          targetEfficiency: 0.456,
         })
         .onSecondCall()
         .resolves({
           title: "stubbedSecond",
-          shiftEngaged: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-          ],
+          shiftEngaged: (() => {
+            const data = new Array(21).fill(false)
+            data[6] = true
+            data[15] = true
+            return data
+          })(),
+          targetCycleTime: 34.5,
+          targetEfficiency: 0.678,
         })
     })
 
     mountComponent()
 
-    cy.dataCy("row-title")
+    cy.dataCy("capacity-table-row-header")
+      .invoke("text")
+      .should("equal", "stubbedFirststubbedSecond")
+    cy.dataCy("cycle-time-input").should(($elems) => {
+      expect($elems[0]).to.have.value("12.3")
+      expect($elems[1]).to.have.value("34.5")
+    })
+    cy.dataCy("efficiency-input").should(($elems) => {
+      expect($elems[0]).to.have.value("45.6")
+      expect($elems[1]).to.have.value("67.8")
+    })
+
+    cy.dataCy("engagement-row-title")
       .invoke("text")
       .should("equal", "stubbedFirststubbedSecond")
     cy.dataCy("checkbox")
@@ -279,6 +264,38 @@ describe("EngagementConfig", () => {
     )
   })
 
+  it("disables the save button if cycle time is invalid", () => {
+    mountComponent()
+
+    cy.dataCy("save-button").should("not.have.class", "disabled")
+
+    cy.dataCy("cycle-time-input").invoke("first").as("first-cycle-time-input")
+
+    cy.get("@first-cycle-time-input").clear()
+    cy.get("@first-cycle-time-input").type("0.0")
+    cy.dataCy("save-button").should("have.class", "disabled")
+
+    cy.get("@first-cycle-time-input").clear()
+    cy.get("@first-cycle-time-input").type("10.0")
+    cy.dataCy("save-button").should("not.have.class", "disabled")
+  })
+
+  it("disables the save button if efficiency is invalid", () => {
+    mountComponent()
+
+    cy.dataCy("save-button").should("not.have.class", "disabled")
+
+    cy.dataCy("efficiency-input").invoke("first").as("first-efficiency-input")
+
+    cy.get("@first-efficiency-input").type("{selectAll}")
+    cy.get("@first-efficiency-input").type("101")
+    cy.dataCy("save-button").should("have.class", "disabled")
+
+    cy.get("@first-efficiency-input").type("{selectAll}")
+    cy.get("@first-efficiency-input").type("10.0")
+    cy.dataCy("save-button").should("not.have.class", "disabled")
+  })
+
   it("checks and unchecks all with buttons", () => {
     mountComponent()
 
@@ -327,7 +344,13 @@ describe("EngagementConfig", () => {
       .should("have.been.calledTwice")
       .and(
         "have.been.calledWith",
-        Cypress.sinon.match({ body: { shiftEngaged: [true, false] } }),
+        Cypress.sinon.match({
+          body: {
+            shiftEngaged: [true, false],
+            targetCycleTime: 60,
+            targetEfficiency: 1,
+          },
+        }),
       )
     cy.dataCy("save-button").should("have.class", "disabled")
   })

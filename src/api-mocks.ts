@@ -26,9 +26,10 @@ const handlers = [
   rest.get(`${configApiPath}/:id`, (req, res, ctx) =>
     res(
       ctx.json({
-        title: "Test Title",
-        targetCycleTime: 12.34,
+        title: req.params.id,
         shiftEngaged: [...Array(21)].map(() => Math.random() < 0.5),
+        targetCycleTime: Math.floor(Math.random() * 600) / 10,
+        targetEfficiency: Math.floor(Math.random() * 1000) / 1000,
       }),
     ),
   ),
