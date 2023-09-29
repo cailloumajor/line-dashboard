@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.4.0](https://github.com/cailloumajor/factory-frontend/compare/v2.3.2...v2.4.0) (2023-09-29)
+
+
+### Features
+
+* add efficiency data to configuration page ([d577682](https://github.com/cailloumajor/factory-frontend/commit/d5776823fc947f223d2938167619554b98df1fb9))
+
+
+### Bug Fixes
+
+* **deps:** update dependency vue-i18n to v9.5.0 ([f9fbdc7](https://github.com/cailloumajor/factory-frontend/commit/f9fbdc777561c4b0345921de7b9027b23c7bc78a))
+
 ## [2.3.2](https://github.com/cailloumajor/factory-frontend/compare/v2.3.1...v2.3.2) (2023-09-27)
 
 
