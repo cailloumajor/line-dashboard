@@ -3,8 +3,8 @@ import { defineStore } from "pinia"
 export const useCampaignDataStore = defineStore("campaign-data", {
   state: () => ({
     currentCampaign: "?",
-    dataValidForCampaign: "!INVALID!",
     targetCycleTime: 0,
+    targetEfficiency: 0,
   }),
 
   actions: {
