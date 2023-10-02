@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/cailloumajor/factory-frontend/compare/v2.4.0...v2.4.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* set efficiency color depending on target value ([0fe2dfd](https://github.com/cailloumajor/factory-frontend/commit/0fe2dfdccc41b8f4a1e213400c2d3caeb2b502a8))
+
 ## [2.4.0](https://github.com/cailloumajor/factory-frontend/compare/v2.3.2...v2.4.0) (2023-09-29)
 
 
