@@ -144,7 +144,7 @@ const stopped = computed(
     (!machineData.val.cycle || machineData.val.cycleTimeOver),
 )
 
-const performanceRatio = ref(NaN)
+const performanceValue = ref(NaN)
 const performanceError = ref(false)
 
 const rowsHeightValid = ref(false)
@@ -192,6 +192,10 @@ const cycleTimeStatus = computed(() => {
     : CycleTimeStatus.Good
 })
 
+const performanceRatio = computed(
+  () => performanceValue.value / 100 / campaignDataStore.targetEfficiency,
+)
+
 const metrics = computed(() => {
   const fixedFractional = new Intl.NumberFormat(languages.value.slice(), {
     minimumFractionDigits: 1,
@@ -233,11 +237,11 @@ const metrics = computed(() => {
       unit: "%",
       value: performanceError.value
         ? "ERR"
-        : fixedFractional.format(performanceRatio.value),
+        : fixedFractional.format(performanceValue.value),
       color:
-        performanceRatio.value > 70
+        performanceRatio.value > 1
           ? "positive"
-          : performanceRatio.value > 50
+          : performanceRatio.value > 0.9
           ? "warning"
           : "negative",
     },
@@ -300,6 +304,7 @@ const resp = await mande(configApiPath).get(props.id)
 const config = await lineDashboardConfigSchema.parseAsync(resp)
 commonStore.title = config.title
 campaignDataStore.targetCycleTime = config.targetCycleTime
+campaignDataStore.targetEfficiency = config.targetEfficiency
 
 const timelineApiUrl = `${computeApiPath}/timeline/${props.id}`
 const timelinePalette = ["negative", "positive", "warning", "info"].map(
@@ -321,10 +326,10 @@ const updatePerformance = () => {
     })
     .then((value) => {
       performanceError.value = false
-      performanceRatio.value = value
+      performanceValue.value = value
     })
     .catch(() => {
-      performanceRatio.value = NaN
+      performanceValue.value = NaN
       performanceError.value = true
     })
     .finally(() => setTimeout(updatePerformance, performanceRefreshMillis))

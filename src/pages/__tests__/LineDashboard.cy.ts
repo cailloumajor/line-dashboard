@@ -64,6 +64,7 @@ describe("LineDashboard", () => {
       .resolves({
         title: "",
         targetCycleTime: 0,
+        targetEfficiency: 0,
       })
     cy.intercept(`${computeApiPath}/performance/*`, { body: 0.0 })
 
@@ -389,7 +390,7 @@ describe("LineDashboard", () => {
     })
   })
 
-  context("performance ratio", () => {
+  context("performance metric", () => {
     beforeEach(() => {
       function stubbedReply(ret: number) {
         return function (req: CyHttpMessages.IncomingHttpRequest) {
@@ -404,7 +405,7 @@ describe("LineDashboard", () => {
           .onFirstCall()
           .callsFake(stubbedReply(12.32323232))
           .onSecondCall()
-          .callsFake(stubbedReply(51.22323232))
+          .callsFake(stubbedReply(64.83484984))
           .onThirdCall()
           .callsFake(stubbedReply(78.92323232)),
       ).as("performance-request")
@@ -437,11 +438,15 @@ describe("LineDashboard", () => {
     it("sets the metric text and color", () => {
       mountComponent()
 
+      cy.wrap(useCampaignDataStore()).invoke("$patch", {
+        targetEfficiency: 0.7,
+      })
+
       cy.dataCy("metric-4").dataCy("value").should("have.text", "12.3")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "negative")
 
       cy.tick(performanceRefreshMillis * 1.1)
-      cy.dataCy("metric-4").dataCy("value").should("have.text", "51.2")
+      cy.dataCy("metric-4").dataCy("value").should("have.text", "64.8")
       cy.dataCy("metric-4").dataCy("color").should("have.text", "warning")
 
       cy.tick(performanceRefreshMillis * 1.1)

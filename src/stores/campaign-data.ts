@@ -5,6 +5,7 @@ export const useCampaignDataStore = defineStore("campaign-data", {
     currentCampaign: "?",
     dataValidForCampaign: "!INVALID!",
     targetCycleTime: 0,
+    targetEfficiency: 0,
   }),
 
   actions: {
