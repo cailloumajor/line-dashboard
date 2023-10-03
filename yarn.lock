@@ -4318,10 +4318,10 @@ make-dir@^4.0.0:
   dependencies:
     semver "^7.5.3"
 
-mande@2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/mande/-/mande-2.0.7.tgz#e29ef0264e365668a4a29399951459022b510565"
-  integrity sha512-0p9ik4ype4jkXIuC+wXfHvND/HgpOPBHbNNhxssZH9W+OBRdgQ6PZUxvIbsfmRYGzfFsDFEry6XXE992hqMMZA==
+mande@2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/mande/-/mande-2.0.8.tgz#1cdfc8062e040ebcf0c199cc4183a8fc22839502"
+  integrity sha512-nqiiaQbswPuHTvkwh8XExhY650qBwSJefyB1+P9Llj8v603aScSrUBmc124fSnVCP+MFZWNBhHKJjsxr7f1tLg==
 
 map-stream@~0.1.0:
   version "0.1.0"
