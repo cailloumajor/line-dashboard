@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.4.2](https://github.com/cailloumajor/factory-frontend/compare/v2.4.1...v2.4.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v10.5.0 ([2151b7f](https://github.com/cailloumajor/factory-frontend/commit/2151b7fd3dd80faf14dd9a5c440ed413f96aa6a2))
+* **deps:** update dependency centrifuge to v5.0.1 ([f6002ce](https://github.com/cailloumajor/factory-frontend/commit/f6002cee5628a5d9db1e1523122574f6ae351fa8))
+* **deps:** update dependency mande to v2.0.8 ([8d2dc4a](https://github.com/cailloumajor/factory-frontend/commit/8d2dc4afdc0098c841f7274a043a45bcd148b723))
+* **deps:** update dependency zod to v3.22.3 ([be220de](https://github.com/cailloumajor/factory-frontend/commit/be220decda89f3e7b04148a51044d6030ea42775))
+* **deps:** update dependency zod to v3.22.4 ([c8c51a0](https://github.com/cailloumajor/factory-frontend/commit/c8c51a02fc972d6d911993ebc477f391cce29c6d))
+
 ## [2.4.1](https://github.com/cailloumajor/factory-frontend/compare/v2.4.0...v2.4.1) (2023-10-02)
 
 
