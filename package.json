@@ -38,7 +38,7 @@
     "@rollup/plugin-replace": "5.0.4",
     "@rushstack/eslint-patch": "1.5.1",
     "@types/connect-history-api-fallback": "1.5.2",
-    "@types/express": "4.17.19",
+    "@types/express": "4.17.20",
     "@types/http-proxy": "1.17.12",
     "@types/node": "18.18.5",
     "@vue/eslint-config-prettier": "8.0.0",
