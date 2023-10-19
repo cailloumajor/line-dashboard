@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.4.3](https://github.com/cailloumajor/factory-frontend/compare/v2.4.2...v2.4.3) (2023-10-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pinia to v2.1.7 ([6845a4b](https://github.com/cailloumajor/factory-frontend/commit/6845a4b5ca7320c94671964a88c690f13779f468))
+* **deps:** update dependency quasar to v2.13.0 ([1885e28](https://github.com/cailloumajor/factory-frontend/commit/1885e286c206d1a4be6c7321e3e0ca3e87f9ea87))
+* **deps:** update node.js to v18.18.1 ([a1e479b](https://github.com/cailloumajor/factory-frontend/commit/a1e479b0774a61471d3533769710b0ad16c51488))
+* **deps:** update node.js to v18.18.2 ([3ec1e26](https://github.com/cailloumajor/factory-frontend/commit/3ec1e26c4311d2558e0cc88455773a6a7fd04ad2))
+
 ## [2.4.2](https://github.com/cailloumajor/factory-frontend/compare/v2.4.1...v2.4.2) (2023-10-09)
 
 
