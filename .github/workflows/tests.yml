@@ -51,7 +51,7 @@ jobs:
           flags: unittests
           fail_ci_if_error: true
       - name: Upload Cypress screenshots and videos 🖥️📽️
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-results-components
@@ -83,7 +83,7 @@ jobs:
         with:
           command: yarn test:e2e:ci
       - name: Upload Cypress screenshots and videos 🖥️📽️
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-results-e2e
