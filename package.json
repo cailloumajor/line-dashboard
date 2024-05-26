@@ -18,7 +18,7 @@
   "dependencies": {
     "@cailloumajor/frontend-utils-wasm": "3.0.1",
     "@quasar/extras": "1.16.11",
-    "@vueuse/core": "10.5.0",
+    "@vueuse/core": "10.9.0",
     "centrifuge": "5.0.1",
     "locale-matcher": "2.0.0",
     "mande": "2.0.9",
