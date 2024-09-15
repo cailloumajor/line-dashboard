@@ -36,7 +36,7 @@
     "@quasar/app-vite": "1.6.2",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "6.1.0",
     "@rollup/plugin-replace": "5.0.7",
-    "@rushstack/eslint-patch": "1.10.3",
+    "@rushstack/eslint-patch": "1.10.4",
     "@types/connect-history-api-fallback": "1.5.4",
     "@types/express": "4.17.21",
     "@types/http-proxy": "1.17.14",
