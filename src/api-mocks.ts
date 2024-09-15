@@ -1,4 +1,5 @@
-import { rest, setupWorker } from "msw"
+import { HttpResponse, http } from "msw"
+import { setupWorker } from "msw/browser"
 
 import { computeApiPath, configApiPath } from "src/global"
 
@@ -9,44 +10,50 @@ export const timelineData = new Uint8Array([
 ])
 
 const handlers = [
-  rest.get(`${configApiPath}/common`, (req, res, ctx) =>
-    res(
-      ctx.json({
-        partnerGroups: {
-          testzone: ["partner1", "partner2", "partner3"],
-        },
-        shiftStartTimes: ["05:00:00", "12:00:00", "20:00:00"],
-        weekStart: {
-          day: "Tuesday",
-          shiftIndex: 2,
-        },
-      }),
-    ),
-  ),
-  rest.get(`${configApiPath}/:id`, (req, res, ctx) =>
-    res(
-      ctx.json({
-        title: req.params.id,
-        shiftEngaged: [...Array(21)].map(() => Math.random() < 0.5),
-        targetCycleTime: Math.floor(Math.random() * 600) / 10,
-        targetEfficiency: Math.floor(Math.random() * 1000) / 1000,
-      }),
-    ),
-  ),
-  rest.patch(`${configApiPath}/:id`, (req, res, ctx) => res(ctx.status(200))),
-  rest.get(`${computeApiPath}/timeline/:id`, (req, res, ctx) =>
-    res(
-      ctx.set("Content-Length", timelineData.byteLength.toString()),
-      ctx.set("Content-Type", "application/msgpack"),
-      ctx.body(timelineData),
-    ),
-  ),
-  rest.get(`${computeApiPath}/performance/:id`, (req, res, ctx) =>
-    res(
-      ctx.set("Content-Type", "application/json"),
-      ctx.body(String(Math.random() * 100)),
-    ),
-  ),
+  http.get(`${configApiPath}/common`, () => {
+    return HttpResponse.json({
+      partnerGroups: {
+        testzone: ["partner1", "partner2", "partner3"],
+      },
+      shiftStartTimes: ["05:00:00", "12:00:00", "20:00:00"],
+      weekStart: {
+        day: "Tuesday",
+        shiftIndex: 2,
+      },
+    })
+  }),
+
+  http.get(`${configApiPath}/:id`, ({ params }) => {
+    return HttpResponse.json({
+      title: params.id,
+      shiftEngaged: [...Array(21)].map(() => Math.random() < 0.5),
+      targetCycleTime: Math.floor(Math.random() * 600) / 10,
+      targetEfficiency: Math.floor(Math.random() * 1000) / 1000,
+    })
+  }),
+
+  http.patch(`${configApiPath}/:id`, () => {
+    return new HttpResponse(null, {
+      status: 200,
+    })
+  }),
+
+  http.get(`${computeApiPath}/timeline/:id`, () => {
+    return new HttpResponse(timelineData, {
+      headers: {
+        "Content-Length": timelineData.byteLength.toString(),
+        "Content-Type": "application/msgpack",
+      },
+    })
+  }),
+
+  http.get(`${computeApiPath}/performance/:id`, () => {
+    return new HttpResponse(String(Math.random() * 100), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  }),
 ]
 
 export const worker = setupWorker(...handlers)
