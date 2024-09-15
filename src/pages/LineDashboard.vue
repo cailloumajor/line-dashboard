@@ -188,8 +188,8 @@ const cycleTimeStatus = computed(() => {
   return ratio >= 1.1
     ? CycleTimeStatus.Error
     : ratio >= 1.05
-    ? CycleTimeStatus.Warning
-    : CycleTimeStatus.Good
+      ? CycleTimeStatus.Warning
+      : CycleTimeStatus.Good
 })
 
 const performanceRatio = computed(
@@ -217,8 +217,8 @@ const metrics = computed(() => {
         cycleTimeStatus.value === CycleTimeStatus.Error
           ? "negative"
           : cycleTimeStatus.value === CycleTimeStatus.Warning
-          ? "warning"
-          : "positive",
+            ? "warning"
+            : "positive",
     },
     {
       iconName: "track_changes",
@@ -242,8 +242,8 @@ const metrics = computed(() => {
         performanceRatio.value > 1
           ? "positive"
           : performanceRatio.value > 0.9
-          ? "warning"
-          : "negative",
+            ? "warning"
+            : "negative",
     },
   ]
 })
@@ -257,19 +257,19 @@ const statusCard = computed(() =>
           ts: machineData.ts.goodParts,
         }
       : cycleTimeStatus.value === CycleTimeStatus.Good
-      ? { text: t("statuses.runAtCadence"), color: "positive" }
-      : { text: t("statuses.runUnderCadence"), color: "warning" }
+        ? { text: t("statuses.runAtCadence"), color: "positive" }
+        : { text: t("statuses.runUnderCadence"), color: "warning" }
     : machineData.val.campChange
-    ? {
-        text: t("statuses.campaignChange"),
-        color: "info",
-        ts: machineData.ts.campChange,
-      }
-    : {
-        text: t("statuses.stopped"),
-        color: "negative",
-        ts: machineData.ts.cycle,
-      },
+      ? {
+          text: t("statuses.campaignChange"),
+          color: "info",
+          ts: machineData.ts.campChange,
+        }
+      : {
+          text: t("statuses.stopped"),
+          color: "negative",
+          ts: machineData.ts.cycle,
+        },
 )
 
 const reactiveNow = useNow({ interval: 1000 })
