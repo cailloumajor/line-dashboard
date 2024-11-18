@@ -5,9 +5,7 @@
     {
       "matchHost": "npm.pkg.github.com",
       "hostType": "npm",
-      "encrypted": {
-        "token": "wcFMA/xDdHCJBTolAQ/9GdMQoHpcPf71EMftfhae9KJ35Sj1atvkHmnfxY/sWOmIMS9Odkyz464h4km4HVwgMFKZs0nhlwcPpO+7FrcOB5p+H4K08qaeAzNzGZltCNXVkNjaEksmM7bdnMpJH2zppZAq1Qn3PkJXIf51+QeTT6lvonxbKulLKLQqav20LBOPs+G/dMpwE+nbH+Ce/g3x//qPrgMLoV2uq7H52RPSbIVejOE7graUCRFF6WWLY/d9OJFWWqxgcA4FCcNjKU/k2lTcIp/TS2d/TDo6Mb2czcFR+KBooosIMfo8fH2L/188eMCrkeZldgGE+QR1T88FZFoILz52qDqOU49OI/hDJvjfYFEr5WVeeuH7FDh0ReKIL9IKqKkbWP10FJfjDqTVhGNZ4RJw0k5nsBquGT4nfpSGjltp97bsanzGoX0MQNmKH1Em+N0EGyE08SipdJXjJSGRK81z/s3I9ArGSzr0NFHtqBsKqpy2Nb+kxw3Qprybr6YKZ597dYmf1qgU/FGw7RYbbngZmxr76r3Xx8xCw/BUIuHCZlaZSqOErcCHJ2g/gK0s1WOx8FW1so+0iQKy6uPG2vvtFZdGvLqOGi3U2SwB4VePpo1h1xqzb8954XqpZEDK0ZxLmkmeI9zOJoZ8oCmq9k4ekSmzOt8zcQIpH3TMd7xj26yP+NsZzmz89hLSewE1d4OsxiTdPCtHsRa2BNOPXlNGPzorEVnYRape3iY8S8QxDGi4xDDI73kODeYE6V6tLvKzviEnRAwkD8/uvmURyTljWp6LHFnhI7oPXILa7fsuqwwxt3sCdZuaZ//ak1bLlI60poYJpH9miM5Z8bM1la+gXlqbnbCNgw"
-      }
+      "token": "{{ secrets.GH_FRONTEND_UTILS_WASM_READ_PKG_TOKEN }}"
     }
   ],
   "npmrc": "@cailloumajor:registry=https://npm.pkg.github.com/",
