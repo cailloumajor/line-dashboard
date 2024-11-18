@@ -53,7 +53,7 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-vue": "9.31.0",
     "events": "^3.3.0",
-    "express": "4.19.2",
+    "express": "4.21.1",
     "express-static-gzip": "2.1.8",
     "http-proxy": "1.18.1",
     "msw": "2.4.9",
