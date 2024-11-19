@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:1
 
 FROM --platform=$BUILDPLATFORM node:20.13.1 AS frontend-builder
 
