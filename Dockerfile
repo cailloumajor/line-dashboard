@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM --platform=$BUILDPLATFORM node:20.18.0 AS frontend-builder
+FROM --platform=$BUILDPLATFORM node:20.18.1 AS frontend-builder
 
 WORKDIR /usr/src/app
 
